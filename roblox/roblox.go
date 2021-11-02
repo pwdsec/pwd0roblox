@@ -7,26 +7,39 @@ import (
 )
 
 func fixcrash_method1() {
-	files, err := ioutil.ReadDir(os.Getenv("APPDATA") + "Local\\Roblox\\")
+	a, b := os.UserCacheDir()
+	if b != nil {
+		println("Failed to get user cache directory")
+		return
+	}
+
+	files, err := ioutil.ReadDir(a + "\\Roblox\\")
 	if err != nil {
-		panic(err)
+		print(err)
 	}
 
 	for _, file := range files {
-		if file.Name() == "GlobalBasicSettings" {
-			os.Remove(os.Getenv("APPDATA") + "Local\\Roblox\\" + file.Name())
+		if strings.Contains(file.Name(), "GlobalBasicSettings") {
+			os.Remove(a + "\\Roblox\\" + file.Name())
 		}
 	}
 }
 
-func CommandHandler(command string) {
-	args := strings.Fields(command)
-	switch args[0] {
-	case "--fix-UBK":
-		fixcrash_method1()
+func CommandHandler(command []string) {
+	switch command[0] {
+	case "--fix":
+		if len(command) == 2 {
+			if command[1] == "UBK" {
+				fixcrash_method1()
+			} else {
+				println("Unknown fix: " + command[1])
+			}
+		} else {
+			println("Usage: --fix [option]")
+		}
 	case "--help":
-		print("--fix-UBK: Fixes the Unexpected Behavior Kick that happens when you open Roblox [static/jayyy#8941]\n")
+		print("--fix: Fixes the Unexpected Behavior Kick that happens when you open Roblox [static/jayyy#8941]\n")
 	default:
-		print("Unknown command: " + command + "\n")
+		print("Unknown command: " + command[0] + "\n")
 	}
 }

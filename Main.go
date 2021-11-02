@@ -31,7 +31,7 @@ func main() {
 
 		switch strings.ToLower(args[0]) {
 		case "roblox":
-			roblox.CommandHandler(args[1])
+			roblox.CommandHandler(text)
 		case "cls", "clear":
 			console.ConsoleClear()
 		case "exit", "quit":

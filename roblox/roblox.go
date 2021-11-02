@@ -3,6 +3,7 @@ package roblox
 import (
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
 func fixcrash_method1() {
@@ -19,7 +20,8 @@ func fixcrash_method1() {
 }
 
 func CommandHandler(command string) {
-	switch command {
+	args := strings.Fields(command)
+	switch args[0] {
 	case "--fix-UBK":
 		fixcrash_method1()
 	case "--help":

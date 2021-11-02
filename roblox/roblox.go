@@ -38,7 +38,7 @@ func CommandHandler(command []string) {
 			println("Usage: --fix [option]")
 		}
 	case "--help":
-		print("--fix: Fixes the Unexpected Behavior Kick that happens when you open Roblox [static/jayyy#8941]\n")
+		print("--fix: Fixes the Unexpected Behavior Kick that happens when you open Roblox\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")
 	}

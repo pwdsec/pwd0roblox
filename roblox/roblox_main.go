@@ -73,6 +73,16 @@ func CommandHandler(command []string) {
 				println("	" + v)
 			}
 		}
+	case "--versions", "-v":
+		roblox_windows_version, _ := GetRobloxWindowsVersion()
+		roblox_studio_windows_version, _ := GetRobloxStudioWindowsVersion()
+		roblox_mac_version, _ := GetRobloxMacVersion()
+		roblox_studio_mac_version, _ := GetRobloxStudioMacVersion()
+
+		println("Roblox Windows Version: " + roblox_windows_version)
+		println("Roblox Studio Windows Version: " + roblox_studio_windows_version)
+		println("Roblox Mac Version: " + roblox_mac_version)
+		println("Roblox Studio Mac Version: " + roblox_studio_mac_version)
 	case "--help", "-h":
 		print("--fix, -f ~ Fixes the Unexpected Behavior Kick that happens when you open Roblox\n")
 		print("--cursor, -c ~ Installs a custom cursor\n")

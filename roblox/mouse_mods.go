@@ -6,22 +6,6 @@ import (
 	"os"
 )
 
-// get roblox version from http://setup.roblox.com/version.
-// error if not found.
-// string roblox version.
-func GetRobloxVersion() (string, error) {
-	resp, err := http.Get("http://setup.roblox.com/version")
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
-	}
-	return string(body), nil
-}
-
 // cursor data array.
 //
 // string name.
@@ -83,7 +67,7 @@ func CursorsInstaller(cursor string) error {
 		}
 	}
 	a, b := os.UserCacheDir()
-	version, err := GetRobloxVersion()
+	version, err := GetRobloxWindowsVersion()
 	if err != nil {
 		return err
 	}

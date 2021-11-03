@@ -30,16 +30,16 @@ func main() {
 		args := strings.Fields(text)
 
 		switch strings.ToLower(args[0]) {
-		case "roblox":
+		case "roblox", "rbx":
 			roblox.CommandHandler(args[1:])
 		case "cls", "clear":
 			console.ConsoleClear()
 		case "exit", "quit":
 			os.Exit(0)
 		case "help", "?":
-			fmt.Println("roblox - run roblox commands, --help")
-			fmt.Println("cls - clear the console")
-			fmt.Println("exit - exit the program")
+			fmt.Println("roblox, rbx ~ run roblox commands, --help (-h)")
+			fmt.Println("cls, clear ~ clear the console")
+			fmt.Println("exit, quit ~ exit the program")
 		default:
 			color.Println("<red>Unknown command</>")
 		}

@@ -46,7 +46,7 @@ func CommandHandler(command []string) {
 				println("Unknown fix: " + command[1])
 			}
 		} else {
-			println("Usage: --fix [option]")
+			println("Usage: --fix (-f) [option]")
 			println("Options:")
 			println("UBK - Fixes Unexpected Behavior Kick in Roblox")
 		}
@@ -57,15 +57,15 @@ func CommandHandler(command []string) {
 				println("Invalid command")
 			}
 		} else {
-			println("Usage: --cursor [option]")
+			println("Usage: --cursor (-c) [option]")
 			println("Options:")
 			for _, v := range CursorsList() {
 				println("	" + v)
 			}
 		}
 	case "--help", "-h":
-		print("--fix: Fixes the Unexpected Behavior Kick that happens when you open Roblox\n")
-		print("--cursor: Installs a custom cursor\n")
+		print("--fix, -f ~ Fixes the Unexpected Behavior Kick that happens when you open Roblox\n")
+		print("--cursor, -c ~ Installs a custom cursor\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")
 	}

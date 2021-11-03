@@ -8,7 +8,8 @@ import (
 	wapi "github.com/jcollie/w32"
 )
 
-func Fix_Unexpected_Behavior_Kick_method1() {
+func Fix_Unexpected_Behavior_Kick_method_1() {
+	print("[+] Fixing Unexpected Behavior Kick...\n")
 	a, b := os.UserCacheDir()
 	if b != nil {
 		println("Failed to get user cache directory")
@@ -18,6 +19,7 @@ func Fix_Unexpected_Behavior_Kick_method1() {
 	files, err := ioutil.ReadDir(a + "\\Roblox\\")
 	if err != nil {
 		print(err)
+		return
 	}
 
 	for _, file := range files {
@@ -25,6 +27,7 @@ func Fix_Unexpected_Behavior_Kick_method1() {
 			os.Remove(a + "\\Roblox\\" + file.Name())
 		}
 	}
+	print("[+] Successfully fixed Unexpected Behavior Kick\n")
 }
 
 func IS_Open() {
@@ -41,7 +44,7 @@ func CommandHandler(command []string) {
 	case "--fix", "-f":
 		if len(command) == 2 {
 			if command[1] == "UBK" {
-				Fix_Unexpected_Behavior_Kick_method1()
+				Fix_Unexpected_Behavior_Kick_method_1()
 			} else {
 				println("Unknown fix: " + command[1])
 			}

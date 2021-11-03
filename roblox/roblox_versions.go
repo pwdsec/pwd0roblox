@@ -68,3 +68,19 @@ func GetRobloxStudioMacVersion() (string, error) {
 	}
 	return string(body), nil
 }
+
+// get roblox version from http://setup.roblox.com/versionQTStudio.
+// error if not found.
+// string roblox version.
+func GetRobloxStudioQTVersion() (string, error) {
+	resp, err := http.Get("http://setup.roblox.com/versionQTStudio")
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	return string(body), nil
+}

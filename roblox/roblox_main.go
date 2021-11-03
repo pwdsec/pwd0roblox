@@ -86,6 +86,7 @@ func CommandHandler(command []string) {
 	case "--help", "-h":
 		print("--fix, -f ~ Fixes the Unexpected Behavior Kick that happens when you open Roblox\n")
 		print("--cursor, -c ~ Installs a custom cursor\n")
+		print("--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")
 	}

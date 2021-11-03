@@ -35,6 +35,7 @@ func Fix_Unexpected_Behavior_Kick_method_1() {
 	print("[+] Successfully fixed Unexpected Behavior Kick\n")
 }
 
+// checks if roblox is running.
 func IS_Open() {
 	hwid := wapi.FindWindow("", "Roblox")
 
@@ -70,7 +71,7 @@ func CommandHandler(command []string) {
 			println("Usage: --cursor (-c) [option]")
 			println("Options:")
 			for _, v := range CursorsList() {
-				println("	" + v)
+				println(v)
 			}
 		}
 	case "--versions", "-v":

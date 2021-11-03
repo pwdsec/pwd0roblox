@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+
+	wapi "github.com/jcollie/w32"
 )
 
 func fixcrash_method1() {
@@ -22,6 +24,15 @@ func fixcrash_method1() {
 		if strings.Contains(file.Name(), "GlobalBasicSettings") {
 			os.Remove(a + "\\Roblox\\" + file.Name())
 		}
+	}
+}
+
+func IS_Open() {
+	hwid := wapi.FindWindow("", "Roblox")
+
+	if hwid == 0 {
+		print("Roblox is not open\n")
+		return
 	}
 }
 

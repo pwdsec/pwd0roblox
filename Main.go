@@ -20,7 +20,7 @@ func main() {
 	color.Print("  <red>|</>----------------------<red>|</><red>   U</>\n")
 	color.Print("  <red>|</>-------[ <red>Help</> ]-------<red>|</>\n")
 	color.Print("<red>  ●●●●●●●●●●●●●●●●●●●●●●●●</>\n\n")
-
+	roblox.IS_Open()
 	for {
 		reader := bufio.NewReader(os.Stdin)
 		color.Print("[<red>●</>]> ")

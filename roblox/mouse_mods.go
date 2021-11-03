@@ -6,9 +6,9 @@ import (
 	"os"
 )
 
-// get roblox version from http://setup.roblox.com/version
-// error if not found
-// string roblox version
+// get roblox version from http://setup.roblox.com/version.
+// error if not found.
+// string roblox version.
 func GetRobloxVersion() (string, error) {
 	resp, err := http.Get("http://setup.roblox.com/version")
 	if err != nil {
@@ -22,6 +22,11 @@ func GetRobloxVersion() (string, error) {
 	return string(body), nil
 }
 
+// cursor data array.
+//
+// string name.
+// string url.
+// string url.
 var data = [][]string{
 	{
 		"default",
@@ -55,7 +60,7 @@ var data = [][]string{
 	},
 }
 
-// cursor list function
+// cursor list function.
 func CursorsList() []string {
 	var list []string
 	for _, v := range data {
@@ -64,9 +69,9 @@ func CursorsList() []string {
 	return list
 }
 
-// CursorInstaller function
-// error if not found
-// string cursor name
+// CursorInstaller function.
+// error if not found.
+// string cursor name.
 func CursorsInstaller(cursor string) error {
 	println("[+] Installing " + cursor + " cursor")
 	var ArrowCursor string

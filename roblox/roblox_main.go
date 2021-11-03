@@ -1,3 +1,5 @@
+// roblox functions package
+// this package contains fixes, commands, and other functions
 package roblox
 
 import (

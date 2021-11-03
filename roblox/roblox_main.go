@@ -1,5 +1,5 @@
-// roblox functions package
-// this package contains fixes, commands, and other functions
+// roblox functions package.
+// this package contains fixes, commands, and other functions.
 package roblox
 
 import (
@@ -10,10 +10,9 @@ import (
 	wapi "github.com/jcollie/w32"
 )
 
-// fixes the Unexpected Behavior Kick that happens when you open Roblox
-//
-// this is a workaround for a bug in Roblox
-// this method is not 100% reliable
+// fixes the Unexpected Behavior Kick that happens when you open Roblox.
+// this is a workaround for a bug in Roblox.
+// this method is not 100% reliable.
 func Fix_Unexpected_Behavior_Kick_method_1() {
 	print("[+] Fixing Unexpected Behavior Kick...\n")
 	a, b := os.UserCacheDir()
@@ -45,9 +44,8 @@ func IS_Open() {
 	}
 }
 
-// roblox command handler
-//
-// command []string
+// roblox command handler.
+// command []string.
 func CommandHandler(command []string) {
 	switch command[0] {
 	case "--fix", "-f":

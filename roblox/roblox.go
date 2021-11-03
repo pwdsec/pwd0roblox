@@ -8,7 +8,7 @@ import (
 	wapi "github.com/jcollie/w32"
 )
 
-func fixcrash_method1() {
+func Fix_Unexpected_Behavior_Kick_method1() {
 	a, b := os.UserCacheDir()
 	if b != nil {
 		println("Failed to get user cache directory")
@@ -38,18 +38,34 @@ func IS_Open() {
 
 func CommandHandler(command []string) {
 	switch command[0] {
-	case "--fix":
+	case "--fix", "-f":
 		if len(command) == 2 {
 			if command[1] == "UBK" {
-				fixcrash_method1()
+				Fix_Unexpected_Behavior_Kick_method1()
 			} else {
 				println("Unknown fix: " + command[1])
 			}
 		} else {
 			println("Usage: --fix [option]")
+			println("Options:")
+			println("UBK - Fixes Unexpected Behavior Kick in Roblox")
 		}
-	case "--help":
+	case "--cursor", "-c":
+		if len(command) == 2 {
+			err := CursorsInstaller(command[1])
+			if err != nil {
+				println("Invalid command")
+			}
+		} else {
+			println("Usage: --cursor [option]")
+			println("Options:")
+			for _, v := range CursorsList() {
+				println("	" + v)
+			}
+		}
+	case "--help", "-h":
 		print("--fix: Fixes the Unexpected Behavior Kick that happens when you open Roblox\n")
+		print("--cursor: Installs a custom cursor\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")
 	}

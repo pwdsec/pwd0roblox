@@ -20,7 +20,7 @@ func main() {
 	color.Print("  <red>|</>----------------------<red>|</><red>   U</>\n")
 	color.Print("  <red>|</>-------[ <red>Help</> ]-------<red>|</>\n")
 	color.Print("<red>  ●●●●●●●●●●●●●●●●●●●●●●●●</>\n\n")
-	roblox.IS_Open()
+
 	for {
 		reader := bufio.NewReader(os.Stdin)
 		color.Print("[<red>●</>]> ")
@@ -36,10 +36,10 @@ func main() {
 			console.ConsoleClear()
 		case "exit", "quit":
 			os.Exit(0)
-		case "help":
-			fmt.Println("roblox: run roblox commands, --help")
-			fmt.Println("cls: clear the console")
-			fmt.Println("exit: exit the program")
+		case "help", "?":
+			fmt.Println("roblox - run roblox commands, --help")
+			fmt.Println("cls - clear the console")
+			fmt.Println("exit - exit the program")
 		default:
 			color.Println("<red>Unknown command</>")
 		}

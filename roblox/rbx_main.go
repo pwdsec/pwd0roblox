@@ -105,7 +105,7 @@ func CommandHandler(command []string) {
 			ver, _ := GetRobloxWindowsVersion()
 			InstallRoblox(ver, true)
 		}
-	case "--help", "-h":
+	case "--help", "-h", "?":
 		print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
 		print("--cursor, -c ~ Installs a custom cursor\n")
 		print("--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")

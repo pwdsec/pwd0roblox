@@ -16,7 +16,7 @@ func main() {
 	color.Print("<red>  ________________________</>\n")
 	color.Print("  <red>|</>----------------------<red>|</><red> ___/|</>		\n")
 	color.Print("  <red>|</>------[ <red>PWD</>.<red>RX</> ]------<red>|</><red> \\o.O|</>		\n")
-	color.Print("  <red>|</>--[ <red>Version</>: <red>1.0.0</> ]--<red>|</><red> (___)</>\n")
+	color.Print("  <red>|</>--[ <red>Version</>: <red>1.0.4</> ]--<red>|</><red> (___)</>\n")
 	color.Print("  <red>|</>----------------------<red>|</><red>   U</>\n")
 	color.Print("  <red>|</>-------[ <red>Help</> ]-------<red>|</>\n")
 	color.Print("<red>  ●●●●●●●●●●●●●●●●●●●●●●●●</>\n\n")

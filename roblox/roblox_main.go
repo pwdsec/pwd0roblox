@@ -91,13 +91,19 @@ func CommandHandler(command []string) {
 	case "--install", "-i":
 		if len(command) == 2 {
 			if command[1] == "-h" {
-				println("Usage: --install (-i) [option](version)")
+				println("Usage: --install (-i) [version] (-s)[start] ")
 			} else {
-				InstallRoblox(command[1])
+				var start bool = false
+				for _, v := range command {
+					if v == "-s" {
+						start = true
+					}
+				}
+				InstallRoblox(command[1], start)
 			}
 		} else {
 			ver, _ := GetRobloxWindowsVersion()
-			InstallRoblox(ver)
+			InstallRoblox(ver, true)
 		}
 	case "--help", "-h":
 		print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")

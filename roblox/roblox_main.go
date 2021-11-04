@@ -59,7 +59,7 @@ func CommandHandler(command []string) {
 		} else {
 			println("Usage: --fix (-f) [option]")
 			println("Options:")
-			println("UBK - Fixes Unexpected Behavior Kick in Roblox")
+			println("	UBK - Fixes Unexpected Behavior Kick in Roblox")
 		}
 	case "--cursor", "-c":
 		if len(command) == 2 {
@@ -86,6 +86,10 @@ func CommandHandler(command []string) {
 		println("Roblox Mac Version: " + roblox_mac_version)
 		println("Roblox Studio Mac Version: " + roblox_studio_mac_version)
 		println("Roblox Studio Qt Version: " + roblox_studio_qt_version)
+	case "--delete", "-d":
+		DeleteRoblox()
+	case "--install", "-i":
+		InstallRoblox()
 	case "--help", "-h":
 		print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
 		print("--cursor, -c ~ Installs a custom cursor\n")

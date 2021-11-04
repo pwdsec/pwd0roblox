@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"pwd0roblox/console"
-	roblox_windows "pwd0roblox/roblox/roblox_windows"
+	"pwd0roblox/roblox"
 	"strings"
 
 	"github.com/gookit/color"
@@ -20,7 +20,6 @@ func main() {
 	color.Print("  <red>|</>----------------------<red>|</><red>   U</>\n")
 	color.Print("  <red>|</>-------[ <red>Help</> ]-------<red>|</>\n")
 	color.Print("<red>  ●●●●●●●●●●●●●●●●●●●●●●●●</>\n\n")
-
 	for {
 		reader := bufio.NewReader(os.Stdin)
 		color.Print("[<red>●</>]> ")
@@ -31,7 +30,7 @@ func main() {
 
 		switch strings.ToLower(args[0]) {
 		case "roblox", "rbx":
-			roblox_windows.CommandHandler(args[1:])
+			roblox.CommandHandler(args[1:])
 		case "cls", "clear":
 			console.ConsoleClear()
 		case "exit", "quit":

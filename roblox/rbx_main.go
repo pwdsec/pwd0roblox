@@ -106,7 +106,7 @@ func CommandHandler(command []string) {
 			ver, _ := GetRobloxWindowsVersion()
 			InstallRoblox(ver, true)
 		}
-	case "--check":
+	case "--check", "-C":
 		if len(command) == 3 {
 			if command[1] == "--generate" || command[1] == "-g" {
 				var i int
@@ -157,6 +157,7 @@ func CommandHandler(command []string) {
 				println("Options:")
 				println("	--generate (-g) [lenght] - Checks if a username is valid")
 				println("	--username (-u) [username] - Checks if a username is valid")
+				println("	--normal (-n) [how many] - Checks if a username is valid")
 			}
 		} else {
 			println("Usage: --check (-c) [option]")
@@ -170,7 +171,7 @@ func CommandHandler(command []string) {
 		print("--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 		print("--delete, -d ~ Deletes Roblox\n")
 		print("--install, -i ~ Installs Roblox\n")
-		print("--check ~ Checks if a username is valid\n")
+		print("--check, -C ~ Checks if a username is valid\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")
 	}

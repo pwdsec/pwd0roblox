@@ -7,6 +7,7 @@ import (
 	"os/exec"
 )
 
+// deletes roblox from pc.
 func DeleteRoblox() {
 	println("[+] Deleting Roblox...")
 	dir, _ := os.UserCacheDir()
@@ -18,6 +19,7 @@ func DeleteRoblox() {
 	println("[+] Roblox deleted!")
 }
 
+// downloads roblox and installs it.
 func InstallRoblox(version string, start bool) {
 	println("[+] Downloading Roblox...")
 

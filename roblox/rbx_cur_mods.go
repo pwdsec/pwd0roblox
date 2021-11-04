@@ -42,6 +42,41 @@ var data = [][]string{
 		"https://cdn.custom-cursor.com/db/pointer/32/Green_pointer.png",
 		"https://cdn.custom-cursor.com/db/cursor/32/Green_cursor.png",
 	},
+	{
+		"hexa",
+		"https://cdn.custom-cursor.com/db/9349/32/starter-hexagonal-modern-technology-pointer.png",
+		"https://cdn.custom-cursor.com/db/9350/32/starter-hexagonal-modern-technology-cursor.png",
+	},
+	{
+		"3dgeo",
+		"https://cdn.custom-cursor.com/db/9231/32/starter-3d-geometric-figures-pointer.png",
+		"https://cdn.custom-cursor.com/db/9232/32/starter-3d-geometric-figures-cursor.png",
+	},
+	{
+		"slime",
+		"https://cdn.custom-cursor.com/db/8125/32/starter-green-slime-pointer.png",
+		"https://cdn.custom-cursor.com/db/8126/32/starter-green-slime-cursor.png",
+	},
+	{
+		"abstract",
+		"https://cdn.custom-cursor.com/db/7457/32/starter-abstract-space-pointer.png",
+		"https://cdn.custom-cursor.com/db/7458/32/starter-abstract-space-cursor.png",
+	},
+	{
+		"dark-irdescent",
+		"https://cdn.custom-cursor.com/db/6617/32/starter-dark-iridescent-pointer-a.png",
+		"https://cdn.custom-cursor.com/db/6618/32/starter-dark-iridescent-cursor-a.png",
+	},
+	{
+		"modern-green",
+		"https://cdn.custom-cursor.com/db/pointer/32/Modern_Green.png",
+		"https://cdn.custom-cursor.com/db/cursor/32/Modern_Green.png",
+	},
+	{
+		"neon-mushroom",
+		"https://cdn.custom-cursor.com/db/10133/32/neon-mushroom-pointer.png",
+		"https://cdn.custom-cursor.com/db/10134/32/neon-mushroom-cursor.png",
+	},
 }
 
 // cursor list function.

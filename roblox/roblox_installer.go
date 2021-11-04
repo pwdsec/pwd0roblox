@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 )
 
 func DeleteRoblox() {
@@ -42,10 +43,9 @@ func InstallRoblox() {
 
 	println("[+] Installing Roblox...")
 	// run file
-	os.StartProcess("Roblox.exe", nil, nil)
-
-	// delete file
-	os.Remove("Roblox.exe")
+	cmd := exec.Command("Roblox.exe")
+	cmd.Start()
+	cmd.Wait()
 
 	println("[+] Roblox installed!")
 }

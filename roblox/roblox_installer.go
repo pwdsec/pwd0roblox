@@ -18,11 +18,10 @@ func DeleteRoblox() {
 	println("[+] Roblox deleted!")
 }
 
-func InstallRoblox() {
+func InstallRoblox(version string) {
 	println("[+] Downloading Roblox...")
-	ver, _ := GetRobloxWindowsVersion()
 
-	resp, err := http.Get("https://setup.rbxcdn.com/" + ver + "-Roblox.exe")
+	resp, err := http.Get("https://setup.rbxcdn.com/" + version + "-Roblox.exe")
 	if err != nil {
 		panic(err)
 	}

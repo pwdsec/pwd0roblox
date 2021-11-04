@@ -89,7 +89,16 @@ func CommandHandler(command []string) {
 	case "--delete", "-d":
 		DeleteRoblox()
 	case "--install", "-i":
-		InstallRoblox()
+		if len(command) == 2 {
+			if command[1] == "-h" {
+				println("Usage: --install (-i) [option](version)")
+			} else {
+				InstallRoblox(command[1])
+			}
+		} else {
+			ver, _ := GetRobloxWindowsVersion()
+			InstallRoblox(ver)
+		}
 	case "--help", "-h":
 		print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
 		print("--cursor, -c ~ Installs a custom cursor\n")

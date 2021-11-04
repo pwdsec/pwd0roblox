@@ -5,6 +5,7 @@ package roblox
 import (
 	"io/ioutil"
 	"os"
+	"strconv"
 	"strings"
 
 	wapi "github.com/jcollie/w32"
@@ -104,6 +105,45 @@ func CommandHandler(command []string) {
 		} else {
 			ver, _ := GetRobloxWindowsVersion()
 			InstallRoblox(ver, true)
+		}
+	case "--check":
+		if len(command) == 3 {
+			if command[1] == "--generate" || command[1] == "-g" {
+				var i int
+				i, _ = strconv.Atoi(command[2])
+				username := UsernameGenerator(i)
+				check, err := CheckUsername(username)
+				if err != nil {
+					println("Failed to check username")
+					return
+				}
+				if check {
+					println("Username is valid")
+				} else {
+					println("Username is invalid")
+				}
+			} else if command[1] == "--username" || command[1] == "-u" {
+				check, err := CheckUsername(command[2])
+				if err != nil {
+					println("Failed to check username")
+					return
+				}
+				if check {
+					println("Username is valid")
+				} else {
+					println("Username is invalid")
+				}
+			} else {
+				println("Usage: --check (-c) [option]")
+				println("Options:")
+				println("	--generate (-g) [lenght] - Checks if a username is valid")
+				println("	--username (-u) [username] - Checks if a username is valid")
+			}
+		} else {
+			println("Usage: --check (-c) [option]")
+			println("Options:")
+			println("	--generate (-g) [lenght] - Checks if a username is valid")
+			println("	--username (-u) [username] - Checks if a username is valid")
 		}
 	case "--help", "-h", "?":
 		print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")

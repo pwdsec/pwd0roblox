@@ -65,5 +65,6 @@ func ParseUsernames(body []byte) []string {
 			username = ""
 		}
 	}
+
 	return data
 }

@@ -4,6 +4,7 @@ package roblox
 
 import (
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strconv"
 	"strings"
@@ -140,6 +141,9 @@ func CommandHandler(command []string) {
 					if v == "data" || v == "name" {
 						continue
 					} else {
+						num := rand.Intn(10)
+						num_str := strconv.Itoa(num)
+						v += num_str
 						check, err := CheckUsername(v)
 						if err != nil {
 							println("Failed to check username")

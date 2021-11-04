@@ -36,3 +36,34 @@ func GenerateUsername(lenght int) string {
 	}
 	return string(b)
 }
+
+func NormalUsernameGenerator() string {
+	resp, err := http.Get("https://story-shack-cdn-v2.glitch.me/generators/username-generator?count=6")
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return ""
+	}
+	return string(body)
+}
+
+func ParseUsernames(body []byte) []string {
+	var data []string
+	var username string
+	var i int
+	for i = 0; i < len(body); i++ {
+		if body[i] == '"' {
+			i++
+			for body[i] != '"' {
+				username += string(body[i])
+				i++
+			}
+			data = append(data, username)
+			username = ""
+		}
+	}
+	return data
+}

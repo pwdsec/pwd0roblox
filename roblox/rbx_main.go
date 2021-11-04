@@ -168,6 +168,7 @@ func CommandHandler(command []string) {
 			println("Options:")
 			println("	--generate (-g) [lenght] - Checks if a username is valid")
 			println("	--username (-u) [username] - Checks if a username is valid")
+			println("	--normal (-n) [how many] - Checks if a username is valid")
 		}
 	case "--help", "-h", "?":
 		print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")

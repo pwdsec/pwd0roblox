@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"pwd0roblox/console"
-	"pwd0roblox/roblox"
+	roblox_windows "pwd0roblox/roblox/roblox_windows"
 	"strings"
 
 	"github.com/gookit/color"
@@ -31,7 +31,7 @@ func main() {
 
 		switch strings.ToLower(args[0]) {
 		case "roblox", "rbx":
-			roblox.CommandHandler(args[1:])
+			roblox_windows.CommandHandler(args[1:])
 		case "cls", "clear":
 			console.ConsoleClear()
 		case "exit", "quit":

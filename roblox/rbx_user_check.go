@@ -37,6 +37,8 @@ func GenerateUsername(lenght int) string {
 	return string(b)
 }
 
+// returns a list of usernames.
+// https://story-shack-cdn-v2.glitch.me/generators/username-generator?count=
 func NormalUsernameGenerator(how_many string) string {
 	resp, err := http.Get("https://story-shack-cdn-v2.glitch.me/generators/username-generator?count=" + how_many)
 	if err != nil {
@@ -50,6 +52,8 @@ func NormalUsernameGenerator(how_many string) string {
 	return string(body)
 }
 
+// parses a list of usernames.
+// returns a list of usernames.
 func ParseUsernames(body []byte) []string {
 	var data []string
 	var username string
@@ -65,6 +69,5 @@ func ParseUsernames(body []byte) []string {
 			username = ""
 		}
 	}
-
 	return data
 }

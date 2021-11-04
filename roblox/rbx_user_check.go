@@ -37,8 +37,8 @@ func GenerateUsername(lenght int) string {
 	return string(b)
 }
 
-func NormalUsernameGenerator() string {
-	resp, err := http.Get("https://story-shack-cdn-v2.glitch.me/generators/username-generator?count=6")
+func NormalUsernameGenerator(how_many string) string {
+	resp, err := http.Get("https://story-shack-cdn-v2.glitch.me/generators/username-generator?count=" + how_many)
 	if err != nil {
 		return ""
 	}

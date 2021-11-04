@@ -133,6 +133,25 @@ func CommandHandler(command []string) {
 				} else {
 					println("Username is invalid: " + command[2])
 				}
+			} else if command[1] == "--normal" || command[1] == "-n" {
+				normal_username := NormalUsernameGenerator(command[2])
+				usernames := ParseUsernames([]byte(normal_username))
+				for _, v := range usernames {
+					if v == "data" || v == "name" {
+						continue
+					} else {
+						check, err := CheckUsername(v)
+						if err != nil {
+							println("Failed to check username")
+							return
+						}
+						if check {
+							println("Username is valid: " + v)
+						} else {
+							println("Username is invalid: " + v)
+						}
+					}
+				}
 			} else {
 				println("Usage: --check (-c) [option]")
 				println("Options:")

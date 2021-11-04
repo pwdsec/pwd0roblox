@@ -111,16 +111,16 @@ func CommandHandler(command []string) {
 			if command[1] == "--generate" || command[1] == "-g" {
 				var i int
 				i, _ = strconv.Atoi(command[2])
-				username := UsernameGenerator(i)
+				username := GenerateUsername(i)
 				check, err := CheckUsername(username)
 				if err != nil {
 					println("Failed to check username")
 					return
 				}
 				if check {
-					println("Username is valid")
+					println("Username is valid: " + username)
 				} else {
-					println("Username is invalid")
+					println("Username is invalid: " + username)
 				}
 			} else if command[1] == "--username" || command[1] == "-u" {
 				check, err := CheckUsername(command[2])
@@ -129,9 +129,9 @@ func CommandHandler(command []string) {
 					return
 				}
 				if check {
-					println("Username is valid")
+					println("Username is valid: " + command[2])
 				} else {
-					println("Username is invalid")
+					println("Username is invalid: " + command[2])
 				}
 			} else {
 				println("Usage: --check (-c) [option]")
@@ -151,6 +151,7 @@ func CommandHandler(command []string) {
 		print("--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 		print("--delete, -d ~ Deletes Roblox\n")
 		print("--install, -i ~ Installs Roblox\n")
+		print("--check ~ Checks if a username is valid\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")
 	}

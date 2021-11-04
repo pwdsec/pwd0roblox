@@ -20,7 +20,7 @@ func CheckUsername(username string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if strings.Contains("User not found", string(body)) {
+	if strings.Contains(string(body), "User not found") {
 		return true, nil
 	}
 	return false, nil
@@ -28,11 +28,11 @@ func CheckUsername(username string) (bool, error) {
 
 // generates a random username.
 // returns the username.
-func UsernameGenerator(length int) string {
-	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-	var username string
-	for i := 0; i < 10; i++ {
-		username += string(letters[rand.Intn(length)])
+func GenerateUsername(lenght int) string {
+	var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, lenght)
+	for i := range b {
+		b[i] = charset[rand.Intn(len(charset))]
 	}
-	return username
+	return string(b)
 }

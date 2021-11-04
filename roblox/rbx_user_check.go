@@ -2,6 +2,7 @@ package roblox
 
 import (
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"strings"
 )
@@ -23,4 +24,15 @@ func CheckUsername(username string) (bool, error) {
 		return true, nil
 	}
 	return false, nil
+}
+
+// generates a random username.
+// returns the username.
+func UsernameGenerator(length int) string {
+	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	var username string
+	for i := 0; i < 10; i++ {
+		username += string(letters[rand.Intn(length)])
+	}
+	return username
 }

@@ -18,7 +18,7 @@ func DeleteRoblox() {
 	println("[+] Roblox deleted!")
 }
 
-func InstallRoblox(version string) {
+func InstallRoblox(version string, start bool) {
 	println("[+] Downloading Roblox...")
 
 	resp, err := http.Get("https://setup.rbxcdn.com/" + version + "-Roblox.exe")
@@ -40,11 +40,14 @@ func InstallRoblox(version string) {
 
 	file.Close()
 
-	println("[+] Installing Roblox...")
-	// run file
-	cmd := exec.Command("Roblox.exe")
-	cmd.Start()
-	cmd.Wait()
+	println("[+] Roblox downloaded!")
+	if start {
+		println("[+] Installing Roblox...")
+		// run file
+		cmd := exec.Command("Roblox.exe")
+		cmd.Start()
+		cmd.Wait()
 
-	println("[+] Roblox installed!")
+		println("[+] Roblox installed!")
+	}
 }

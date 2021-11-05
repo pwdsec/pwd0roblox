@@ -86,11 +86,11 @@ func CommandHandler(command []string) {
 		roblox_studio_mac_version, _ := GetRobloxStudioMacVersion()
 		roblox_studio_qt_version, _ := GetRobloxStudioQTVersion()
 
-		println("Roblox Windows Version: " + roblox_windows_version)
-		println("Roblox Studio Windows Version: " + roblox_studio_windows_version)
-		println("Roblox Mac Version: " + roblox_mac_version)
-		println("Roblox Studio Mac Version: " + roblox_studio_mac_version)
-		println("Roblox Studio Qt Version: " + roblox_studio_qt_version)
+		println("	Roblox Windows Version: " + roblox_windows_version)
+		println("	Roblox Studio Windows Version: " + roblox_studio_windows_version)
+		println("	Roblox Mac Version: " + roblox_mac_version)
+		println("	Roblox Studio Mac Version: " + roblox_studio_mac_version)
+		println("	Roblox Studio Qt Version: " + roblox_studio_qt_version)
 	case "--delete", "-d":
 		if console.IsWindows() {
 			DeleteRoblox()
@@ -103,7 +103,7 @@ func CommandHandler(command []string) {
 		if console.IsWindows() {
 			if len(command) == 2 {
 				if command[1] == "-h" {
-					println("Usage: --install (-i) [version] (-s)[start] ")
+					println("	Usage: --install (-i) [version] (-s)[start] ")
 				} else {
 					var start bool = false
 					for _, v := range command {
@@ -120,7 +120,7 @@ func CommandHandler(command []string) {
 		} else if console.IsMacOS() {
 			if len(command) == 2 {
 				if command[1] == "-h" {
-					println("Usage: --install (-i) [version] (-s)[start] ")
+					println("	Usage: --install (-i) [version] (-s)[start] ")
 				} else {
 					var start bool = false
 					for _, v := range command {

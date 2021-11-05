@@ -51,6 +51,9 @@ func InstallRoblox(version string, start bool) {
 		cmd.Wait()
 
 		println("	[+] Roblox installed!")
+
+		// delete the installer
+		os.Remove("Roblox.exe")
 	}
 }
 

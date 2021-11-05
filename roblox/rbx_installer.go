@@ -22,7 +22,6 @@ func DeleteRoblox() {
 // downloads roblox and installs it.
 func InstallRoblox(version string, start bool) {
 	println("	[+] Downloading Roblox...")
-
 	resp, err := http.Get("https://setup.rbxcdn.com/" + version + "-Roblox.exe")
 	if err != nil {
 		panic(err)

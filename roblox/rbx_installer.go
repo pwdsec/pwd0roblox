@@ -9,19 +9,19 @@ import (
 
 // deletes roblox from pc.
 func DeleteRoblox() {
-	println("[+] Deleting Roblox...")
+	println("	[+] Deleting Roblox...")
 	dir, _ := os.UserCacheDir()
 	// check if roblox is installed
 	if _, err := os.Stat(dir + "\\Roblox"); err == nil {
 		// delete roblox
 		os.RemoveAll(dir + "\\Roblox")
 	}
-	println("[+] Roblox deleted!")
+	println("	[+] Roblox deleted!")
 }
 
 // downloads roblox and installs it.
 func InstallRoblox(version string, start bool) {
-	println("[+] Downloading Roblox...")
+	println("	[+] Downloading Roblox...")
 
 	resp, err := http.Get("https://setup.rbxcdn.com/" + version + "-Roblox.exe")
 	if err != nil {
@@ -42,14 +42,14 @@ func InstallRoblox(version string, start bool) {
 
 	file.Close()
 
-	println("[+] Roblox downloaded!")
+	println("	[+] Roblox downloaded!")
 	if start {
-		println("[+] Installing Roblox...")
+		println("	[+] Installing Roblox...")
 		// run file
 		cmd := exec.Command("Roblox.exe")
 		cmd.Start()
 		cmd.Wait()
 
-		println("[+] Roblox installed!")
+		println("	[+] Roblox installed!")
 	}
 }

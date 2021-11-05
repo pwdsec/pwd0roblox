@@ -92,7 +92,7 @@ func CursorsList() []string {
 // error if not found.
 // string cursor name.
 func CursorsInstaller(cursor string) error {
-	println("[+] Installing " + cursor + " cursor")
+	println("	[+] Installing " + cursor + " cursor")
 	var ArrowCursor string
 	var ArrowFarCursor string
 	for i, v := range data {
@@ -108,7 +108,7 @@ func CursorsInstaller(cursor string) error {
 	}
 
 	if b != nil {
-		println("Failed to get user cache directory")
+		println("	Failed to get user cache directory")
 		return nil
 	}
 
@@ -150,7 +150,7 @@ func CursorsInstaller(cursor string) error {
 	if err != nil {
 		return err
 	}
-	println("[+] Done")
+	println("	[+] Done")
 	// return
 	return nil
 }

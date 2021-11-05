@@ -126,11 +126,11 @@ func CommandHandler(command []string) {
 							start = true
 						}
 					}
-					InstallRobloxMac(command[1], start)
+					InstallRoblox(command[1], start)
 				}
 			} else {
 				ver, _ := GetRobloxMacVersion()
-				InstallRobloxMac(ver, true)
+				InstallRoblox(ver, true)
 			}
 		} else {
 			println("	Unknown OS")

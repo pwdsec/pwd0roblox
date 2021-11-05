@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// gets each ini file path
 func GetINIFiles() []string {
 	appdata_local, b := os.UserCacheDir()
 	if b != nil {

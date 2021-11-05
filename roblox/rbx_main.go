@@ -199,19 +199,25 @@ func CommandHandler(command []string) {
 		}
 	case "--tainted", "-t":
 		if console.IsWindows() {
-			if len(command) == 1 {
+			if len(command) == 2 {
 				if command[1] == "-h" {
 					println("Usage: --tainted (-t) [version]")
 				}
 			} else {
+				var is_tainted bool = false
 				ini_files := GetINIFiles()
 				for _, v := range ini_files {
 					mapped := ReadINIFile(v)
 					if IsTainted(mapped) {
-						println("user is tainted: ")
+						is_tainted = true
 					} else {
-						println("user is not tainted: ")
+						is_tainted = false
 					}
+				}
+				if is_tainted {
+					println("User Tainted")
+				} else {
+					println("User Not tainted")
 				}
 			}
 		} else if console.IsMacOS() {
@@ -225,6 +231,7 @@ func CommandHandler(command []string) {
 			print("--cursor, -c ~ Installs a custom cursor\n")
 			print("--delete, -d ~ Deletes Roblox\n")
 			print("--install, -i ~ Installs Roblox\n")
+			print("--tainted, -t ~ Checks if user is tainted\n")
 		}
 		print("--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 		print("--check, -C ~ Checks if a username is valid\n")

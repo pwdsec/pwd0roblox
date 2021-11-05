@@ -36,8 +36,6 @@ func Fix_Unexpected_Behavior_Kick_method_1() {
 	print("	[+] Successfully fixed Unexpected Behavior Kick\n")
 }
 
-// checks if roblox is running.
-
 // roblox command handler.
 // command []string.
 func CommandHandler(command []string) {

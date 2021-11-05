@@ -17,10 +17,10 @@ import (
 // this is a workaround for a bug in Roblox.
 // this method is not 100% reliable.
 func Fix_Unexpected_Behavior_Kick_method_1() {
-	print("[+] Fixing Unexpected Behavior Kick...\n")
+	print("	[+] Fixing Unexpected Behavior Kick...\n")
 	a, b := os.UserCacheDir()
 	if b != nil {
-		println("Failed to get user cache directory")
+		println("	Failed to get user cache directory")
 		return
 	}
 
@@ -35,7 +35,7 @@ func Fix_Unexpected_Behavior_Kick_method_1() {
 			os.Remove(a + "\\Roblox\\" + file.Name())
 		}
 	}
-	print("[+] Successfully fixed Unexpected Behavior Kick\n")
+	print("	[+] Successfully fixed Unexpected Behavior Kick\n")
 }
 
 // checks if roblox is running.
@@ -44,7 +44,7 @@ func IS_Open() {
 		hwid := wapi.FindWindow("", "Roblox")
 
 		if hwid == 0 {
-			print("Roblox is not open\n")
+			print("	Roblox is not open\n")
 			return
 		}
 	}
@@ -60,17 +60,17 @@ func CommandHandler(command []string) {
 				if command[1] == "UBK" {
 					Fix_Unexpected_Behavior_Kick_method_1()
 				} else {
-					println("Unknown fix: " + command[1])
+					println("	Unknown fix: " + command[1])
 				}
 			} else {
-				println("Usage: --fix (-f) [option]")
-				println("Options:")
-				println("	UBK - Fixes Unexpected Behavior Kick in Roblox")
+				println("	Usage: --fix (-f) [option]")
+				println("	Options:")
+				println("		UBK - Fixes Unexpected Behavior Kick in Roblox")
 			}
 		} else if console.IsMacOS() {
-			println("MacOS is not yet supported")
+			println("	MacOS is not yet supported")
 		} else {
-			println("Unknown OS")
+			println("	Unknown OS")
 		}
 	case "--cursor", "-c":
 		if console.IsWindows() {
@@ -80,16 +80,16 @@ func CommandHandler(command []string) {
 					println("Invalid command")
 				}
 			} else {
-				println("Usage: --cursor (-c) [option]")
-				println("Options:")
+				println("	Usage: --cursor (-c) [option]")
+				println("	Options:")
 				for _, v := range CursorsList() {
-					println(v)
+					println("		" + v)
 				}
 			}
 		} else if console.IsMacOS() {
-			println("MacOS is not yet supported")
+			println("	MacOS is not yet supported")
 		} else {
-			println("Unknown OS")
+			println("	Unknown OS")
 		}
 	case "--versions", "-v":
 		roblox_windows_version, _ := GetRobloxWindowsVersion()
@@ -107,9 +107,9 @@ func CommandHandler(command []string) {
 		if console.IsWindows() {
 			DeleteRoblox()
 		} else if console.IsMacOS() {
-			println("MacOS is not yet supported")
+			println("	MacOS is not yet supported")
 		} else {
-			println("Unknown OS")
+			println("	Unknown OS")
 		}
 	case "--install", "-i":
 		if console.IsWindows() {
@@ -130,9 +130,9 @@ func CommandHandler(command []string) {
 				InstallRoblox(ver, true)
 			}
 		} else if console.IsMacOS() {
-			println("MacOS is not yet supported")
+			println("	MacOS is not yet supported")
 		} else {
-			println("Unknown OS")
+			println("	Unknown OS")
 		}
 	case "--check", "-C":
 		if len(command) == 3 {
@@ -142,24 +142,24 @@ func CommandHandler(command []string) {
 				username := GenerateUsername(i)
 				check, err := CheckUsername(username)
 				if err != nil {
-					println("Failed to check username")
+					println("	Failed to check username")
 					return
 				}
 				if check {
-					println("Username is valid: " + username)
+					println("	Username is valid: " + username)
 				} else {
-					println("Username is invalid: " + username)
+					println("	Username is invalid: " + username)
 				}
 			} else if command[1] == "--username" || command[1] == "-u" {
 				check, err := CheckUsername(command[2])
 				if err != nil {
-					println("Failed to check username")
+					println("	Failed to check username")
 					return
 				}
 				if check {
-					println("Username is valid: " + command[2])
+					println("	Username is valid: " + command[2])
 				} else {
-					println("Username is invalid: " + command[2])
+					println("	Username is invalid: " + command[2])
 				}
 			} else if command[1] == "--normal" || command[1] == "-n" {
 				normal_username := NormalUsernameGenerator(command[2])
@@ -173,35 +173,35 @@ func CommandHandler(command []string) {
 						v += num_str
 						check, err := CheckUsername(v)
 						if err != nil {
-							println("Failed to check username")
+							println("	Failed to check username")
 							return
 						}
 						if check {
-							println("Username is valid: " + v)
+							println("	Username is valid: " + v)
 						} else {
-							println("Username is invalid: " + v)
+							println("	Username is invalid: " + v)
 						}
 					}
 				}
 			} else {
-				println("Usage: --check (-c) [option]")
-				println("Options:")
-				println("	--generate (-g) [lenght] - Checks if a username is valid")
-				println("	--username (-u) [username] - Checks if a username is valid")
-				println("	--normal (-n) [how many] - Checks if a username is valid")
+				println("	Usage: --check (-c) [option]")
+				println("	Options:")
+				println("		--generate (-g) [lenght] - Checks if a username is valid")
+				println("		--username (-u) [username] - Checks if a username is valid")
+				println("		--normal (-n) [how many] - Checks if a username is valid")
 			}
 		} else {
-			println("Usage: --check (-c) [option]")
-			println("Options:")
-			println("	--generate (-g) [lenght] - Checks if a username is valid")
-			println("	--username (-u) [username] - Checks if a username is valid")
-			println("	--normal (-n) [how many] - Checks if a username is valid")
+			println("	Usage: --check (-c) [option]")
+			println("	Options:")
+			println("		--generate (-g) [lenght] - Checks if a username is valid")
+			println("		--username (-u) [username] - Checks if a username is valid")
+			println("		--normal (-n) [how many] - Checks if a username is valid")
 		}
 	case "--tainted", "-t":
 		if console.IsWindows() {
 			if len(command) == 2 {
 				if command[1] == "-h" {
-					println("Usage: --tainted (-t) [version]")
+					println("	Usage: --tainted (-t) [version]")
 				}
 			} else {
 				var is_tainted bool = false
@@ -215,15 +215,15 @@ func CommandHandler(command []string) {
 					}
 				}
 				if is_tainted {
-					println("User Tainted")
+					println("	User Tainted")
 				} else {
-					println("User Not tainted")
+					println("	User Not tainted")
 				}
 			}
 		} else if console.IsMacOS() {
-			println("MacOS is not yet supported")
+			println("	MacOS is not yet supported")
 		} else {
-			println("Unknown OS")
+			println("	Unknown OS")
 		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
@@ -239,6 +239,6 @@ func CommandHandler(command []string) {
 			print("	--check, -C ~ Checks if a username is valid\n")
 		}
 	default:
-		print("Unknown command: " + command[0] + "\n")
+		print("	Unknown command: " + command[0] + "\n")
 	}
 }

@@ -197,6 +197,28 @@ func CommandHandler(command []string) {
 			println("	--username (-u) [username] - Checks if a username is valid")
 			println("	--normal (-n) [how many] - Checks if a username is valid")
 		}
+	case "--tainted", "-t":
+		if console.IsWindows() {
+			if len(command) == 1 {
+				if command[1] == "-h" {
+					println("Usage: --tainted (-t) [version]")
+				}
+			} else {
+				ini_files := GetINIFiles()
+				for _, v := range ini_files {
+					mapped := ReadINIFile(v)
+					if IsTainted(mapped) {
+						println("user is tainted: ")
+					} else {
+						println("user is not tainted: ")
+					}
+				}
+			}
+		} else if console.IsMacOS() {
+			println("MacOS is not yet supported")
+		} else {
+			println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")

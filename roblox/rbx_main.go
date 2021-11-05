@@ -128,7 +128,7 @@ func CommandHandler(command []string) {
 							start = true
 						}
 					}
-					InstallRoblox(command[1], start)
+					InstallRobloxMac(command[1], start)
 				}
 			} else {
 				ver, _ := GetRobloxMacVersion()
@@ -238,6 +238,7 @@ func CommandHandler(command []string) {
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 			print("	--check, -C ~ Checks if a username is valid\n")
 		} else if console.IsMacOS() {
+			print("	--install, -i ~ Installs Roblox\n")
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 			print("	--check, -C ~ Checks if a username is valid\n")
 		}

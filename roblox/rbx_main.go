@@ -118,7 +118,22 @@ func CommandHandler(command []string) {
 				InstallRoblox(ver, true)
 			}
 		} else if console.IsMacOS() {
-			println("	MacOS is not yet supported")
+			if len(command) == 2 {
+				if command[1] == "-h" {
+					println("Usage: --install (-i) [version] (-s)[start] ")
+				} else {
+					var start bool = false
+					for _, v := range command {
+						if v == "-s" {
+							start = true
+						}
+					}
+					InstallRoblox(command[1], start)
+				}
+			} else {
+				ver, _ := GetRobloxMacVersion()
+				InstallRobloxMac(ver, true)
+			}
 		} else {
 			println("	Unknown OS")
 		}

@@ -40,7 +40,7 @@ func main() {
 			fmt.Println("	cls, clear ~ clear the console")
 			fmt.Println("	exit, quit ~ exit the program")
 		default:
-			color.Println("<red>Unknown command</>")
+			color.Println("	<red>Unknown command</>")
 		}
 	}
 }

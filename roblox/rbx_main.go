@@ -9,8 +9,6 @@ import (
 	"pwd0roblox/console"
 	"strconv"
 	"strings"
-
-	wapi "github.com/jcollie/w32"
 )
 
 // fixes the Unexpected Behavior Kick that happens when you open Roblox.
@@ -39,16 +37,6 @@ func Fix_Unexpected_Behavior_Kick_method_1() {
 }
 
 // checks if roblox is running.
-func IS_Open() {
-	if console.IsWindows() {
-		hwid := wapi.FindWindow("", "Roblox")
-
-		if hwid == 0 {
-			print("	Roblox is not open\n")
-			return
-		}
-	}
-}
 
 // roblox command handler.
 // command []string.

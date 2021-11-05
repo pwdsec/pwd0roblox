@@ -21,9 +21,15 @@ func IsWindows() bool {
 // change set console title name using windows api
 // title: string
 func SetConsoleTitle(title string) {
-	kernel32 := syscall.NewLazyDLL("kernel32.dll")
-	proc := kernel32.NewProc("SetConsoleTitleW")
-	proc.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(title))))
+	if IsWindows() {
+		kernel32 := syscall.NewLazyDLL("kernel32.dll")
+		proc := kernel32.NewProc("SetConsoleTitleW")
+		proc.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(title))))
+	} else if IsMacOS() {
+		cmd := exec.Command("/bin/sh", "-c", "echo -ne '\033]0;"+title+"\007'")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	}
 }
 
 // clear console function

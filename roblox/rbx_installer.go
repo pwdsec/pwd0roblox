@@ -57,12 +57,11 @@ func InstallRoblox(version string, start bool) {
 func InstallRobloxMac(version string, start bool) {
 	println("	[+] Downloading Roblox...")
 
-	resp, err := http.Get("https://setup.rbxcdn.com/" + version + "-Roblox.dmg")
+	resp, err := http.Get("http://setup.roblox.com/mac/" + version + "-Roblox.dmg")
 	if err != nil {
 		panic(err)
 	}
 	defer resp.Body.Close()
-
 	// write file
 	file, err := os.Create("Roblox.dmg")
 	if err != nil {
@@ -80,8 +79,8 @@ func InstallRobloxMac(version string, start bool) {
 
 	if start {
 		println("	[+] Installing Roblox...")
-		// run file
-		cmd := exec.Command("Roblox.dmg")
+		// install dmg file
+		cmd := exec.Command("hdiutil", "attach", "Roblox.dmg")
 		cmd.Start()
 		cmd.Wait()
 

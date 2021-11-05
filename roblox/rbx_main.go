@@ -227,14 +227,17 @@ func CommandHandler(command []string) {
 		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
-			print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
-			print("--cursor, -c ~ Installs a custom cursor\n")
-			print("--delete, -d ~ Deletes Roblox\n")
-			print("--install, -i ~ Installs Roblox\n")
-			print("--tainted, -t ~ Checks if user is tainted\n")
+			print("	--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
+			print("	--cursor, -c ~ Installs a custom cursor\n")
+			print("	--delete, -d ~ Deletes Roblox\n")
+			print("	--install, -i ~ Installs Roblox\n")
+			print("	--tainted, -t ~ Checks if user is tainted\n")
+			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
+			print("	--check, -C ~ Checks if a username is valid\n")
+		} else if console.IsMacOS() {
+			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
+			print("	--check, -C ~ Checks if a username is valid\n")
 		}
-		print("--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
-		print("--check, -C ~ Checks if a username is valid\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")
 	}

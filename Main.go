@@ -36,9 +36,9 @@ func main() {
 		case "exit", "quit":
 			os.Exit(0)
 		case "help", "?":
-			fmt.Println("roblox, rbx ~ run roblox commands, --help (-h)")
-			fmt.Println("cls, clear ~ clear the console")
-			fmt.Println("exit, quit ~ exit the program")
+			fmt.Println("	roblox, rbx ~ run roblox commands, --help (-h)")
+			fmt.Println("	cls, clear ~ clear the console")
+			fmt.Println("	exit, quit ~ exit the program")
 		default:
 			color.Println("<red>Unknown command</>")
 		}

@@ -1,0 +1,2 @@
+* game joiner with username and game id
+* conpatible with macos

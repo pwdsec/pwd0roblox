@@ -20,7 +20,7 @@ func IsWindows() bool {
 // title: string
 func SetConsoleTitle(title string) {
 	if IsWindows() {
-		cmd := exec.Command("cmd", "/c", "title", title)
+		cmd := exec.Command("cmd", "/c", "title "+title)
 		cmd.Stdout = os.Stdout
 		cmd.Run()
 	} else if IsMacOS() {

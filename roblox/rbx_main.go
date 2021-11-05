@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"os"
+	"pwd0roblox/console"
 	"strconv"
 	"strings"
 
@@ -39,11 +40,13 @@ func Fix_Unexpected_Behavior_Kick_method_1() {
 
 // checks if roblox is running.
 func IS_Open() {
-	hwid := wapi.FindWindow("", "Roblox")
+	if console.IsWindows() {
+		hwid := wapi.FindWindow("", "Roblox")
 
-	if hwid == 0 {
-		print("Roblox is not open\n")
-		return
+		if hwid == 0 {
+			print("Roblox is not open\n")
+			return
+		}
 	}
 }
 
@@ -52,29 +55,41 @@ func IS_Open() {
 func CommandHandler(command []string) {
 	switch command[0] {
 	case "--fix", "-f":
-		if len(command) == 2 {
-			if command[1] == "UBK" {
-				Fix_Unexpected_Behavior_Kick_method_1()
+		if console.IsWindows() {
+			if len(command) == 2 {
+				if command[1] == "UBK" {
+					Fix_Unexpected_Behavior_Kick_method_1()
+				} else {
+					println("Unknown fix: " + command[1])
+				}
 			} else {
-				println("Unknown fix: " + command[1])
+				println("Usage: --fix (-f) [option]")
+				println("Options:")
+				println("	UBK - Fixes Unexpected Behavior Kick in Roblox")
 			}
+		} else if console.IsMacOS() {
+			println("MacOS is not yet supported")
 		} else {
-			println("Usage: --fix (-f) [option]")
-			println("Options:")
-			println("	UBK - Fixes Unexpected Behavior Kick in Roblox")
+			println("Unknown OS")
 		}
 	case "--cursor", "-c":
-		if len(command) == 2 {
-			err := CursorsInstaller(command[1])
-			if err != nil {
-				println("Invalid command")
+		if console.IsWindows() {
+			if len(command) == 2 {
+				err := CursorsInstaller(command[1])
+				if err != nil {
+					println("Invalid command")
+				}
+			} else {
+				println("Usage: --cursor (-c) [option]")
+				println("Options:")
+				for _, v := range CursorsList() {
+					println(v)
+				}
 			}
+		} else if console.IsMacOS() {
+			println("MacOS is not yet supported")
 		} else {
-			println("Usage: --cursor (-c) [option]")
-			println("Options:")
-			for _, v := range CursorsList() {
-				println(v)
-			}
+			println("Unknown OS")
 		}
 	case "--versions", "-v":
 		roblox_windows_version, _ := GetRobloxWindowsVersion()
@@ -89,23 +104,35 @@ func CommandHandler(command []string) {
 		println("Roblox Studio Mac Version: " + roblox_studio_mac_version)
 		println("Roblox Studio Qt Version: " + roblox_studio_qt_version)
 	case "--delete", "-d":
-		DeleteRoblox()
-	case "--install", "-i":
-		if len(command) == 2 {
-			if command[1] == "-h" {
-				println("Usage: --install (-i) [version] (-s)[start] ")
-			} else {
-				var start bool = false
-				for _, v := range command {
-					if v == "-s" {
-						start = true
-					}
-				}
-				InstallRoblox(command[1], start)
-			}
+		if console.IsWindows() {
+			DeleteRoblox()
+		} else if console.IsMacOS() {
+			println("MacOS is not yet supported")
 		} else {
-			ver, _ := GetRobloxWindowsVersion()
-			InstallRoblox(ver, true)
+			println("Unknown OS")
+		}
+	case "--install", "-i":
+		if console.IsWindows() {
+			if len(command) == 2 {
+				if command[1] == "-h" {
+					println("Usage: --install (-i) [version] (-s)[start] ")
+				} else {
+					var start bool = false
+					for _, v := range command {
+						if v == "-s" {
+							start = true
+						}
+					}
+					InstallRoblox(command[1], start)
+				}
+			} else {
+				ver, _ := GetRobloxWindowsVersion()
+				InstallRoblox(ver, true)
+			}
+		} else if console.IsMacOS() {
+			println("MacOS is not yet supported")
+		} else {
+			println("Unknown OS")
 		}
 	case "--check", "-C":
 		if len(command) == 3 {
@@ -171,11 +198,13 @@ func CommandHandler(command []string) {
 			println("	--normal (-n) [how many] - Checks if a username is valid")
 		}
 	case "--help", "-h", "?":
-		print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
-		print("--cursor, -c ~ Installs a custom cursor\n")
+		if console.IsWindows() {
+			print("--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
+			print("--cursor, -c ~ Installs a custom cursor\n")
+			print("--delete, -d ~ Deletes Roblox\n")
+			print("--install, -i ~ Installs Roblox\n")
+		}
 		print("--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
-		print("--delete, -d ~ Deletes Roblox\n")
-		print("--install, -i ~ Installs Roblox\n")
 		print("--check, -C ~ Checks if a username is valid\n")
 	default:
 		print("Unknown command: " + command[0] + "\n")

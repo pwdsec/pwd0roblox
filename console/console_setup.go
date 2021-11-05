@@ -3,9 +3,20 @@ package console
 import (
 	"os"
 	"os/exec"
+	"runtime"
 	"syscall"
 	"unsafe"
 )
+
+// ismacos
+func IsMacOS() bool {
+	return runtime.GOOS == "darwin"
+}
+
+// is windows
+func IsWindows() bool {
+	return runtime.GOOS == "windows"
+}
 
 // change set console title name using windows api
 // title: string

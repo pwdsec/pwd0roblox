@@ -53,3 +53,38 @@ func InstallRoblox(version string, start bool) {
 		println("	[+] Roblox installed!")
 	}
 }
+
+func InstallRobloxMac(version string, start bool) {
+	println("	[+] Downloading Roblox...")
+
+	resp, err := http.Get("https://setup.rbxcdn.com/" + version + "-Roblox.dmg")
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	// write file
+	file, err := os.Create("Roblox.dmg")
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = io.Copy(file, resp.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	file.Close()
+
+	println("	[+] Roblox downloaded!")
+
+	if start {
+		println("	[+] Installing Roblox...")
+		// run file
+		cmd := exec.Command("Roblox.dmg")
+		cmd.Start()
+		cmd.Wait()
+
+		println("	[+] Roblox installed!")
+	}
+}

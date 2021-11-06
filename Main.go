@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	console.ConsoleClear()
 	console.SetConsoleTitle("pwd0roblox - 1.0.5")
 	color.Print("<red>  ________________________</>\n")
 	color.Print("  <red>|</>----------------------<red>|</><red> ___/|</>		\n")

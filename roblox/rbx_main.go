@@ -279,6 +279,7 @@ func CommandHandler(command []string) {
 			print("	--fix, -f ~ Fixes bugs that happens to Roblox\n")
 			print("	--cursor, -c ~ Installs a custom cursor\n")
 			print("	--delete, -d ~ Deletes Roblox\n")
+			print("	--reinstall, -r ~ Reinstalls Roblox\n")
 			print("	--install, -i ~ Installs Roblox\n")
 			print("	--tainted, -t ~ Checks if user is tainted\n")
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")

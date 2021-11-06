@@ -226,6 +226,59 @@ func CommandHandler(command []string) {
 		} else {
 			println("	Unknown OS")
 		}
+	case "--set-token", "-s":
+		if console.IsWindows() || console.IsMacOS() {
+			if len(command) == 2 {
+				if command[1] == "-h" {
+					println("	Usage: --set-token (-t) [token]")
+				} else {
+					getRobloxSecurity(command[1])
+				}
+			} else {
+				println("	Usage: --set-token (-t) [token]")
+			}
+		} else {
+			println("	Unknown OS")
+		}
+	case "--api", "-a":
+		if console.IsWindows() || console.IsMacOS() {
+			if command[1] == "--description" || command[1] == "-d" {
+				description, err := getUserDescription()
+				if err != nil {
+					println("	Failed to get user description")
+					return
+				}
+				println("	User Description: " + description)
+			} else if command[1] == "--messages" || command[1] == "-m" {
+				ms, err := getUnreadMessages()
+				if err != nil {
+					println("	Failed to get unread messages")
+					return
+				}
+				// convert ms to string
+				println("	Unread Messages: " + strconv.Itoa(ms))
+			} else if command[1] == "--email" || command[1] == "-e" {
+				email, verified, err := getEmailInfo()
+				if err != nil {
+					println("	Failed to get email info")
+					return
+				}
+				if verified {
+					println("	Email: " + email)
+				} else {
+					println("	Email: " + email + " (Not Verified)")
+				}
+			} else if command[1] == "--username" || command[1] == "-u" {
+				username, err := parseUsername()
+				if err != nil {
+					println("	Failed to get email info")
+					return
+				}
+				println("	Username: " + username)
+			}
+		} else {
+			println("	Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			print("	--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")

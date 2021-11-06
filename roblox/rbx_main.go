@@ -266,19 +266,19 @@ func CommandHandler(command []string) {
 		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
-			print("	--fix, -f ~ Fixes stuff that happens when you open Roblox etc\n")
+			print("	--fix, -f ~ Fixes bugs that happens to Roblox\n")
 			print("	--cursor, -c ~ Installs a custom cursor\n")
 			print("	--delete, -d ~ Deletes Roblox\n")
 			print("	--install, -i ~ Installs Roblox\n")
 			print("	--tainted, -t ~ Checks if user is tainted\n")
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
-			print("	--check, -C ~ Checks if a username is valid\n")
+			print("	--check, -C ~ Checks/Generate if a username is valid\n")
 			print("	--set-token, -s ~ Sets the security token\n")
 			print("	--api, -a ~ Gets info about the user\n")
 		} else if console.IsMacOS() {
 			print("	--install, -i ~ Installs Roblox\n")
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
-			print("	--check, -C ~ Checks if a username is valid\n")
+			print("	--check, -C ~ Checks/Generate if a username is valid\n")
 			print("	--set-token, -s ~ Sets the security token\n")
 			print("	--api, -a ~ Gets info about the user\n")
 		}

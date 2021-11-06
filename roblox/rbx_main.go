@@ -69,6 +69,16 @@ func CommandHandler(command []string) {
 		} else {
 			println("	Unknown OS")
 		}
+	case "--reinstall", "-r":
+		if console.IsWindows() {
+			DeleteRoblox()
+			ver, _ := GetRobloxWindowsVersion()
+			InstallRoblox(ver, true)
+		} else if console.IsMacOS() {
+			println("	MacOS is not yet supported")
+		} else {
+			println("	Unknown OS")
+		}
 	case "--install", "-i":
 		if console.IsWindows() {
 			if len(command) == 2 {

@@ -242,6 +242,10 @@ func CommandHandler(command []string) {
 		}
 	case "--api", "-a":
 		if console.IsWindows() || console.IsMacOS() {
+			if len(ROBLOSECURITY) == 0 {
+				println("	Roblox Security Token not set")
+				return
+			}
 			if len(command) == 2 {
 				if command[1] == "--description" || command[1] == "-d" {
 					description, err := getUserDescription()

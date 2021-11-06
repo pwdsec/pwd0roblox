@@ -159,16 +159,16 @@ func CommandHandler(command []string) {
 			} else {
 				println("	Usage: --check (-c) [option]")
 				println("	Options:")
-				println("		--generate (-g) [lenght] - Checks if a username is valid")
+				println("		--generate (-g) [lenght] - generate random username and check if valid")
 				println("		--username (-u) [username] - Checks if a username is valid")
-				println("		--normal (-n) [how many] - Checks if a username is valid")
+				println("		--normal (-n) [how many] - generates usernames and check if valid")
 			}
 		} else {
 			println("	Usage: --check (-c) [option]")
 			println("	Options:")
-			println("		--generate (-g) [lenght] - Checks if a username is valid")
+			println("		--generate (-g) [lenght] - generate random username and check if valid")
 			println("		--username (-u) [username] - Checks if a username is valid")
-			println("		--normal (-n) [how many] - Checks if a username is valid")
+			println("		--normal (-n) [how many] - generates usernames and check if valid")
 		}
 	case "--tainted", "-t":
 		if console.IsWindows() {

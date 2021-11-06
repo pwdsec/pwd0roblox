@@ -243,7 +243,7 @@ func CommandHandler(command []string) {
 	case "--api", "-a":
 		if console.IsWindows() || console.IsMacOS() {
 			if len(ROBLOSECURITY) == 0 {
-				println("	Roblox Security Token not set")
+				println("	Roblox Security Token not set (rbx --set-token [token])")
 				return
 			}
 			if len(command) == 2 {
@@ -273,6 +273,13 @@ func CommandHandler(command []string) {
 					} else {
 						println("	Email: " + email + " (Not Verified)")
 					}
+				} else if command[1] == "--help" || command[1] == "-h" || command[1] == "?" {
+					println("	Usage: --api (-a) [option]")
+					println("	Options:")
+					println("		--description (-d) - Gets the user description")
+					println("		--messages (-m) - Gets the unread messages")
+					println("		--email (-e) - Gets the email info")
+					println("		--help (-h) - Shows this help")
 				}
 			} else {
 				println("	Usage: --api (-a) [option]")
@@ -280,6 +287,7 @@ func CommandHandler(command []string) {
 				println("		--description (-d) - Gets the user description")
 				println("		--messages (-m) - Gets the unread messages")
 				println("		--email (-e) - Gets the email info")
+				println("		--help (-h) - Shows this help")
 			}
 		} else {
 			println("	Unknown OS")

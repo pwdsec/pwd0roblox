@@ -242,39 +242,40 @@ func CommandHandler(command []string) {
 		}
 	case "--api", "-a":
 		if console.IsWindows() || console.IsMacOS() {
-			if command[1] == "--description" || command[1] == "-d" {
-				description, err := getUserDescription()
-				if err != nil {
-					println("	Failed to get user description")
-					return
+			if len(command) == 2 {
+				if command[1] == "--description" || command[1] == "-d" {
+					description, err := getUserDescription()
+					if err != nil {
+						println("	Failed to get user description")
+						return
+					}
+					println("	User Description: " + description)
+				} else if command[1] == "--messages" || command[1] == "-m" {
+					ms, err := getUnreadMessages()
+					if err != nil {
+						println("	Failed to get unread messages")
+						return
+					}
+					// convert ms to string
+					println("	Unread Messages: " + strconv.Itoa(ms))
+				} else if command[1] == "--email" || command[1] == "-e" {
+					email, verified, err := getEmailInfo()
+					if err != nil {
+						println("	Failed to get email info")
+						return
+					}
+					if verified {
+						println("	Email: " + email)
+					} else {
+						println("	Email: " + email + " (Not Verified)")
+					}
 				}
-				println("	User Description: " + description)
-			} else if command[1] == "--messages" || command[1] == "-m" {
-				ms, err := getUnreadMessages()
-				if err != nil {
-					println("	Failed to get unread messages")
-					return
-				}
-				// convert ms to string
-				println("	Unread Messages: " + strconv.Itoa(ms))
-			} else if command[1] == "--email" || command[1] == "-e" {
-				email, verified, err := getEmailInfo()
-				if err != nil {
-					println("	Failed to get email info")
-					return
-				}
-				if verified {
-					println("	Email: " + email)
-				} else {
-					println("	Email: " + email + " (Not Verified)")
-				}
-			} else if command[1] == "--username" || command[1] == "-u" {
-				username, err := parseUsername()
-				if err != nil {
-					println("	Failed to get email info")
-					return
-				}
-				println("	Username: " + username)
+			} else {
+				println("	Usage: --api (-a) [option]")
+				println("	Options:")
+				println("		--description (-d) - Gets the user description")
+				println("		--messages (-m) - Gets the unread messages")
+				println("		--email (-e) - Gets the email info")
 			}
 		} else {
 			println("	Unknown OS")
@@ -288,10 +289,14 @@ func CommandHandler(command []string) {
 			print("	--tainted, -t ~ Checks if user is tainted\n")
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 			print("	--check, -C ~ Checks if a username is valid\n")
+			print("	--set-token, -s ~ Sets the security token\n")
+			print("	--api, -a ~ Gets info about the user\n")
 		} else if console.IsMacOS() {
 			print("	--install, -i ~ Installs Roblox\n")
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 			print("	--check, -C ~ Checks if a username is valid\n")
+			print("	--set-token, -s ~ Sets the security token\n")
+			print("	--api, -a ~ Gets info about the user\n")
 		}
 	default:
 		print("	Unknown command: " + command[0] + "\n")

@@ -255,13 +255,23 @@ func CommandHandler(command []string) {
 					} else {
 						println("	Email: " + email + " (Not Verified)")
 					}
-				} else if command[1] == "--help" || command[1] == "-h" || command[1] == "?" {
-					println("	Usage: --api (-a) [option]")
-					println("	Options:")
-					println("		--description (-d) - Gets the user description")
-					println("		--messages (-m) - Gets the unread messages")
-					println("		--email (-e) - Gets the email info")
-					println("		--help (-h) - Shows this help")
+				}
+			} else if len(command) == 3 {
+				if command[1] == "--userid" {
+					_, user, online, err := getUserIDInfo(command[2])
+					if err != nil {
+						println("	Failed to get user id info")
+						return
+					}
+					if len(user) == 0 {
+						println("	User not found")
+						return
+					}
+					if online {
+						println("	User: " + user + " (Online)")
+					} else {
+						println("	User: " + user + " (Offline)")
+					}
 				}
 			} else {
 				println("	Usage: --api (-a) [option]")
@@ -270,6 +280,7 @@ func CommandHandler(command []string) {
 				println("		--messages (-m) - Gets the unread messages")
 				println("		--email (-e) - Gets the email info")
 				println("		--help (-h) - Shows this help")
+				println("		--userid (-u) [user] - Gets the user id info")
 			}
 		} else {
 			println("	Unknown OS")

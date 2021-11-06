@@ -29,6 +29,12 @@ type EmailInfo struct {
 	Verified bool   `json:"verified"`
 }
 
+type UserIDInfo struct {
+	Id       int    `json:"Id"`
+	Username string `json:"Username"`
+	IsOnline bool   `json:"IsOnline"`
+}
+
 // assetids
 //type CurrentlyWearing struct {
 //	AssetId []int `json:"assetIds"`
@@ -125,4 +131,34 @@ func getEmailInfo() (string, bool, error) {
 	}
 
 	return email_info.Email, email_info.Verified, nil
+}
+
+func getUserIDInfo(id string) (int, string, bool, error) {
+	url := "https://api.roblox.com/users/" + id
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return 0, "", false, err
+	}
+	req.Header.Set("Cookie", ROBLOSECURITY)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return 0, "", false, err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return 0, "", false, err
+	}
+
+	var user_id_info UserIDInfo
+	err = json.Unmarshal(body, &user_id_info)
+	if err != nil {
+		return 0, "", false, err
+	}
+
+	return user_id_info.Id, user_id_info.Username, user_id_info.IsOnline, nil
 }

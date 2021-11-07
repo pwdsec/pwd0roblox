@@ -305,7 +305,7 @@ func CommandHandler(command []string) {
 				} else {
 					err := postRequestLogin(command[1], command[2])
 					if err != nil {
-						println("	Failed to login")
+						println(err.Error())
 						return
 					} else {
 						println("	Successfully logged in")

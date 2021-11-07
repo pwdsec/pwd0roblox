@@ -1,4 +1,8 @@
 ## pwd0roblox
+
+### Todo
+* finish login function
+
 Roblox ToolBox and more
 not very experianced with golang, learning
 

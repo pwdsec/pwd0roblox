@@ -5,9 +5,7 @@
   * --fix, -f ~ Fixes bugs that happens to Roblox
   * --cursor, -c ~ Installs a custom cursor
   * --delete, -d ~ Deletes Roblox
-
   * --reinstall, -r ~ Reinstalls Roblox
-
   * --install, -i ~ Installs Roblox
   * --tainted, -t ~ Checks if user is tainted
   * --versions, -v ~ Prints the latest versions of Roblox and Roblox Studio

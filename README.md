@@ -1,7 +1,7 @@
 ![Untitled](https://user-images.githubusercontent.com/79817991/140631125-5f5a6b33-cced-4108-ab4f-5e5ce09c87c8.png)
 
 ### Commands Windows
-* `roblox, rbx ~ run roblox commands, --help (-h)`
+* ``roblox, rbx ~ run roblox commands, --help (-h)``
   * `--fix, -f ~ Fixes bugs that happens to Roblox`
   * `--cursor, -c ~ Installs a custom cursor`
   * `--delete, -d ~ Deletes Roblox`

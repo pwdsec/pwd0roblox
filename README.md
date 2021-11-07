@@ -34,10 +34,10 @@
 
 ### Todo
 * Linux
- * add linux support
- * add linux commands 
+  * add linux support
+  * add linux commands 
 * MacOS
- * More macos commands 
+  * More macos commands 
 * finish login function
 
 ### Developers

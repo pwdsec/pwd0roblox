@@ -2,6 +2,7 @@ package roblox
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 )
@@ -161,4 +162,31 @@ func getUserIDInfo(id string) (int, string, bool, error) {
 	}
 
 	return user_id_info.Id, user_id_info.Username, user_id_info.IsOnline, nil
+}
+
+// get cookie .RBXID
+func getRBXID() (string, error) {
+	url := "https://www.roblox.com/my/profile"
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Cookie", ROBLOSECURITY)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	// get response cookie
+	for _, cookie := range resp.Cookies() {
+		if cookie.Name == ".RBXID" {
+			return cookie.Value, nil
+		}
+	}
+
+	return "", errors.New("cookie not found")
 }

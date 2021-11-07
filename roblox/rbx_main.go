@@ -255,6 +255,13 @@ func CommandHandler(command []string) {
 					} else {
 						println("	Email: " + email + " (Not Verified)")
 					}
+				} else if command[1] == "--rbxid" || command[1] == "-r" {
+					rbxid, err := getRBXID()
+					if err != nil {
+						println("	Failed to get rbxid")
+						return
+					}
+					println("	RBXID: " + rbxid)
 				}
 			} else if len(command) == 3 {
 				if command[1] == "--userid" {

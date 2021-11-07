@@ -52,56 +52,15 @@ func getRobloxSecurity(rbx_token string) {
 }
 
 // not finished working on it \\
-func getXCSRFToken() (string, error) {
-	url := "https://www.roblox.com/"
-	req, err := http.NewRequest("POST", url, nil)
-	if err != nil {
-		return "", err
-	}
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("x-csrf-token", "zPpGoAFREM3e")
-
-	params := map[string]interface{}{
-		"ctype":    "Username",
-		"cvalue":   "username",
-		"password": "password",
-	}
-	params_bytes, err := json.Marshal(params)
-	if err != nil {
-		return "", err
-	}
-	req.Body = ioutil.NopCloser(strings.NewReader(string(params_bytes)))
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	if err != nil {
-		return "", err
-	}
-
-	xcsrf_token := resp.Header.Get("x-csrf-token")
-	print(xcsrf_token)
-	return xcsrf_token, nil
-}
-
-// not finished working on it \\
 func postRequestLogin(username, password string) error {
 	var cookies Cookies
-	xs, err := getXCSRFToken()
-	if err != nil {
-		return err
-	}
+
 	url := "https://auth.roblox.com/v2/login"
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("x-csrf-token", xs)
 
 	params := map[string]interface{}{
 		"ctype":    "Username",

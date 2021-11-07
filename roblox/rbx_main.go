@@ -283,7 +283,6 @@ func CommandHandler(command []string) {
 						println("	RBXID: " + rbxid)
 					}
 				}
-
 			} else {
 				println("	Usage: --api (-a) [option]")
 				println("	Options:")
@@ -294,6 +293,26 @@ func CommandHandler(command []string) {
 				println("		--userid (-u) [user] - Gets the user id info")
 				println("		--get (-g) - Gets option")
 				println("			--rbxid (-r) - Gets the rbxid")
+			}
+		} else {
+			println("	Unknown OS")
+		}
+	case "--login", "-l":
+		if console.IsWindows() || console.IsMacOS() {
+			if len(command) == 3 {
+				if command[1] == "-h" {
+					println("	Usage: --login (-l) [username] [password]")
+				} else {
+					err := postRequestLogin(command[1], command[2])
+					if err != nil {
+						println("	Failed to login")
+						return
+					} else {
+						println("	Successfully logged in")
+					}
+				}
+			} else {
+				println("	Usage: --login (-l) [username] [password]")
 			}
 		} else {
 			println("	Unknown OS")
@@ -309,12 +328,14 @@ func CommandHandler(command []string) {
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 			print("	--check, -C ~ Checks/Generate if a username is valid\n")
 			print("	--set-token, -s ~ Sets the security token\n")
+			print("	--login, -l ~ Logs in to Roblox account\n")
 			print("	--api, -a ~ Gets info about the user\n")
 		} else if console.IsMacOS() {
 			print("	--install, -i ~ Installs Roblox\n")
 			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
 			print("	--check, -C ~ Checks/Generate if a username is valid\n")
 			print("	--set-token, -s ~ Sets the security token\n")
+			print("	--login, -l ~ Logs in to Roblox account\n")
 			print("	--api, -a ~ Gets info about the user\n")
 		}
 	default:

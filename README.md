@@ -1,4 +1,4 @@
-![Untitled](https://user-images.githubusercontent.com/79817991/140631125-5f5a6b33-cced-4108-ab4f-5e5ce09c87c8.png)
+![pwdbanner](https://user-images.githubusercontent.com/79817991/140659467-fb7c645b-219a-41cf-94ec-740125bf7765.png)
 
 ### Commands Windows
 * roblox, rbx ~ run roblox commands, --help (-h)
@@ -29,8 +29,21 @@
 * exit, quit ~ exit the program
 * help, ? ~ show this help
 
+### Commands Linux
+* Soon
+
 ### Todo
+* Linux
+  * add linux support
+  * add linux commands 
+* MacOS
+  * More macos commands 
 * finish login function
+
+### Developers
+| [<img src="https://github.com/pwd0kernel.png?size=115" width=115><br><sub>@pwd0kernel</sub>](https://github.com/pwd0kernel) | [<img src="https://github.com/Calamixy.png?size=115" width=115><br><sub>@Calamixy</sub>](https://github.com/Calamixy) |
+| :---: | :---: |
+
 ---
 Roblox ToolBox and more
 not very experianced with golang, learning

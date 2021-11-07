@@ -224,8 +224,9 @@ func CommandHandler(command []string) {
 		}
 	case "--api", "-a":
 		if console.IsWindows() || console.IsMacOS() {
-			if len(ROBLOSECURITY) == 0 {
-				println("	Roblox Security Token not set (rbx --set-token [token])")
+			var cookies Cookies
+			if len(cookies.ROBLOSECURITY) == 0 {
+				println("	Roblox Security Token not set (rbx --set-token [token]) || rbx --login [username] [password]")
 				return
 			}
 			if len(command) == 2 {

@@ -255,16 +255,9 @@ func CommandHandler(command []string) {
 					} else {
 						println("	Email: " + email + " (Not Verified)")
 					}
-				} else if command[1] == "--rbxid" || command[1] == "-r" {
-					rbxid, err := getRBXID()
-					if err != nil {
-						println("	Failed to get rbxid")
-						return
-					}
-					println("	RBXID: " + rbxid)
 				}
 			} else if len(command) == 3 {
-				if command[1] == "--userid" {
+				if command[1] == "--userid" || command[1] == "-u" {
 					_, user, online, err := getUserIDInfo(command[2])
 					if err != nil {
 						println("	Failed to get user id info")
@@ -279,7 +272,17 @@ func CommandHandler(command []string) {
 					} else {
 						println("	User: " + user + " (Offline)")
 					}
+				} else if command[1] == "--get" || command[1] == "-g" {
+					if command[2] == "--rbxid" || command[2] == "-r" {
+						rbxid, err := getRBXID()
+						if err != nil {
+							println("	Failed to get rbxid")
+							return
+						}
+						println("	RBXID: " + rbxid)
+					}
 				}
+
 			} else {
 				println("	Usage: --api (-a) [option]")
 				println("	Options:")
@@ -288,6 +291,8 @@ func CommandHandler(command []string) {
 				println("		--email (-e) - Gets the email info")
 				println("		--help (-h) - Shows this help")
 				println("		--userid (-u) [user] - Gets the user id info")
+				println("		--get (-g) - Gets option")
+				println("			--rbxid (-r) - Gets the rbxid")
 			}
 		} else {
 			println("	Unknown OS")

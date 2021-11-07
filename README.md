@@ -39,6 +39,11 @@
 * MacOS
  * More macos commands 
 * finish login function
+
+### Developers
+| [<img src="https://github.com/pwd0kernel.png?size=115" width=115><br><sub>@pwd0kernel</sub>](https://github.com/pwd0kernel) | [<img src="https://github.com/Calamixy.png?size=115" width=115><br><sub>@Calamixy</sub>](https://github.com/Calamixy) |
+| :---: | :---: |
+
 ---
 Roblox ToolBox and more
 not very experianced with golang, learning

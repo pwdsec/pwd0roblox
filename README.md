@@ -1,11 +1,13 @@
-![Untitled](https://user-images.githubusercontent.com/79817991/140631125-5f5a6b33-cced-4108-ab4f-5e5ce09c87c8.png)
+![pwdb](https://user-images.githubusercontent.com/79817991/140658858-cf2ede57-af03-4e37-b145-c822b2df8158.png)
 
 ### Commands Windows
 * roblox, rbx ~ run roblox commands, --help (-h)
   * --fix, -f ~ Fixes bugs that happens to Roblox
   * --cursor, -c ~ Installs a custom cursor
   * --delete, -d ~ Deletes Roblox
+
   * --reinstall, -r ~ Reinstalls Roblox
+
   * --install, -i ~ Installs Roblox
   * --tainted, -t ~ Checks if user is tainted
   * --versions, -v ~ Prints the latest versions of Roblox and Roblox Studio

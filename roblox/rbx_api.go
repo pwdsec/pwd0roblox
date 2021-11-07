@@ -5,13 +5,18 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 var ROBLOSECURITY string
 
 // get the roblox security token
 func getRobloxSecurity(rbx_token string) {
-	ROBLOSECURITY = rbx_token
+	if strings.Contains(rbx_token, ".ROBLOSECURITY=") {
+		ROBLOSECURITY = rbx_token
+	} else {
+		ROBLOSECURITY = ".ROBLOSECURITY=" + rbx_token
+	}
 }
 
 // UserDescription
@@ -166,7 +171,7 @@ func getUserIDInfo(id string) (int, string, bool, error) {
 
 // get cookie .RBXID
 func getRBXID() (string, error) {
-	url := "https://www.roblox.com/my/profile"
+	url := "https://www.roblox.com/home"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err

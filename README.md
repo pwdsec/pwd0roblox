@@ -29,7 +29,15 @@
 * exit, quit ~ exit the program
 * help, ? ~ show this help
 
+### Commands Linux
+* Soon
+
 ### Todo
+* Linux
+ * add linux support
+ * add linux commands 
+* MacOS
+ * More macos commands 
 * finish login function
 ---
 Roblox ToolBox and more

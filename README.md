@@ -1,5 +1,4 @@
-![cli](https://user-images.githubusercontent.com/79817991/140671099-0799dae6-2d93-406d-90d4-50e326beefe7.png)
-
+![clis](https://user-images.githubusercontent.com/79817991/140671311-030926c2-cfbb-467e-922f-059c53f94ba8.png)
 ### Commands Windows
 * roblox, rbx ~ run roblox commands, --help (-h)
   * --fix, -f ~ Fixes bugs that happens to Roblox
@@ -22,6 +21,7 @@
   * --install, -i ~ Installs Roblox
   * --versions, -v ~ Prints the latest versions of Roblox and Roblox Studio
   * --check, -C ~ Checks/Generate if a username is valid
+
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user

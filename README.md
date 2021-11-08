@@ -1,4 +1,4 @@
-![pwdbanner](https://user-images.githubusercontent.com/79817991/140659467-fb7c645b-219a-41cf-94ec-740125bf7765.png)
+![cli](https://user-images.githubusercontent.com/79817991/140671099-0799dae6-2d93-406d-90d4-50e326beefe7.png)
 
 ### Commands Windows
 * roblox, rbx ~ run roblox commands, --help (-h)

@@ -1,4 +1,4 @@
-![clis](https://user-images.githubusercontent.com/79817991/140671311-030926c2-cfbb-467e-922f-059c53f94ba8.png)
+![sellected](https://user-images.githubusercontent.com/79817991/140671446-1458468f-e6fe-47aa-a5e4-7465e1e1b867.png)
 ### Commands Windows
 * roblox, rbx ~ run roblox commands, --help (-h)
   * --fix, -f ~ Fixes bugs that happens to Roblox

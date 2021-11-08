@@ -6,23 +6,25 @@ import (
 	"os"
 	"os/exec"
 	"pwd0roblox/console"
+
+	"github.com/pterm/pterm"
 )
 
 // deletes roblox from pc.
 func DeleteRoblox() {
-	println("	[+] Deleting Roblox...")
+	deleting, _ := pterm.DefaultSpinner.Start("Deleting Roblox...")
 	dir, _ := os.UserCacheDir()
 	// check if roblox is installed
 	if _, err := os.Stat(dir + "\\Roblox"); err == nil {
 		// delete roblox
 		os.RemoveAll(dir + "\\Roblox")
 	}
-	println("	[+] Roblox deleted!")
+	deleting.Success("Deleted!")
 }
 
 // downloads roblox and installs it.
 func InstallRoblox(version string, start bool) {
-	println("	[+] Downloading Roblox...")
+	downloading, _ := pterm.DefaultSpinner.Start("Downloading Roblox...")
 
 	var url string
 	var file_name string
@@ -53,9 +55,9 @@ func InstallRoblox(version string, start bool) {
 
 	file.Close()
 
-	println("	[+] Roblox downloaded!")
+	downloading.Success("Downloaded!")
 	if start {
-		println("	[+] Installing Roblox...")
+		installing, _ := pterm.DefaultSpinner.Start("Installing Roblox...")
 		if console.IsWindows() {
 			cmd := exec.Command("Roblox.exe")
 			cmd.Start()
@@ -65,7 +67,7 @@ func InstallRoblox(version string, start bool) {
 			cmd.Start()
 			cmd.Wait()
 		}
-		println("	[+] Roblox installed!")
+		installing.Success("Installed!")
 		os.Remove(file_name)
 	}
 }

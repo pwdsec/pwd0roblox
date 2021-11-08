@@ -4,13 +4,15 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/pterm/pterm"
 )
 
 // gets each ini file path
 func GetINIFiles() []string {
 	appdata_local, b := os.UserCacheDir()
 	if b != nil {
-		println(b.Error())
+		pterm.Error.Println("Failed to get user cache directory")
 	}
 	// get each .ini file path from Roblox\logs\archive\
 	files, err := ioutil.ReadDir(appdata_local + "\\Roblox\\logs\\archive")

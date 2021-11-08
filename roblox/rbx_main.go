@@ -6,6 +6,8 @@ import (
 	"math/rand"
 	"pwd0roblox/console"
 	"strconv"
+
+	"github.com/pterm/pterm"
 )
 
 // roblox command handler.
@@ -26,9 +28,9 @@ func CommandHandler(command []string) {
 				println("		UBK - Fixes Unexpected Behavior Kick in Roblox")
 			}
 		} else if console.IsMacOS() {
-			println("	MacOS is not yet supported")
+			pterm.Error.Println("MacOS is not yet supported")
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--cursor", "-c":
 		if console.IsWindows() {
@@ -45,9 +47,9 @@ func CommandHandler(command []string) {
 				}
 			}
 		} else if console.IsMacOS() {
-			println("	MacOS is not yet supported")
+			pterm.Error.Println("MacOS is not yet supported")
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--versions", "-v":
 		roblox_windows_version, _ := GetRobloxWindowsVersion()
@@ -56,18 +58,21 @@ func CommandHandler(command []string) {
 		roblox_studio_mac_version, _ := GetRobloxStudioMacVersion()
 		roblox_studio_qt_version, _ := GetRobloxStudioQTVersion()
 
-		println("	Roblox Windows Version: " + roblox_windows_version)
-		println("	Roblox Studio Windows Version: " + roblox_studio_windows_version)
-		println("	Roblox Mac Version: " + roblox_mac_version)
-		println("	Roblox Studio Mac Version: " + roblox_studio_mac_version)
-		println("	Roblox Studio Qt Version: " + roblox_studio_qt_version)
+		pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+			{"OS", "NAME", "Version"},
+			{"Windows", "Roblox", roblox_windows_version},
+			{"Windows", "Studio", roblox_studio_windows_version},
+			{"Mac", "Roblox", roblox_mac_version},
+			{"Mac", "Studio", roblox_studio_mac_version},
+			{"Unknown", "Studio Qt", roblox_studio_qt_version},
+		}).Render()
 	case "--delete", "-d":
 		if console.IsWindows() {
 			DeleteRoblox()
 		} else if console.IsMacOS() {
-			println("	MacOS is not yet supported")
+			pterm.Error.Println("MacOS is not yet supported")
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--reinstall", "-r":
 		if console.IsWindows() {
@@ -75,9 +80,9 @@ func CommandHandler(command []string) {
 			ver, _ := GetRobloxWindowsVersion()
 			InstallRoblox(ver, true)
 		} else if console.IsMacOS() {
-			println("	MacOS is not yet supported")
+			pterm.Error.Println("MacOS is not yet supported")
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--install", "-i":
 		if console.IsWindows() {
@@ -115,7 +120,7 @@ func CommandHandler(command []string) {
 				InstallRoblox(ver, true)
 			}
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--check", "-C":
 		if len(command) == 3 {
@@ -204,9 +209,9 @@ func CommandHandler(command []string) {
 				}
 			}
 		} else if console.IsMacOS() {
-			println("	MacOS is not yet supported")
+			pterm.Error.Println("MacOS is not yet supported")
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--set-token", "-s":
 		if console.IsWindows() || console.IsMacOS() {
@@ -220,7 +225,7 @@ func CommandHandler(command []string) {
 				println("	Usage: --set-token (-t) [token]")
 			}
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--api", "-a":
 		if console.IsWindows() || console.IsMacOS() {
@@ -295,7 +300,7 @@ func CommandHandler(command []string) {
 				println("			--rbxid (-r) - Gets the rbxid")
 			}
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--login", "-l":
 		if console.IsWindows() || console.IsMacOS() {
@@ -315,28 +320,35 @@ func CommandHandler(command []string) {
 				println("	Usage: --login (-l) [username] [password]")
 			}
 		} else {
-			println("	Unknown OS")
+			pterm.Error.Println("Unknown OS")
 		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
-			print("	--fix, -f ~ Fixes bugs that happens to Roblox\n")
-			print("	--cursor, -c ~ Installs a custom cursor\n")
-			print("	--delete, -d ~ Deletes Roblox\n")
-			print("	--reinstall, -r ~ Reinstalls Roblox\n")
-			print("	--install, -i ~ Installs Roblox\n")
-			print("	--tainted, -t ~ Checks if user is tainted\n")
-			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
-			print("	--check, -C ~ Checks/Generate if a username is valid\n")
-			print("	--set-token, -s ~ Sets the security token\n")
-			print("	--login, -l ~ Logs in to Roblox account\n")
-			print("	--api, -a ~ Gets info about the user\n")
+			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+				{"Command", "Single", "Description"},
+				{"--login", "-l", "Logs into Roblox"},
+				{"--set-token", "-t", "Sets the Roblox Security Token"},
+				{"--api", "-a", "Gets information about the user"},
+				{"--help", "-h", "Shows this help"},
+				{"--check", "-C", "Checks/Generate if a username is valid"},
+				{"--fix", "-f", "Fixes bugs that happens to Roblox"},
+				{"--cursor", "-c", "Installs a custom cursor"},
+				{"--delete", "-d", "Deletes Roblox"},
+				{"--install", "-i", "Installs Roblox"},
+				{"--reinstall", "-r", "Reinstalls Roblox"},
+				{"--tainted", "-t", "Checks if user is tainted"},
+				{"--versions", "-v", "Prints the latest versions of Roblox and Roblox Studio"},
+			}).Render()
 		} else if console.IsMacOS() {
-			print("	--install, -i ~ Installs Roblox\n")
-			print("	--versions, -v ~ Prints the latest versions of Roblox and Roblox Studio\n")
-			print("	--check, -C ~ Checks/Generate if a username is valid\n")
-			print("	--set-token, -s ~ Sets the security token\n")
-			print("	--login, -l ~ Logs in to Roblox account\n")
-			print("	--api, -a ~ Gets info about the user\n")
+			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+				{"Command", "Single", "Description"},
+				{"--login", "-l", "Logs into Roblox"},
+				{"--install", "-i", "Installs Roblox"},
+				{"--version", "-v", "Prints the latest versions of Roblox and Roblox Studio"},
+				{"--api", "-a", "Gets information about the user and more"},
+				{"--check", "-C", "Checks/Generate if a username is valid"},
+				{"--set-token", "-t", "Sets the Roblox Security Token"},
+			}).Render()
 		}
 	default:
 		print("	Unknown command: " + command[0] + "\n")

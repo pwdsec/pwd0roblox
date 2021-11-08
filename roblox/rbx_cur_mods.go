@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+
+	"github.com/pterm/pterm"
 )
 
 // cursor data array.
@@ -92,7 +94,7 @@ func CursorsList() []string {
 // error if not found.
 // string cursor name.
 func CursorsInstaller(cursor string) error {
-	println("	[+] Installing " + cursor + " cursor")
+	installing, _ := pterm.DefaultSpinner.Start("Installing " + cursor + " cursor")
 	var ArrowCursor string
 	var ArrowFarCursor string
 	for i, v := range data {
@@ -108,7 +110,7 @@ func CursorsInstaller(cursor string) error {
 	}
 
 	if b != nil {
-		println("	Failed to get user cache directory")
+		pterm.Error.Println("Failed to get user cache directory")
 		return nil
 	}
 
@@ -150,7 +152,8 @@ func CursorsInstaller(cursor string) error {
 	if err != nil {
 		return err
 	}
-	println("	[+] Done")
+	installing.Success("Installed " + cursor + " cursor")
+
 	// return
 	return nil
 }

@@ -4,16 +4,18 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/pterm/pterm"
 )
 
 // fixes the Unexpected Behavior Kick that happens when you open Roblox.
 // this is a workaround for a bug in Roblox.
 // this method is not 100% reliable.
 func Fix_Unexpected_Behavior_Kick_method_1() {
-	print("	[+] Fixing Unexpected Behavior Kick...\n")
+	fixing, _ := pterm.DefaultSpinner.Start("Fixing Unexpected Behavior Kick...")
 	a, b := os.UserCacheDir()
 	if b != nil {
-		println("	Failed to get user cache directory")
+		pterm.Error.Println("Failed to get user cache directory")
 		return
 	}
 
@@ -28,5 +30,5 @@ func Fix_Unexpected_Behavior_Kick_method_1() {
 			os.Remove(a + "\\Roblox\\" + file.Name())
 		}
 	}
-	print("	[+] Successfully fixed Unexpected Behavior Kick\n")
+	fixing.Success("Fixed Unexpected Behavior Kick")
 }

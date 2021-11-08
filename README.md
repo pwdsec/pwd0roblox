@@ -13,6 +13,7 @@
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user
+* information, info ~ information about the program and devs 
 * cls, clear ~ clear the console
 * exit, quit ~ exit the program
 * help, ? ~ show this help
@@ -25,6 +26,7 @@
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user
+* information, info ~ information about the program and devs 
 * cls, clear ~ clear the console
 * exit, quit ~ exit the program
 * help, ? ~ show this help

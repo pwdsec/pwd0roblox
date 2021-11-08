@@ -21,7 +21,6 @@
   * --install, -i ~ Installs Roblox
   * --versions, -v ~ Prints the latest versions of Roblox and Roblox Studio
   * --check, -C ~ Checks/Generate if a username is valid
-
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user

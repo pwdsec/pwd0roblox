@@ -96,7 +96,11 @@ func CommandHandler(command []string) {
 		}
 	case "--install", "-i":
 		if console.IsWindows() {
-			if len(command) == 2 {
+			if len(command) == 3 {
+				if command[1] == "--content" || command[1] == "-c" {
+					ContentInstaller_Ziped(command[2])
+				}
+			} else if len(command) == 2 {
 				if command[1] == "--help" || command[1] == "-h" {
 					pterm.Info.Println("Usage: --install (-i) [option] ")
 					pterm.Info.Println("Options:")
@@ -108,6 +112,20 @@ func CommandHandler(command []string) {
 				} else if command[1] == "--content" || command[1] == "-c" {
 					ver, _ := GetRobloxWindowsVersion()
 					ContentInstaller_Ziped(ver)
+				} else if command[1] == "--versions" || command[1] == "-v" {
+					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+						{"Date", "Version"},
+						{"06-16-2021", "version-c864da271a4c44ea"},
+						{"06-11-2021", "version-7d96d7dad25d49f1"},
+						{"04-29-2021", "version-0658018801724832"},
+						{"04-08-2021", "version-278f0258a7224831"},
+						{"01-13-2021", "version-d5212926da8e4716"},
+						{"11-13-2020", "version-aa7766fcc7cb4906"},
+						{"04-10-2019", "version-9f8314ad67c64c0d"},
+						{"10-29-2018", "version-e9d1a6c5df10490c"},
+						{"12-12-2017", "version-45cc144b134647ea"},
+						{"02-25-2016", "version-a1b8c1edf45b4959"},
+					}).Render()
 				} else {
 					var start bool = false
 					for _, v := range command {

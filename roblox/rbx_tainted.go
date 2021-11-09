@@ -61,9 +61,9 @@ func IsTaintedLogFiles() {
 		}
 	}
 	if is_tainted {
-		pterm.Error.Println("User is tainted")
+		pterm.Warning.Println("User is tainted")
 	} else {
-		pterm.Info.Println("User is not tainted")
+		pterm.Success.Println("User is not tainted")
 	}
 }
 

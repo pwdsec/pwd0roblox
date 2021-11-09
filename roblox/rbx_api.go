@@ -8,10 +8,10 @@ import (
 	"strings"
 )
 
-type Cookies struct {
+var (
 	ROBLOSECURITY string
 	RBXID         string
-}
+)
 
 // UserDescription
 type UserDescription struct {
@@ -42,19 +42,16 @@ type UserIDInfo struct {
 
 // get the roblox security token
 func getRobloxSecurity(rbx_token string) {
-	var cookies Cookies
 
 	if strings.Contains(rbx_token, ".ROBLOSECURITY=") {
-		cookies.ROBLOSECURITY = rbx_token
+		ROBLOSECURITY = rbx_token
 	} else {
-		cookies.ROBLOSECURITY = ".ROBLOSECURITY=" + rbx_token
+		ROBLOSECURITY = ".ROBLOSECURITY=" + rbx_token
 	}
 }
 
 // not finished working on it \\
 func postRequestLogin(username, password string) error {
-	var cookies Cookies
-
 	url := "https://auth.roblox.com/v2/login"
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
@@ -91,17 +88,17 @@ func postRequestLogin(username, password string) error {
 	for _, cookie := range resp.Cookies() {
 		print("cookies" + cookie.Name)
 		if cookie.Name == ".ROBLOSECURITY" {
-			cookies.ROBLOSECURITY = cookie.Value
+			ROBLOSECURITY = cookie.Value
 		} else if cookie.Name == ".RBXID" {
-			cookies.RBXID = cookie.Value
+			RBXID = cookie.Value
 		}
 	}
 
-	if cookies.ROBLOSECURITY == "" {
+	if ROBLOSECURITY == "" {
 		return errors.New("ROBLOSECURITY cookie not found")
 	}
 
-	if cookies.RBXID == "" {
+	if RBXID == "" {
 		return errors.New("RBXID cookie not found")
 	}
 
@@ -110,13 +107,12 @@ func postRequestLogin(username, password string) error {
 
 // get userdescription : https://accountinformation.roblox.com/v1/description
 func getUserDescription() (string, error) {
-	var cookies Cookies
 	url := "https://accountinformation.roblox.com/v1/description"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("Cookie", cookies.ROBLOSECURITY)
+	req.Header.Set("Cookie", ROBLOSECURITY)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -142,13 +138,12 @@ func getUserDescription() (string, error) {
 
 // get unread messages https://notifications.roblox.com/v2/stream-notifications/unread-count
 func getUnreadMessages() (int, error) {
-	var cookies Cookies
 	url := "https://notifications.roblox.com/v2/stream-notifications/unread-count"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return 0, err
 	}
-	req.Header.Set("Cookie", cookies.ROBLOSECURITY)
+	req.Header.Set("Cookie", ROBLOSECURITY)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -174,13 +169,12 @@ func getUnreadMessages() (int, error) {
 
 // get email info https://accountsettings.roblox.com/v1/email
 func getEmailInfo() (string, bool, error) {
-	var cookies Cookies
 	url := "https://accountsettings.roblox.com/v1/email"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", false, err
 	}
-	req.Header.Set("Cookie", cookies.ROBLOSECURITY)
+	req.Header.Set("Cookie", ROBLOSECURITY)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -205,13 +199,12 @@ func getEmailInfo() (string, bool, error) {
 }
 
 func getUserIDInfo(id string) (int, string, bool, error) {
-	var cookies Cookies
 	url := "https://api.roblox.com/users/" + id
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return 0, "", false, err
 	}
-	req.Header.Set("Cookie", cookies.ROBLOSECURITY)
+	req.Header.Set("Cookie", ROBLOSECURITY)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -237,13 +230,12 @@ func getUserIDInfo(id string) (int, string, bool, error) {
 
 // get cookie .RBXID
 func getRBXID() (string, error) {
-	var cookies Cookies
 	url := "https://www.roblox.com/home"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("Cookie", cookies.ROBLOSECURITY)
+	req.Header.Set("Cookie", ROBLOSECURITY)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}

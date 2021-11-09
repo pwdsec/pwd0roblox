@@ -26,9 +26,12 @@ func CommandHandler(command []string) {
 					pterm.Error.Println("Unknown fix: " + command[1])
 				}
 			} else {
-				println("	Usage: --fix (-f) [option]")
-				println("	Options:")
-				println("		UBK - Fixes Unexpected Behavior Kick in Roblox")
+				pterm.Info.Println("Usage: --fix (-f) [option]")
+				pterm.Info.Println("Options:")
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Command", "Description"},
+					{"UBK", "Fixes Unexpected Behavior Kick"},
+				}).Render()
 			}
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
@@ -46,11 +49,14 @@ func CommandHandler(command []string) {
 					println(err)
 				}
 			} else {
-				println("	Usage: --cursor (-c) [option]")
-				println("	Options:")
+				pterm.Info.Println("Usage: --cursor (-c) [option]")
+				pterm.Info.Println("Options:")
+				d := pterm.TableData{{"Cursor"}}
 				for _, v := range CursorsList() {
-					println("		" + v)
+					d = append(d, []string{v})
 				}
+				pterm.DefaultTable.WithHasHeader().WithData(d).WithBoxed().Render()
+
 			}
 		} else {
 			pterm.Error.Println("Unknown OS")
@@ -63,7 +69,7 @@ func CommandHandler(command []string) {
 		roblox_studio_qt_version, _ := GetRobloxStudioQTVersion()
 
 		pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-			{"OS", "NAME", "Version"},
+			{"Os", "Name", "Version"},
 			{"Windows", "Roblox", roblox_windows_version},
 			{"Windows", "Studio", roblox_studio_windows_version},
 			{"Mac", "Roblox", roblox_mac_version},
@@ -92,7 +98,7 @@ func CommandHandler(command []string) {
 		if console.IsWindows() {
 			if len(command) == 2 {
 				if command[1] == "-h" {
-					println("	Usage: --install (-i) [version] (-s)[start] ")
+					pterm.Info.Println("Usage: --install (-i) [version] (-s)[start] ")
 				} else {
 					var start bool = false
 					for _, v := range command {
@@ -109,7 +115,7 @@ func CommandHandler(command []string) {
 		} else if console.IsMacOS() {
 			if len(command) == 2 {
 				if command[1] == "-h" {
-					println("	Usage: --install (-i) [version] (-s)[start] ")
+					pterm.Info.Println("Usage: --install (-i) [version] (-s)[start] ")
 				} else {
 					var start bool = false
 					for _, v := range command {
@@ -145,7 +151,7 @@ func CommandHandler(command []string) {
 			} else if command[1] == "--username" || command[1] == "-u" {
 				check, err := CheckUsername(command[2])
 				if err != nil {
-					println("	Failed to check username")
+					pterm.Error.Println("Failed to check username")
 					return
 				}
 				if check {
@@ -165,35 +171,41 @@ func CommandHandler(command []string) {
 						v += num_str
 						check, err := CheckUsername(v)
 						if err != nil {
-							println("	Failed to check username")
+							pterm.Error.Println("Failed to check username")
 							return
 						}
 						if check {
-							println("	Username is valid: " + v)
+							pterm.Success.Println("Username is available: " + v)
 						} else {
-							println("	Username is invalid: " + v)
+							pterm.Warning.Println("Username is not available: " + v)
 						}
 					}
 				}
 			} else {
-				println("	Usage: --check (-c) [option]")
-				println("	Options:")
-				println("		--generate (-g) [lenght] - generate random username and check if valid")
-				println("		--username (-u) [username] - Checks if a username is valid")
-				println("		--normal (-n) [how many] - generates usernames and check if valid")
+				pterm.Info.Println("Usage: --check (-c) [option]")
+				pterm.Info.Println("Options:")
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Command", "Single", "Description"},
+					{"--generate", "-g", "[lenght] - generate random username and check if valid"},
+					{"--username", "-u", "[username] - Checks if a username is valid"},
+					{"--normal", "-n", "[how many] - generates usernames and check if valid"},
+				}).Render()
 			}
 		} else {
-			println("	Usage: --check (-c) [option]")
-			println("	Options:")
-			println("		--generate (-g) [lenght] - generate random username and check if valid")
-			println("		--username (-u) [username] - Checks if a username is valid")
-			println("		--normal (-n) [how many] - generates usernames and check if valid")
+			pterm.Info.Println("Usage: --check (-c) [option]")
+			pterm.Info.Println("Options:")
+			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+				{"Command", "Single", "Description"},
+				{"--generate", "-g", "[lenght] - generate random username and check if valid"},
+				{"--username", "-u", "[username] - Checks if a username is valid"},
+				{"--normal", "-n", "[how many] - generates usernames and check if valid"},
+			}).Render()
 		}
 	case "--tainted", "-t":
 		if console.IsWindows() {
 			if len(command) == 2 {
 				if command[1] == "-h" {
-					println("	Usage: --tainted (-t) [version]")
+					pterm.Info.Println("Usage: --tainted (-t) [version]")
 				}
 			} else {
 				var is_tainted bool = false
@@ -221,87 +233,94 @@ func CommandHandler(command []string) {
 		if console.IsWindows() || console.IsMacOS() {
 			if len(command) == 2 {
 				if command[1] == "-h" {
-					println("	Usage: --set-token (-t) [token]")
+					pterm.Info.Println("Usage: --set-token (-t) [token]")
 				} else {
 					getRobloxSecurity(command[1])
 				}
 			} else {
-				println("	Usage: --set-token (-t) [token]")
+				pterm.Info.Println("Usage: --set-token (-t) [token]")
 			}
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
 	case "--api", "-a":
 		if console.IsWindows() || console.IsMacOS() {
-			var cookies Cookies
-			if len(cookies.ROBLOSECURITY) == 0 {
-				println("	Roblox Security Token not set (rbx --set-token [token]) || rbx --login [username] [password]")
+			if len(ROBLOSECURITY) == 0 {
+				pterm.Info.Println("Roblox Security Token not set (rbx --set-token [token]) or (rbx --login [username] [password])")
 				return
 			}
 			if len(command) == 2 {
 				if command[1] == "--description" || command[1] == "-d" {
 					description, err := getUserDescription()
 					if err != nil {
-						println("	Failed to get user description")
+						pterm.Error.Println("Failed to get user description")
 						return
 					}
-					println("	User Description: " + description)
+					pterm.Success.Println("User Description: " + description)
 				} else if command[1] == "--messages" || command[1] == "-m" {
 					ms, err := getUnreadMessages()
 					if err != nil {
-						println("	Failed to get unread messages")
+						pterm.Error.Println("Failed to get unread messages")
 						return
 					}
 					// convert ms to string
-					println("	Unread Messages: " + strconv.Itoa(ms))
+					pterm.Success.Println("Unread Messages: " + strconv.Itoa(ms))
 				} else if command[1] == "--email" || command[1] == "-e" {
 					email, verified, err := getEmailInfo()
 					if err != nil {
-						println("	Failed to get email info")
+						pterm.Error.Println("Failed to get email info")
 						return
 					}
 					if verified {
-						println("	Email: " + email)
+						pterm.Success.Println("Email: " + email)
 					} else {
-						println("	Email: " + email + " (Not Verified)")
+						pterm.Warning.Println("Email: " + email + " (Not Verified)")
 					}
 				}
 			} else if len(command) == 3 {
 				if command[1] == "--userid" || command[1] == "-u" {
 					_, user, online, err := getUserIDInfo(command[2])
 					if err != nil {
-						println("	Failed to get user id info")
+						pterm.Error.Println("Failed to get user id info")
 						return
 					}
 					if len(user) == 0 {
-						println("	User not found")
+						pterm.Error.Println("User not found")
 						return
 					}
 					if online {
-						println("	User: " + user + " (Online)")
+						pterm.Success.Println("User: " + user + " (Online)")
 					} else {
-						println("	User: " + user + " (Offline)")
+						pterm.Success.Println("User: " + user + " (Offline)")
 					}
 				} else if command[1] == "--get" || command[1] == "-g" {
 					if command[2] == "--rbxid" || command[2] == "-r" {
 						rbxid, err := getRBXID()
 						if err != nil {
-							println("	Failed to get rbxid")
+							pterm.Error.Println("Failed to get rbxid")
 							return
 						}
-						println("	RBXID: " + rbxid)
+						pterm.Success.Println("RBXID: " + rbxid)
 					}
 				}
 			} else {
-				println("	Usage: --api (-a) [option]")
-				println("	Options:")
-				println("		--description (-d) - Gets the user description")
-				println("		--messages (-m) - Gets the unread messages")
-				println("		--email (-e) - Gets the email info")
-				println("		--help (-h) - Shows this help")
-				println("		--userid (-u) [user] - Gets the user id info")
-				println("		--get (-g) - Gets option")
-				println("			--rbxid (-r) - Gets the rbxid")
+				pterm.Info.Println("Usage: --api (-a) [option]")
+				pterm.Info.Println("Options:")
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Command", "Single", "Description"},
+					{"--description", "-d", "Gets the user description"},
+					{"--messages", "-m", "Gets the unread messages"},
+					{"--email", "-e", "Gets the email info"},
+					{"--help", "-h", "Shows this help"},
+					{"--userid", "-u", "Gets the user id info"},
+					{"--get", "-g", "Gets option"},
+				}).Render()
+				pterm.Info.Println("Usage: --api (-a) --get (-g) [option]")
+				pterm.Info.Println("Options:")
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Command", "Single", "Description"},
+					{"--rbxid", "-r", "Gets the rbxid"},
+				}).Render()
 			}
 		} else {
 			pterm.Error.Println("Unknown OS")
@@ -310,18 +329,18 @@ func CommandHandler(command []string) {
 		if console.IsWindows() || console.IsMacOS() {
 			if len(command) == 3 {
 				if command[1] == "-h" {
-					println("	Usage: --login (-l) [username] [password]")
+					pterm.Info.Println("Usage: --login (-l) [username] [password]")
 				} else {
 					err := postRequestLogin(command[1], command[2])
 					if err != nil {
 						println(err.Error())
 						return
 					} else {
-						println("	Successfully logged in")
+						pterm.Success.Println("Login Successful")
 					}
 				}
 			} else {
-				println("	Usage: --login (-l) [username] [password]")
+				pterm.Info.Println("Usage: --login (-l) [username] [password]")
 			}
 		} else {
 			pterm.Error.Println("Unknown OS")
@@ -357,6 +376,6 @@ func CommandHandler(command []string) {
 			}).Render()
 		}
 	default:
-		print("	Unknown command: " + command[0] + "\n")
+		pterm.Error.Println("Unknown command: " + command[0])
 	}
 }

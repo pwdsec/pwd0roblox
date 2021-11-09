@@ -29,8 +29,8 @@ func CommandHandler(command []string) {
 				pterm.Info.Println("Usage: --fix (-f) [option]")
 				pterm.Info.Println("Options:")
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-					{"Command", "Description"},
-					{"UBK", "Fixes Unexpected Behavior Kick"},
+					{"Command", "Description", "Reliability"},
+					{"UBK", "Fixes Unexpected Behavior Kick", "50%"},
 				}).Render()
 			}
 		} else if console.IsMacOS() {

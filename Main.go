@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"pwd0roblox/console"
+	"pwd0roblox/pwdtools"
 	"pwd0roblox/roblox"
 	"strconv"
 	"strings"
@@ -33,6 +34,7 @@ func main() {
 	console.ConsoleClear()
 	console.SetConsoleTitle("pwd0roblox - " + Version)
 	intro()
+main_r:
 	console.ConsoleClear()
 	pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
 		"pwd0roblox\nVersion: " + Version)
@@ -49,6 +51,7 @@ func main() {
 			roblox.CommandHandler(args[1:])
 		case "cls", "clear":
 			console.ConsoleClear()
+			goto main_r
 		case "information", "info":
 			if console.IsWindows() {
 				hash := getHash("pwd0roblox.exe")
@@ -79,12 +82,32 @@ func main() {
 				{"calamixy", "MacOS", "MacOS Developer"},
 				{"pwd0kernel", "Win", "Windows Developer"},
 			}).Render()
+		case "proxy", "py":
+			if len(args) == 2 {
+				if strings.Contains(args[1], ".txt") {
+					list := pwdtools.GetProxyList(args[1])
+					if len(list) != 0 {
+						pwdtools.WriteProxyList("checked.txt", list)
+					} else {
+						pterm.Warning.Println("No proxies found")
+					}
+				} else {
+					if pwdtools.CheckProxy(args[1]) {
+						pterm.Success.Println("Proxy is valid: " + args[1])
+					} else {
+						pterm.Warning.Println("Proxy is invalid: " + args[1])
+					}
+				}
+			} else {
+				pterm.Info.Println("Usage: proxy [file.txt]")
+			}
 		case "ex", "quit":
 			os.Exit(0)
 		case "help", "?":
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
 				{"Command", "Short", "Description"},
 				{"roblox", "rbx", "Run Roblox commands, --help (-h)"},
+				{"proxy", "py", "Proxy Checker"},
 				{"information", "info", "Information about the program and developers"},
 				{"clear", "cls", "Clear the console"},
 				{"quit", "ex", "Exit the program"},

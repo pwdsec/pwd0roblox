@@ -97,8 +97,17 @@ func CommandHandler(command []string) {
 	case "--install", "-i":
 		if console.IsWindows() {
 			if len(command) == 2 {
-				if command[1] == "-h" {
-					pterm.Info.Println("Usage: --install (-i) [version] (-s)[start] ")
+				if command[1] == "--help" || command[1] == "-h" {
+					pterm.Info.Println("Usage: --install (-i) [option] ")
+					pterm.Info.Println("Options:")
+					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+						{"Command", "Single", "Description"},
+						{"--content", "-c", "Install the content"},
+						{"--help", "-h", "This help message"},
+					}).Render()
+				} else if command[1] == "--content" || command[1] == "-c" {
+					ver, _ := GetRobloxWindowsVersion()
+					ContentInstaller_Ziped(ver)
 				} else {
 					var start bool = false
 					for _, v := range command {
@@ -373,6 +382,7 @@ func CommandHandler(command []string) {
 				{"--api", "-a", "Gets information about the user and more"},
 				{"--check", "-C", "Checks/Generate if a username is valid"},
 				{"--set-token", "-t", "Sets the Roblox Security Token"},
+				{"--help", "-h", "Shows this help"},
 			}).Render()
 		}
 	default:

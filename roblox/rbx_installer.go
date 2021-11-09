@@ -1,9 +1,7 @@
 package roblox
 
 import (
-	"encoding/json"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -36,40 +34,6 @@ var files = []string{
 	"content-configs.zip",
 	"RobloxApp.zip",
 	"RobloxStudioLauncherBeta.exe",
-}
-
-type client_version struct {
-	clientVersionUpload string `json:"clientVersionUpload"`
-}
-
-func GetClientVersion() (string, error) {
-	url := "https://clientsettingscdn.roblox.com/v2/client-version/WindowsStudio"
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return "", err
-	}
-	req.Header.Set("Cookie", ROBLOSECURITY)
-	req.Header.Set("Content-Type", "application/json")
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
-	}
-
-	var cv client_version
-	err = json.Unmarshal(body, &cv)
-	if err != nil {
-		return "", err
-	}
-
-	return cv.clientVersionUpload, nil
 }
 
 // deletes roblox from pc.

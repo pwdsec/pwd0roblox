@@ -35,6 +35,9 @@ func CommandHandler(command []string) {
 	case "--cursor", "-c":
 		if console.IsWindows() {
 			if len(command) == 2 {
+				if command[1] == "--reset" || command[1] == "-r" {
+					CursorsInstaller("default")
+				}
 				err := CursorsInstaller(command[1])
 				if err != nil {
 					println("Invalid command")

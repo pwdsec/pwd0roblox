@@ -102,7 +102,7 @@ func intro() {
 	println()
 	introSpinner, _ := pterm.DefaultSpinner.WithRemoveWhenDone(true).Start("Waiting for 5 seconds...")
 	time.Sleep(1000 * time.Millisecond)
-	for i := 5; i > 0; i-- {
+	for i := 4; i > 0; i-- {
 		if i > 1 {
 			introSpinner.UpdateText("Waiting for " + strconv.Itoa(i) + " seconds...")
 		} else {

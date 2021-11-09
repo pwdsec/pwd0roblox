@@ -23,7 +23,7 @@ func CommandHandler(command []string) {
 				if command[1] == "UBK" {
 					Fix_Unexpected_Behavior_Kick_method_1()
 				} else {
-					println("	Unknown fix: " + command[1])
+					pterm.Error.Println("Unknown fix: " + command[1])
 				}
 			} else {
 				println("	Usage: --fix (-f) [option]")
@@ -347,6 +347,7 @@ func CommandHandler(command []string) {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
 				{"Command", "Single", "Description"},
 				{"--cursor", "-c", "Installs a custom cursor"},
+				{"--tainted", "-t", "Checks if user is tainted"},
 				{"--login", "-l", "Logs into Roblox"},
 				{"--install", "-i", "Installs Roblox"},
 				{"--version", "-v", "Prints the latest versions of Roblox and Roblox Studio"},

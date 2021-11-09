@@ -29,14 +29,14 @@ func GetINIFiles() []string {
 	return ini_files
 }
 
-func GetLOGFiles() []string { // MacOS
-	// get pc username on mac
+// MacOS
+// get logs files
+func GetLOGFiles() []string {
 	user := os.Getenv("USER")
 	files, err := ioutil.ReadDir("/Users/" + user + "/Library/Logs/Roblox")
 	if err != nil {
 		println(err.Error())
 	}
-	// get computer username
 
 	var log_files []string
 	for _, file := range files {
@@ -47,6 +47,8 @@ func GetLOGFiles() []string { // MacOS
 	return log_files
 }
 
+// MacOS
+// is tainted function
 func IsTaintedLogFiles() {
 	var is_tainted bool = false
 	for _, v := range GetLOGFiles() {

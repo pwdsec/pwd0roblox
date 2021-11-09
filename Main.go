@@ -2,9 +2,6 @@ package main
 
 import (
 	"bufio"
-	"crypto/md5"
-	"fmt"
-	"io"
 	"os"
 	"pwd0roblox/console"
 	"pwd0roblox/pwdtools"
@@ -54,8 +51,8 @@ main_r:
 			goto main_r
 		case "information", "info":
 			if console.IsWindows() {
-				hash := getHash("pwd0roblox.exe")
-				size := getSize("pwd0roblox.exe")
+				hash := pwdtools.GetHash("pwd0roblox.exe")
+				size := pwdtools.GetSize("pwd0roblox.exe")
 				// convert to string
 				sizeString := strconv.FormatInt(size, 10)
 
@@ -65,8 +62,8 @@ main_r:
 					{"Windows", "pwd0roblox", Version, hash, sizeString + "MB"},
 				}).Render()
 			} else if console.IsMacOS() {
-				hash := getHash("pwd0roblox")
-				size := getSize("pwd0roblox")
+				hash := pwdtools.GetHash("pwd0roblox")
+				size := pwdtools.GetSize("pwd0roblox")
 				// convert to string
 				sizeString := strconv.FormatInt(size, 10)
 
@@ -134,28 +131,4 @@ func intro() {
 		time.Sleep(1000 * time.Millisecond)
 	}
 	introSpinner.Stop()
-}
-
-// get md5 hash of file
-func getHash(file string) string {
-	f, err := os.Open(file)
-	if err != nil {
-		return ""
-	}
-	defer f.Close()
-
-	h := md5.New()
-	if _, err := io.Copy(h, f); err != nil {
-		return ""
-	}
-	return fmt.Sprintf("%x", h.Sum(nil))
-}
-
-// get size of file in mb
-func getSize(file string) int64 {
-	fileInfo, err := os.Stat(file)
-	if err != nil {
-		return 0
-	}
-	return fileInfo.Size() / 1024 / 1024
 }

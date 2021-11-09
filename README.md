@@ -13,6 +13,7 @@
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user
+* proxy, py ~ Proxy Checker
 * information, info ~ information about the program and devs 
 * cls, clear ~ clear the console
 * exit, quit ~ exit the program
@@ -20,6 +21,7 @@
 
 ### Commands Mac
 * roblox, rbx ~ run roblox commands, --help (-h)
+  * --tainted, -t ~ Checks if user is tainted
   * --install, -i ~ Installs Roblox
   * --cursor, -c ~ Installs a custom cursor
   * --versions, -v ~ Prints the latest versions of Roblox and Roblox Studio
@@ -27,6 +29,7 @@
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user
+* proxy, py ~ Proxy Checker
 * information, info ~ information about the program and devs 
 * cls, clear ~ clear the console
 * exit, quit ~ exit the program

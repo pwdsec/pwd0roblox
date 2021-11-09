@@ -82,7 +82,7 @@ main_r:
 		case "proxy", "py":
 			if len(args) == 2 {
 				if strings.Contains(args[1], ".txt") {
-					list := pwdtools.GetProxyList(args[1])
+					list := pwdtools.GetProxyList("http://" + args[1])
 					if len(list) != 0 {
 						pwdtools.WriteProxyList("checked.txt", list)
 					} else {

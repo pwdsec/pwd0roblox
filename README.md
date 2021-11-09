@@ -21,6 +21,7 @@
 ### Commands Mac
 * roblox, rbx ~ run roblox commands, --help (-h)
   * --install, -i ~ Installs Roblox
+  * --cursor, -c ~ Installs a custom cursor
   * --versions, -v ~ Prints the latest versions of Roblox and Roblox Studio
   * --check, -C ~ Checks/Generate if a username is valid
   * --set-token, -s ~ Sets the security token

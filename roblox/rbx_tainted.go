@@ -29,6 +29,42 @@ func GetINIFiles() []string {
 	return ini_files
 }
 
+func GetLOGFiles() []string { // MacOS
+	// get pc username on mac
+	user := os.Getenv("USER")
+	files, err := ioutil.ReadDir("/Users/" + user + "/Library/Logs/Roblox")
+	if err != nil {
+		println(err.Error())
+	}
+	// get computer username
+
+	var log_files []string
+	for _, file := range files {
+		if strings.Contains(file.Name(), "bootstrapper") {
+			log_files = append(log_files, "/Users/"+user+"/Library/Logs/Roblox/"+file.Name())
+		}
+	}
+	return log_files
+}
+
+func IsTaintedLogFiles() {
+	var is_tainted bool = false
+	for _, v := range GetLOGFiles() {
+		log_file, err := ioutil.ReadFile(v)
+		if err != nil {
+			println(err.Error())
+		}
+		if strings.Contains(string(log_file), "IsProcessTainted: true") {
+			is_tainted = true
+		}
+	}
+	if is_tainted {
+		pterm.Error.Println("User is tainted")
+	} else {
+		pterm.Info.Println("User is not tainted")
+	}
+}
+
 // read each ini file function
 func ReadINIFile(file string) map[string]string {
 	// read the ini file

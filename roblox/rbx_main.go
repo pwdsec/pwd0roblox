@@ -13,6 +13,9 @@ import (
 // roblox command handler.
 // command []string.
 func CommandHandler(command []string) {
+	if len(command) == 0 {
+		return
+	}
 	switch command[0] {
 	case "--fix", "-f":
 		if console.IsWindows() {
@@ -33,14 +36,14 @@ func CommandHandler(command []string) {
 			pterm.Error.Println("Unknown OS")
 		}
 	case "--cursor", "-c":
-		if console.IsWindows() {
+		if console.IsWindows() || console.IsMacOS() {
 			if len(command) == 2 {
 				if command[1] == "--reset" || command[1] == "-r" {
 					CursorsInstaller("default")
 				}
 				err := CursorsInstaller(command[1])
 				if err != nil {
-					println("Invalid command")
+					println(err)
 				}
 			} else {
 				println("	Usage: --cursor (-c) [option]")
@@ -49,8 +52,6 @@ func CommandHandler(command []string) {
 					println("		" + v)
 				}
 			}
-		} else if console.IsMacOS() {
-			pterm.Error.Println("MacOS is not yet supported")
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
@@ -133,13 +134,13 @@ func CommandHandler(command []string) {
 				username := GenerateUsername(i)
 				check, err := CheckUsername(username)
 				if err != nil {
-					println("	Failed to check username")
+					pterm.Error.Println("Failed to check username")
 					return
 				}
 				if check {
-					println("	Username is valid: " + username)
+					pterm.Success.Println("Username is available: " + username)
 				} else {
-					println("	Username is invalid: " + username)
+					pterm.Warning.Println("Username is not available: " + username)
 				}
 			} else if command[1] == "--username" || command[1] == "-u" {
 				check, err := CheckUsername(command[2])
@@ -148,9 +149,9 @@ func CommandHandler(command []string) {
 					return
 				}
 				if check {
-					println("	Username is valid: " + command[2])
+					pterm.Success.Println("Username is available: " + command[2])
 				} else {
-					println("	Username is invalid: " + command[2])
+					pterm.Warning.Println("Username is not available: " + command[2])
 				}
 			} else if command[1] == "--normal" || command[1] == "-n" {
 				normal_username := NormalUsernameGenerator(command[2])
@@ -206,13 +207,13 @@ func CommandHandler(command []string) {
 					}
 				}
 				if is_tainted {
-					println("	User Tainted")
+					pterm.Warning.Println("User Tainted")
 				} else {
-					println("	User Not tainted")
+					pterm.Success.Println("User Not Tainted")
 				}
 			}
 		} else if console.IsMacOS() {
-			pterm.Error.Println("MacOS is not yet supported")
+			IsTaintedLogFiles()
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
@@ -345,6 +346,7 @@ func CommandHandler(command []string) {
 		} else if console.IsMacOS() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
 				{"Command", "Single", "Description"},
+				{"--cursor", "-c", "Installs a custom cursor"},
 				{"--login", "-l", "Logs into Roblox"},
 				{"--install", "-i", "Installs Roblox"},
 				{"--version", "-v", "Prints the latest versions of Roblox and Roblox Studio"},

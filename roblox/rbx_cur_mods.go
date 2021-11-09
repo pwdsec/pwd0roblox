@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"pwd0roblox/console"
 
 	"github.com/pterm/pterm"
 )
@@ -93,67 +94,127 @@ func CursorsList() []string {
 // CursorInstaller function.
 // error if not found.
 // string cursor name.
+// basically make this for mac
+// how do i add if statement if it's on mac
 func CursorsInstaller(cursor string) error {
-	installing, _ := pterm.DefaultSpinner.Start("Installing " + cursor + " cursor")
-	var ArrowCursor string
-	var ArrowFarCursor string
-	for i, v := range data {
-		if v[0] == cursor {
-			ArrowCursor = data[i][1]
-			ArrowFarCursor = data[i][2]
+	if console.IsMacOS() {
+		installing, _ := pterm.DefaultSpinner.Start("Installing " + cursor + " cursor")
+		var ArrowCursor string
+		var ArrowFarCursor string
+		for i, v := range data {
+			if v[0] == cursor {
+				ArrowCursor = data[i][1]
+				ArrowFarCursor = data[i][2]
+			}
 		}
-	}
-	a, b := os.UserCacheDir()
-	version, err := GetRobloxWindowsVersion()
-	if err != nil {
-		return err
-	}
 
-	if b != nil {
-		pterm.Error.Println("Failed to get user cache directory")
+		files, err := ioutil.ReadDir("/Applications/Roblox.app/Contents/Resources/content/textures/Cursors/KeyboardMouse")
+		if err != nil {
+			print(err)
+		}
+
+		for _, f := range files {
+			if f.Name() == "ArrowCursor.png" || f.Name() == "ArrowFarCursor.png" {
+				os.Remove("/Applications/Roblox.app/Contents/Resources/content/textures/Cursors/KeyboardMouse" + f.Name())
+			}
+		}
+
+		resp, err := http.Get(ArrowCursor)
+		if err != nil {
+			return err
+		}
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile("/Applications/Roblox.app/Contents/Resources/content/textures/Cursors/KeyboardMouse/ArrowCursor.png", body, 0644)
+		if err != nil {
+			return err
+		}
+		// download another cursor
+		resp, err = http.Get(ArrowFarCursor)
+		if err != nil {
+			return err
+		}
+		defer resp.Body.Close()
+		body, err = ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile("/Applications/Roblox.app/Contents/Resources/content/textures/Cursors/KeyboardMouse/ArrowFarCursor.png", body, 0644)
+		if err != nil {
+			return err
+		}
+		installing.Success("Installed " + cursor + " cursor")
+
+		// return
+		return nil
+
+	} else if console.IsWindows() {
+
+		installing, _ := pterm.DefaultSpinner.Start("Installing " + cursor + " cursor")
+		var ArrowCursor string
+		var ArrowFarCursor string
+		for i, v := range data {
+			if v[0] == cursor {
+				ArrowCursor = data[i][1]
+				ArrowFarCursor = data[i][2]
+			}
+		}
+		a, b := os.UserCacheDir()
+		version, err := GetRobloxWindowsVersion()
+		if err != nil {
+			return err
+		}
+
+		if b != nil {
+			pterm.Error.Println("Failed to get user cache directory")
+			return nil
+		}
+
+		files, err := ioutil.ReadDir(a + "\\Roblox\\Versions\\" + version + "\\content\\textures\\Cursors\\KeyboardMouse\\")
+		if err != nil {
+			print(err)
+		}
+
+		for _, f := range files {
+			if f.Name() == "ArrowCursor.png" || f.Name() == "ArrowFarCursor.png" {
+				os.Remove(a + "\\Roblox\\Versions\\" + version + "\\content\\textures\\Cursors\\KeyboardMouse\\" + f.Name())
+			}
+		}
+
+		resp, err := http.Get(ArrowCursor)
+		if err != nil {
+			return err
+		}
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile(a+"\\Roblox\\Versions\\"+version+"\\content\\textures\\Cursors\\KeyboardMouse\\ArrowCursor.png", body, 0644)
+		if err != nil {
+			return err
+		}
+		// download another cursor
+		resp, err = http.Get(ArrowFarCursor)
+		if err != nil {
+			return err
+		}
+		defer resp.Body.Close()
+		body, err = ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile(a+"\\Roblox\\Versions\\"+version+"\\content\\textures\\Cursors\\KeyboardMouse\\ArrowFarCursor.png", body, 0644)
+		if err != nil {
+			return err
+		}
+		installing.Success("Installed " + cursor + " cursor")
+
+		// return
 		return nil
 	}
-
-	files, err := ioutil.ReadDir(a + "\\Roblox\\Versions\\" + version + "\\content\\textures\\Cursors\\KeyboardMouse\\")
-	if err != nil {
-		print(err)
-	}
-
-	for _, f := range files {
-		if f.Name() == "ArrowCursor.png" || f.Name() == "ArrowFarCursor.png" {
-			os.Remove(a + "\\Roblox\\Versions\\" + version + "\\content\\textures\\Cursors\\KeyboardMouse\\" + f.Name())
-		}
-	}
-
-	resp, err := http.Get(ArrowCursor)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	err = ioutil.WriteFile(a+"\\Roblox\\Versions\\"+version+"\\content\\textures\\Cursors\\KeyboardMouse\\ArrowCursor.png", body, 0644)
-	if err != nil {
-		return err
-	}
-	// download another cursor
-	resp, err = http.Get(ArrowFarCursor)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	body, err = ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	err = ioutil.WriteFile(a+"\\Roblox\\Versions\\"+version+"\\content\\textures\\Cursors\\KeyboardMouse\\ArrowFarCursor.png", body, 0644)
-	if err != nil {
-		return err
-	}
-	installing.Success("Installed " + cursor + " cursor")
-
-	// return
 	return nil
 }

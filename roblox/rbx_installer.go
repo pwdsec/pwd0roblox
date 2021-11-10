@@ -2,10 +2,12 @@ package roblox
 
 import (
 	"io"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
 	"pwd0roblox/console"
+	"strings"
 
 	"github.com/pterm/pterm"
 )
@@ -126,4 +128,36 @@ func ContentInstaller_Ziped(version string) {
 		p.Increment()
 	}
 	p.Stop()
+}
+
+func VersionBruteForce(times int) {
+	for i := 0; i < times; i++ {
+		var version string
+		for i := 0; i < 8; i++ {
+			// random number and letter
+			version += string(rand.Intn(26)+65) + string(rand.Intn(10)+48)
+		}
+		version = strings.ToLower(version)
+		resp, err := http.Get("https://setup.rbxcdn.com/version-" + version + "-RobloxApp.zip")
+		if err != nil {
+			pterm.Warning.Println("Failed: " + version)
+		} else {
+			defer resp.Body.Close()
+			if resp.StatusCode == 200 {
+				pterm.Success.Println("Found: " + version)
+				// append to file
+				file, err := os.OpenFile("versions.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+				if err != nil {
+					panic(err)
+				}
+				defer file.Close()
+
+				if _, err = file.WriteString(version + "\n"); err != nil {
+					panic(err)
+				}
+			} else {
+				pterm.Warning.Println("Failed: version-" + version)
+			}
+		}
+	}
 }

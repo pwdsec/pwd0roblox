@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"pwd0roblox/console"
 	"strconv"
+	"sync"
 
 	"github.com/pterm/pterm"
 )
@@ -372,6 +373,39 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--version-bruteforce", "-vb":
+		if console.IsWindows() || console.IsMacOS() {
+			if len(command) == 2 {
+				if command[1] == "-h" {
+					pterm.Info.Println("Usage: --version-bruteforce (-vb) [how many]")
+				} else {
+					// multi threading
+					howMany, err := strconv.Atoi(command[1])
+
+					var wg sync.Pool
+					wg.New = func() interface{} {
+						return new(sync.WaitGroup)
+					}
+
+					for i := 0; i < howMany; i++ {
+						wg.Get().(*sync.WaitGroup).Add(1)
+						go func(i int) {
+							defer wg.Get().(*sync.WaitGroup).Done()
+							if err != nil {
+								pterm.Error.Println("Failed to convert to int")
+								return
+							}
+							VersionBruteForce(howMany)
+						}(i)
+					}
+					wg.Get().(*sync.WaitGroup).Wait()
+				}
+			} else {
+				pterm.Info.Println("Usage: --version-bruteforce (-vb) [how many]")
+			}
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
@@ -388,10 +422,12 @@ func CommandHandler(command []string) {
 				{"--reinstall", "-r", "Reinstalls Roblox"},
 				{"--tainted", "-t", "Checks if user is tainted"},
 				{"--versions", "-v", "Prints the latest versions of Roblox and Roblox Studio"},
+				{"--version-bruteforce", "-vb", "Bruteforces the Roblox version"},
 			}).Render()
 		} else if console.IsMacOS() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
 				{"Command", "Single", "Description"},
+				{"--version-bruteforce", "-vb", "Bruteforces the Roblox version"},
 				{"--cursor", "-c", "Installs a custom cursor"},
 				{"--tainted", "-t", "Checks if user is tainted"},
 				{"--login", "-l", "Logs into Roblox"},

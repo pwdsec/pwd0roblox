@@ -135,7 +135,7 @@ func VersionBruteForce(times int) {
 		var version string
 		for i := 0; i < 8; i++ {
 			// random number and letter
-			version += string(rand.Intn(26)+65) + string(rand.Intn(10)+48)
+			version += string(rune(rand.Intn(26)+65)) + string(rune(rand.Intn(10)+48))
 		}
 		version = strings.ToLower(version)
 		resp, err := http.Get("https://setup.rbxcdn.com/version-" + version + "-RobloxApp.zip")

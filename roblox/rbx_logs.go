@@ -1,6 +1,7 @@
 package roblox
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"os"
@@ -48,6 +49,63 @@ func Get_IP_Address(log_line []string) string {
 			}
 		}
 	}
-
 	return ""
+}
+
+func Get_Place_ID(log_line []string) string {
+
+	for _, line := range log_line {
+		if strings.Contains(line, "{") {
+			var json_data map[string]interface{}
+			json.Unmarshal([]byte(line), &json_data)
+			job_id := json_data["jobId"]
+			if job_id != nil {
+				if strings.Contains(job_id.(string), "JoinPlace=") {
+					// remove "JoinPlace=" and ";"
+					return strings.Replace(strings.Replace(job_id.(string), "JoinPlace=", "", -1), ";", "", -1)
+				}
+			}
+		}
+	}
+	return ""
+}
+
+func Get_Session_ID(log_line []string) string {
+	pattern := `sid:([a-z0-9-]+)`
+	re := regexp.MustCompile(pattern)
+
+	for _, line := range log_line {
+		if strings.Contains(line, "sid:") {
+			if re.MatchString(line) {
+				sid := re.FindString(line)
+				return strings.Replace(sid, "sid:", "", -1)
+			}
+		}
+	}
+	return ""
+}
+
+func Get_User_ID(log_line []string) string {
+	pattern := `userid:([0-9]+)`
+	re := regexp.MustCompile(pattern)
+
+	for _, line := range log_line {
+		if strings.Contains(line, "userid:") {
+			if re.MatchString(line) {
+				userid := re.FindString(line)
+				return strings.Replace(userid, "userid:", "", -1)
+			}
+		}
+	}
+	return ""
+}
+
+// IsConnectionLost
+func IsConnectionLost(log_line []string) bool {
+	for _, line := range log_line {
+		if strings.Contains(line, "Connection lost") {
+			return true
+		}
+	}
+	return false
 }

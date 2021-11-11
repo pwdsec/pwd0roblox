@@ -5,7 +5,10 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"regexp"
 	"strings"
+
+	"github.com/pterm/pterm"
 )
 
 var (
@@ -30,9 +33,7 @@ type EmailInfo struct {
 }
 
 type UserIDInfo struct {
-	Id       int    `json:"Id"`
-	Username string `json:"Username"`
-	IsOnline bool   `json:"IsOnline"`
+	Username string `json:"name"`
 }
 
 // assetids
@@ -198,11 +199,11 @@ func getEmailInfo() (string, bool, error) {
 	return email_info.Email, email_info.Verified, nil
 }
 
-func getUserIDInfo(id string) (int, string, bool, error) {
-	url := "https://api.roblox.com/users/" + id
+func getUserIDInfo(id string) (string, error) {
+	url := "https://users.roblox.com/v1/users/" + id
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return 0, "", false, err
+		return "", err
 	}
 	req.Header.Set("Cookie", ROBLOSECURITY)
 	req.Header.Set("Content-Type", "application/json")
@@ -210,22 +211,22 @@ func getUserIDInfo(id string) (int, string, bool, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return 0, "", false, err
+		return "", err
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return 0, "", false, err
+		return "", err
 	}
 
 	var user_id_info UserIDInfo
 	err = json.Unmarshal(body, &user_id_info)
 	if err != nil {
-		return 0, "", false, err
+		return "", err
 	}
 
-	return user_id_info.Id, user_id_info.Username, user_id_info.IsOnline, nil
+	return user_id_info.Username, nil
 }
 
 // get cookie .RBXID
@@ -254,4 +255,26 @@ func getRBXID() (string, error) {
 	}
 
 	return "", errors.New("cookie not found")
+}
+
+func Get_Pace_Name(id string) string {
+	re := regexp.MustCompile(`<title>(.*)</title>`)
+	resp, err := http.Get("https://www.roblox.com/games/" + id)
+	if err != nil {
+		pterm.Error.Println("Failed to get html")
+		return ""
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		pterm.Error.Println("Failed to read html")
+		return ""
+	}
+
+	// remove " - Roblox" from title
+	title := re.FindStringSubmatch(string(body))
+	if len(title) > 1 {
+		return strings.Replace(title[1], " - Roblox", "", -1)
+	}
+	return ""
 }

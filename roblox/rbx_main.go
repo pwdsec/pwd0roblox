@@ -306,7 +306,7 @@ func CommandHandler(command []string) {
 					}
 				}
 			} else if len(command) == 3 {
-				if command[1] == "--userid" || command[1] == "-u" {
+				/*if command[1] == "--userid" || command[1] == "-u" {
 					_, user, online, err := getUserIDInfo(command[2])
 					if err != nil {
 						pterm.Error.Println("Failed to get user id info")
@@ -330,7 +330,7 @@ func CommandHandler(command []string) {
 						}
 						pterm.Success.Println("RBXID: " + rbxid)
 					}
-				}
+				}*/
 			} else {
 				pterm.Info.Println("Usage: --api (-a) [option]")
 				pterm.Info.Println("Options:")
@@ -418,6 +418,47 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--game-info", "-go":
+		if console.IsWindows() {
+			if IsProcessRunning("RobloxPlayerBeta.exe") {
+				pterm.DefaultSection.Println("Game Information")
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"IP Address", "Place ID", "Place Name", "Session ID"},
+					{Get_IP_Address(Get_Log()), Get_Place_ID(Get_Log()), Get_Pace_Name(Get_Place_ID(Get_Log())), Get_Session_ID(Get_Log())},
+				}).Render()
+
+				username, err := getUserIDInfo(Get_User_ID(Get_Log()))
+				if err != nil {
+					pterm.Error.Println(err.Error())
+					return
+				}
+				pterm.DefaultSection.Println("Player Information")
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"User ID", "Username"},
+					{Get_User_ID(Get_Log()), username},
+				}).Render()
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--is-connection-lost", "-icl":
+		if console.IsWindows() {
+			if IsProcessRunning("RobloxPlayerBeta.exe") {
+				if IsConnectionLost(Get_Log()) {
+					pterm.Error.Println("Connection Lost")
+				} else {
+					pterm.Success.Println("Connection is not lost")
+				}
+			} else {
+				pterm.Warning.Println("Roblox is not running")
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--kill", "-k":
 		if console.IsWindows() {
 			TaskKill("RobloxPlayerBeta.exe")
@@ -445,6 +486,7 @@ func CommandHandler(command []string) {
 				{"--version-bruteforce", "-vb", "Bruteforces the Roblox version"},
 				{"--kill", "-k", "Kills Roblox process"},
 				{"--game-ip", "-gi", "Gets the game ip and port"},
+				{"--game-info", "-go", "Gets the game ip, port, and place id"},
 			}).Render()
 		} else if console.IsMacOS() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

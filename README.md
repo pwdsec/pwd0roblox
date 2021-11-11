@@ -13,6 +13,9 @@
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user
+  * --version-bruteforce, -vb ~ Bruteforces the Roblox version
+  * --kill, -k ~ Kills Roblox process
+  * --game-ip, -gi, ~ Gets the game ip and port
 * proxy, py ~ Proxy Checker
 * information, info ~ information about the program and devs 
 * cls, clear ~ clear the console
@@ -29,6 +32,7 @@
   * --set-token, -s ~ Sets the security token
   * --login, -l ~ Logs in to Roblox account
   * --api, -a ~ Gets info about the user
+  * --version-bruteforce, -vb ~ Bruteforces the Roblox version
 * proxy, py ~ Proxy Checker
 * information, info ~ information about the program and devs 
 * cls, clear ~ clear the console

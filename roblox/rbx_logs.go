@@ -44,7 +44,6 @@ func Get_IP_Address(log_line []string) string {
 	for _, line := range log_line {
 		if strings.Contains(line, "Connecting to") {
 			if re.MatchString(line) {
-				// return ip address
 				return re.FindString(line)
 			}
 		}

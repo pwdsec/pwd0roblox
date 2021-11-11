@@ -486,7 +486,7 @@ func CommandHandler(command []string) {
 				{"--version-bruteforce", "-vb", "Bruteforces the Roblox version"},
 				{"--kill", "-k", "Kills Roblox process"},
 				{"--game-ip", "-gi", "Gets the game ip and port"},
-				{"--game-info", "-go", "Gets the game ip, port, and place id"},
+				{"--game-info", "-go", "Gets the game ip, port, and place id and more"},
 				{"--is-connection-lost", "-icl", "Checks if connection is lost on roblox"},
 			}).Render()
 		} else if console.IsMacOS() {

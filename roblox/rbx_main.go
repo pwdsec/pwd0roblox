@@ -406,6 +406,26 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--game-ip", "-gi":
+		if console.IsWindows() {
+			if IsProcessRunning("RobloxPlayerBeta.exe") {
+				pterm.Success.Println(Get_IP_Address(Get_Log()))
+			} else {
+				pterm.Warning.Println("Roblox is not running")
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--kill", "-k":
+		if console.IsWindows() {
+			TaskKill("RobloxPlayerBeta.exe")
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
@@ -423,6 +443,8 @@ func CommandHandler(command []string) {
 				{"--tainted", "-t", "Checks if user is tainted"},
 				{"--versions", "-v", "Prints the latest versions of Roblox and Roblox Studio"},
 				{"--version-bruteforce", "-vb", "Bruteforces the Roblox version"},
+				{"--kill", "-k", "Kills Roblox process"},
+				{"--game-ip", "-gi", "Gets the game ip and port"},
 			}).Render()
 		} else if console.IsMacOS() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

@@ -447,7 +447,7 @@ func CommandHandler(command []string) {
 		if console.IsWindows() {
 			if IsProcessRunning("RobloxPlayerBeta.exe") {
 				if IsConnectionLost(Get_Log()) {
-					pterm.Error.Println("Connection Lost")
+					pterm.Warning.Println("Connection Lost")
 				} else {
 					pterm.Success.Println("Connection is not lost")
 				}
@@ -487,6 +487,7 @@ func CommandHandler(command []string) {
 				{"--kill", "-k", "Kills Roblox process"},
 				{"--game-ip", "-gi", "Gets the game ip and port"},
 				{"--game-info", "-go", "Gets the game ip, port, and place id"},
+				{"--is-connection-lost", "-icl", "Checks if connection is lost on roblox"},
 			}).Render()
 		} else if console.IsMacOS() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

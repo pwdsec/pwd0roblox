@@ -69,25 +69,17 @@ func IsTaintedLogFiles() {
 
 // read each ini file function
 func ReadINIFile(file string) map[string]string {
-	// read the ini file
 	ini_file, err := ioutil.ReadFile(file)
 	if err != nil {
 		println(err.Error())
 	}
 
-	// split the ini file into lines
 	ini_lines := strings.Split(string(ini_file), "\n")
-
-	// create a map to store the ini file
 	ini_map := make(map[string]string)
 
-	// loop through each line
 	for _, line := range ini_lines {
-		// split the line into key and value
 		key_value := strings.Split(line, "=")
-		// if the line is not empty
 		if len(key_value) > 1 {
-			// add the key and value to the map
 			ini_map[key_value[0]] = key_value[1]
 		}
 	}

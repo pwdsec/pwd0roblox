@@ -437,6 +437,12 @@ func CommandHandler(command []string) {
 					{"User ID", "Username"},
 					{Get_User_ID(Get_Log()), username},
 				}).Render()
+
+				pterm.DefaultSection.Println("More Information")
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Replicator", "RakNet Socket", "Universe ID"},
+					{Get_Replicator_ID(Get_Log()), Get_RakNet_IP_Address(Get_Log()), Get_Universe_ID(Get_Log())},
+				}).Render()
 			}
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")

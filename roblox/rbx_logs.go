@@ -109,3 +109,52 @@ func IsConnectionLost(log_line []string) bool {
 	}
 	return false
 }
+
+// "Replicator created: 1EC35708" regex
+func Get_Replicator_ID(log_line []string) string {
+	pattern := `Replicator created: ([0-9a-fA-F]+)`
+	re := regexp.MustCompile(pattern)
+
+	for _, line := range log_line {
+		if strings.Contains(line, "Replicator created") {
+			if re.MatchString(line) {
+				replicator_id := re.FindString(line)
+				return strings.Replace(replicator_id, "Replicator created: ", "", -1)
+			}
+		}
+	}
+	return ""
+}
+
+// "RakNet Socket Open: 127.0.0.1|58245" regex
+func Get_RakNet_IP_Address(log_line []string) string {
+	pattern := `RakNet Socket Open: ([a-z0-9.]+)\|\d{1,5}`
+	re := regexp.MustCompile(pattern)
+
+	for _, line := range log_line {
+		if strings.Contains(line, "RakNet Socket Open") {
+			if re.MatchString(line) {
+				raknet_ip_address := re.FindString(line)
+				// remove "RakNet Socket Open: " and change "|" to ":"
+				return strings.Replace(strings.Replace(raknet_ip_address, "RakNet Socket Open: ", "", -1), "|", ":", -1)
+			}
+		}
+	}
+	return ""
+}
+
+// "universeid:2515550066" regex
+func Get_Universe_ID(log_line []string) string {
+	pattern := `universeid:([0-9]+)`
+	re := regexp.MustCompile(pattern)
+
+	for _, line := range log_line {
+		if strings.Contains(line, "universeid:") {
+			if re.MatchString(line) {
+				universe_id := re.FindString(line)
+				return strings.Replace(universe_id, "universeid:", "", -1)
+			}
+		}
+	}
+	return ""
+}

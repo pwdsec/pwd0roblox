@@ -35,6 +35,7 @@ main_r:
 	console.ConsoleClear()
 	pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
 		"pwd0roblox\nVersion: " + Version)
+
 	for {
 		reader := bufio.NewReader(os.Stdin)
 		color.Print("> ")

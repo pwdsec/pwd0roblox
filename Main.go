@@ -17,7 +17,8 @@ import (
 
 var (
 	Version         = "1.0.5"
-	is_auth_enabled = true
+	is_auth_enabled = false
+	hashKey         = "046634"
 )
 
 var logo string = `
@@ -29,8 +30,6 @@ var logo string = `
 ╚═╝      ╚══╝╚══╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝
  `
 
-// hide function from ID
-
 func main() {
 	console.ConsoleClear()
 	console.SetConsoleTitle("pwd0roblox - " + Version)
@@ -40,7 +39,7 @@ main_r:
 	pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
 		"pwd0roblox\nVersion: " + Version)
 
-	if auth.CheckLocalData() || is_auth_enabled {
+	if auth.CheckLocalData() || !is_auth_enabled {
 		for {
 			reader := bufio.NewReader(os.Stdin)
 			color.Print("> ")
@@ -64,8 +63,8 @@ main_r:
 
 					pterm.DefaultSection.Println("Program Information")
 					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"Os", "Name", "Version", "Hash", "Size"},
-						{"Windows", "pwd0roblox", Version, hash, sizeString + "MB"},
+						{"Os", "Name", "Version", "Hash", "Size", "Is Auth Enabled"},
+						{"Windows", "pwd0roblox", Version, hash, sizeString + "MB", strconv.FormatBool(is_auth_enabled)},
 					}).Render()
 				} else if console.IsMacOS() {
 					hash := pwdtools.GetHash("pwd0roblox")
@@ -75,8 +74,8 @@ main_r:
 
 					pterm.DefaultSection.Println("Program Information")
 					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"Os", "Name", "Version", "Hash", "Size"},
-						{"MacOS", "pwd0roblox", Version, hash, sizeString + "MB"},
+						{"Os", "Name", "Version", "Hash", "Size", "Is Auth Enabled"},
+						{"MacOS", "pwd0roblox", Version, hash, sizeString + "MB", strconv.FormatBool(is_auth_enabled)},
 					}).Render()
 				}
 				pterm.DefaultSection.Println("Developers")
@@ -124,7 +123,7 @@ main_r:
 		pterm.Warning.Println("You are not whitelisted please send the key to pwd0kernel")
 		pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
 			{"Key"},
-			{auth.Hash("046634", auth.GetHWID())},
+			{auth.Hash(hashKey, auth.GetHWID())},
 		}).Render()
 
 		reader := bufio.NewReader(os.Stdin)

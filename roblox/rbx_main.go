@@ -473,6 +473,71 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--raknet-socket", "-rs":
+		if console.IsWindows() {
+			if IsProcessRunning("RobloxPlayerBeta.exe") {
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"RakNet Socket"},
+					{Get_RakNet_IP_Address(Get_Log())},
+				}).Render()
+			} else {
+				pterm.Warning.Println("Roblox is not running")
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--game-replicator", "-gr":
+		if console.IsWindows() {
+			if IsProcessRunning("RobloxPlayerBeta.exe") {
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Replicator"},
+					{Get_Replicator_ID(Get_Log())},
+				}).Render()
+			} else {
+				pterm.Warning.Println("Roblox is not running")
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--game-map", "-gm":
+		if console.IsWindows() {
+			if IsProcessRunning("RobloxPlayerBeta.exe") {
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Place ID", "Place Name"},
+					{Get_Place_ID(Get_Log()), Get_Pace_Name(Get_Place_ID(Get_Log()))},
+				}).Render()
+			} else {
+				pterm.Warning.Println("Roblox is not running")
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--game-localplayer", "-gl":
+		if console.IsWindows() {
+			if IsProcessRunning("RobloxPlayerBeta.exe") {
+				username, err := getUserIDInfo(Get_User_ID(Get_Log()))
+				if err != nil {
+					pterm.Error.Println(err.Error())
+					return
+				}
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"User ID", "Username"},
+					{Get_User_ID(Get_Log()), username},
+				}).Render()
+			} else {
+				pterm.Warning.Println("Roblox is not running")
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
@@ -493,7 +558,11 @@ func CommandHandler(command []string) {
 				{"--kill", "-k", "Kills Roblox process"},
 				{"--game-ip", "-gi", "Gets the game ip and port"},
 				{"--game-info", "-go", "Gets the game ip, port, and place id and more"},
+				{"--game-replicator", "-gr", "Gets the game replicator"},
+				{"--game-map", "-gm", "Gets the game map"},
+				{"--game-localplayer", "-gl", "Gets the game localplayer"},
 				{"--is-connection-lost", "-icl", "Checks if connection is lost on roblox"},
+				{"--raknet-socket", "-rs", "Gets the raknet socket"},
 			}).Render()
 		} else if console.IsMacOS() {
 			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

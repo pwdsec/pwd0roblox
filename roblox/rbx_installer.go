@@ -2,6 +2,7 @@ package roblox
 
 import (
 	"io"
+	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"os"
@@ -160,4 +161,22 @@ func VersionBruteForce(times int) {
 			}
 		}
 	}
+}
+
+func DeleteEmptyFiles(version string) {
+	files, err := ioutil.ReadDir(version)
+	if err != nil {
+		panic(err)
+	}
+	p, _ := pterm.DefaultProgressbar.WithTotal(len(files)).WithTitle("Checking files...").Start()
+	for _, f := range files {
+		if f.Size() == 0 {
+			os.Remove(version + "\\" + f.Name())
+			pterm.Success.Println("Deleted: " + f.Name())
+		} else {
+			pterm.Success.Println("Keeping: " + f.Name())
+		}
+		p.Increment()
+	}
+	p.Stop()
 }

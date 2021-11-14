@@ -113,6 +113,7 @@ func CommandHandler(command []string) {
 				} else if command[1] == "--content" || command[1] == "-c" {
 					ver, _ := GetRobloxWindowsVersion()
 					ContentInstaller_Ziped(ver)
+					DeleteEmptyFiles(ver)
 				} else if command[1] == "--versions" || command[1] == "-v" {
 					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
 						{"Date", "Version"},

@@ -17,7 +17,7 @@ import (
 
 var (
 	Version         = "1.0.5"
-	is_auth_enabled = false
+	is_auth_enabled = true
 	hashKey         = "046634"
 )
 
@@ -31,15 +31,16 @@ var logo string = `
  `
 
 func main() {
+	is_auth, user := auth.CheckLocalData()
 	console.ConsoleClear()
 	console.SetConsoleTitle("pwd0roblox - " + Version)
 	intro()
 main_r:
 	console.ConsoleClear()
 	pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
-		"pwd0roblox\nVersion: " + Version)
+		"pwd0roblox\nVersion: " + Version + "\nWelcome: " + user)
 
-	if auth.CheckLocalData() || !is_auth_enabled {
+	if is_auth || !is_auth_enabled {
 		for {
 			reader := bufio.NewReader(os.Stdin)
 			color.Print("> ")

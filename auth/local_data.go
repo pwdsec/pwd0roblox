@@ -2,7 +2,7 @@ package auth
 
 import "net"
 
-var hwids = []string{"98a59fce662c7a694bb591ed0c619f9fc269daebadc37e509805317dd7bdf36b"}
+var hwids = [][]string{{"98a59fce662c7a694bb591ed0c619f9fc269daebadc37e509805317dd7bdf36b", "pwd0kernel"}}
 
 func GetHWID() string {
 	hwid := ""
@@ -19,11 +19,11 @@ func GetHWID() string {
 }
 
 // check all local data for auth
-func CheckLocalData() bool {
+func CheckLocalData() (bool, string) {
 	for _, v := range hwids {
-		if v == Hash(hashKey, GetHWID()) {
-			return true
+		if v[0] == Hash(hashKey, GetHWID()) {
+			return true, v[1]
 		}
 	}
-	return false
+	return false, "Unknown"
 }

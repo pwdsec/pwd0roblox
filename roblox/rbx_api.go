@@ -229,7 +229,6 @@ func getUserIDInfo(id string) (string, error) {
 	return user_id_info.Username, nil
 }
 
-// get cookie .RBXID
 func getRBXID() (string, error) {
 	url := "https://www.roblox.com/home"
 	req, err := http.NewRequest("GET", url, nil)

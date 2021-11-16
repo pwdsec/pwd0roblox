@@ -270,7 +270,6 @@ func Get_Pace_Name(id string) string {
 		return ""
 	}
 
-	// remove " - Roblox" from title
 	title := re.FindStringSubmatch(string(body))
 	if len(title) > 1 {
 		return strings.Replace(title[1], " - Roblox", "", -1)

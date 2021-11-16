@@ -88,7 +88,7 @@ func PwdEncoder(text string) string {
 		min := rand.Intn(99 - 0)
 		// convert min to string
 		minStr := strconv.Itoa(min)
-		result += minStr + "a(" + minStr + "a){a" + minStr + string(letter) + minStr + "}a*" + minStr
+		result += minStr + "a(zv" + minStr + "a)z{a" + minStr + string(letter) + minStr + "zv}a*" + minStr
 	}
 
 	result = "[" + result + "]"
@@ -97,8 +97,8 @@ func PwdEncoder(text string) string {
 
 func PwdDecoder(text string) string {
 	var data = []string{
-		"[", "]", "(", ")", "{", "}", "*", "1", "2",
-		"3", "4", "5", "6", "7", "8", "9", "0", "a",
+		"[", "]", "(", ")", "{", "}", "*", "1", "2", "z",
+		"3", "4", "5", "6", "7", "8", "9", "0", "a", "v",
 	}
 
 	for _, letter := range data {

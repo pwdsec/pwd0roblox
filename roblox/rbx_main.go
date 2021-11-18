@@ -667,7 +667,6 @@ func CommandHandler(command []string) {
 					{"--help", "-h", "Shows this help"},
 				}).Render()
 			}
-
 		}
 	default:
 		pterm.Error.Println("Unknown command: " + command[0])

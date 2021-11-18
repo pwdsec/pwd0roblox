@@ -636,6 +636,7 @@ func CommandHandler(command []string) {
 					{"--game-localplayer", "-gl", "Gets the game localplayer"},
 					{"--is-connection-lost", "-icl", "Checks if connection is lost on roblox"},
 					{"--raknet-socket", "-rs", "Gets the raknet socket"},
+					{"--directory", "-dr", "Opens the Roblox directory"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
@@ -644,6 +645,7 @@ func CommandHandler(command []string) {
 					{"--fix", "-f", "Fixes bugs that happens to Roblox"},
 					{"--delete", "-d", "Deletes Roblox"},
 					{"--tainted", "-t", "Checks if user is tainted"},
+					{"--directory", "-dr", "Opens the Roblox directory"},
 				}).Render()
 			}
 		} else if console.IsMacOS() {

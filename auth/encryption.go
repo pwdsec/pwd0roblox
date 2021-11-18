@@ -58,12 +58,6 @@ func Hash(key, value string) string {
 	return hex.EncodeToString(hash.Sum(nil))
 }
 
-// Base64Encode encodes a string to base64
-func Base64Encode(text string) string {
-	data := []byte(text)
-	return base64.StdEncoding.EncodeToString(data)
-}
-
 // base64 decode a string
 func Base64Decode(text string) string {
 	data, err := base64.StdEncoding.DecodeString(text)
@@ -74,7 +68,9 @@ func Base64Decode(text string) string {
 }
 
 func PwdEncoder(text string) string {
-	text = Base64Encode(text)
+	data := []byte(text)
+
+	text = base64.StdEncoding.EncodeToString(data)
 	for _, letter := range text {
 		for i := 0; i < len(letter_table); i++ {
 			if string(letter) == letter_table[i][0] {
@@ -116,6 +112,10 @@ func PwdDecoder(text string) string {
 	}
 	text = strings.Replace(text, ";", "", -1)
 
-	text = Base64Decode(text)
-	return text
+	data_d, err := base64.StdEncoding.DecodeString(text)
+	if err != nil {
+		return ""
+	}
+
+	return string(data_d)
 }

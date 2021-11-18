@@ -608,6 +608,8 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--directory", "-dr":
+		/*open roblox directory*/
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			if network.IsConnected() {

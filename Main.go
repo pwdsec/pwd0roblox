@@ -5,6 +5,7 @@ import (
 	"os"
 	"pwd0roblox/auth"
 	"pwd0roblox/console"
+	"pwd0roblox/network"
 	"pwd0roblox/pwdtools"
 	"pwd0roblox/roblox"
 	"strconv"
@@ -37,8 +38,14 @@ func main() {
 	intro()
 main_r:
 	console.ConsoleClear()
-	pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
-		"pwd0roblox\nVersion: " + Version + "\nWelcome: " + user)
+	if network.IsConnected() {
+
+		pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
+			"pwd0roblox\nVersion: " + Version + "\nWelcome: " + user)
+	} else {
+		pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
+			"pwd0roblox\nVersion: " + Version + "\nWelcome: " + user + "\nNo internet connection, Limited Commands")
+	}
 
 	if is_auth || !is_auth_enabled {
 		for {
@@ -107,15 +114,26 @@ main_r:
 			case "ex", "quit":
 				os.Exit(0)
 			case "help", "?":
-				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-					{"Command", "Short", "Description"},
-					{"roblox", "rbx", "Run Roblox commands, --help (-h)"},
-					{"proxy", "py", "Proxy Checker"},
-					{"information", "info", "Information about the program and developers"},
-					{"clear", "cls", "Clear the console"},
-					{"quit", "ex", "Exit the program"},
-					{"help", "?", "Show this help"},
-				}).Render()
+				if network.IsConnected() {
+					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+						{"Command", "Short", "Description"},
+						{"roblox", "rbx", "Run Roblox commands, --help (-h)"},
+						{"proxy", "py", "Proxy Checker"},
+						{"information", "info", "Information about the program and developers"},
+						{"clear", "cls", "Clear the console"},
+						{"quit", "ex", "Exit the program"},
+						{"help", "?", "Show this help"},
+					}).Render()
+				} else {
+					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+						{"Command", "Short", "Description"},
+						{"roblox", "rbx", "Run Roblox commands, --help (-h)"},
+						{"information", "info", "Information about the program and developers"},
+						{"clear", "cls", "Clear the console"},
+						{"quit", "ex", "Exit the program"},
+						{"help", "?", "Show this help"},
+					}).Render()
+				}
 			default:
 				pterm.Error.Println("Unknown command: " + args[0])
 			}

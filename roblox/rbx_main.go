@@ -610,6 +610,49 @@ func CommandHandler(command []string) {
 		}
 	case "--directory", "-dr":
 		/*open roblox directory*/
+	case "--botting", "-b":
+		if console.IsWindows() {
+			if network.IsConnected() {
+				/* botting commnnds */
+				/*
+					bot likes
+					bot dislikes
+					bot friends
+					bot followers
+					bot game
+				*/
+				pterm.Error.Println("Windows is not yet supported")
+			}
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--cookie-checker", "-cc":
+		if console.IsWindows() || console.IsMacOS() {
+			pterm.Error.Println("This command is not supported on this OS")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--account-checker", "-ac":
+		if console.IsWindows() || console.IsMacOS() {
+			pterm.Error.Println("This command is not supported on this OS")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--pin-bruteforce", "-pb":
+		if console.IsWindows() || console.IsMacOS() {
+			pterm.Error.Println("This command is not supported on this OS")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--ban-account", "-ba":
+		if console.IsWindows() || console.IsMacOS() {
+			pterm.Error.Println("This command is not supported on this OS")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			if network.IsConnected() {
@@ -637,6 +680,11 @@ func CommandHandler(command []string) {
 					{"--is-connection-lost", "-icl", "Checks if connection is lost on roblox"},
 					{"--raknet-socket", "-rs", "Gets the raknet socket"},
 					{"--directory", "-dr", "Opens the Roblox directory"},
+					{"--botting", "-b", "Starts a botting script"},
+					{"--cookie-checker", "-cc", "Checks if cookies are valid"},
+					{"--account-checker", "-ac", "Checks if account is valid"},
+					{"--pin-bruteforce", "-pb", "Bruteforces the pin"},
+					{"--ban-account", "-ba", "Bans the account"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

@@ -664,6 +664,38 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--script-hub", "-sh":
+		if console.IsWindows() || console.IsMacOS() {
+			if network.IsConnected() {
+				if len(command) == 2 {
+					if command[1] == "--list" || command[1] == "-l" {
+						pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+							{"Script ID", "Script Name"},
+						}).Render()
+					} else if command[1] == "--help" || command[1] == "-h" {
+						pterm.Info.Println("Script Hub Help")
+						pterm.Info.Println("--list -l - Lists all scripts")
+						pterm.Info.Println("--help -h - Displays this help")
+						pterm.Info.Println("--download -d - Download the script")
+					}
+				} else if len(command) == 3 {
+					if command[1] == "--download" || command[1] == "-d" {
+						println("Downloading script")
+					} else if command[1] == "--search" || command[1] == "-s" {
+						GetScripts(command[2])
+					}
+				} else {
+					pterm.Info.Println("Script Hub Help")
+					pterm.Info.Println("--list -l - Lists all scripts")
+					pterm.Info.Println("--help -h - Displays this help")
+					pterm.Info.Println("--download -d - Download the script")
+				}
+			} else {
+				pterm.Error.Println("You are not connected to the internet")
+			}
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			if network.IsConnected() {
@@ -697,7 +729,8 @@ func CommandHandler(command []string) {
 					{"--pin-bruteforce", "-pb", "Bruteforces the pin"},
 					{"--ban-account", "-ba", "Bans the account"},
 					{"--crash-local-client", "-clc", "Crashes the local client"},
-					{"--lag-switch", "-ls", "Lags the switch"},
+					{"--lag-switch", "-ls", "Lags client"},
+					{"--script-hub", "-sh", "Opens the script hub"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

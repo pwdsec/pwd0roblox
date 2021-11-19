@@ -652,7 +652,18 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
-
+	case "--crash-local-client", "-clc":
+		if console.IsWindows() || console.IsMacOS() {
+			pterm.Error.Println("This command is not supported on this OS")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--lag-switch", "-ls":
+		if console.IsWindows() || console.IsMacOS() {
+			pterm.Error.Println("This command is not supported on this OS")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			if network.IsConnected() {
@@ -685,6 +696,8 @@ func CommandHandler(command []string) {
 					{"--account-checker", "-ac", "Checks if account is valid"},
 					{"--pin-bruteforce", "-pb", "Bruteforces the pin"},
 					{"--ban-account", "-ba", "Bans the account"},
+					{"--crash-local-client", "-clc", "Crashes the local client"},
+					{"--lag-switch", "-ls", "Lags the switch"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

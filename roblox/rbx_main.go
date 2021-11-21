@@ -660,6 +660,7 @@ func CommandHandler(command []string) {
 		}
 	case "--lag-switch", "-ls":
 		if console.IsWindows() || console.IsMacOS() {
+			pterm.Error.Println("This command is not supported on this OS")
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}

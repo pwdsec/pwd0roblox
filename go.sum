@@ -6,6 +6,10 @@ github.com/MarvinJWendt/testza v0.2.8/go.mod h1:nwIcjmr0Zz+Rcwfh3/4UhBp7ePKVhuBE
 github.com/MarvinJWendt/testza v0.2.10/go.mod h1:pd+VWsoGUiFtq+hRKSU1Bktnn+DMCSrDrXDpX2bG66k=
 github.com/Microsoft/go-winio v0.5.1 h1:aPJp2QD7OOrhO5tQXqQoGSJc+DjDtWTGLOmNyAm6FgY=
 github.com/Microsoft/go-winio v0.5.1/go.mod h1:JPGBdM1cNvN/6ISo+n8V5iA4v8pBzdOpzfwIujj1a84=
+github.com/Xustyx/goxymemory v0.0.0-20160511203545-5a186ebcf160 h1:VP/Srs+qrT4zUGCdM5doMFslak+tk9cTaCEapofzpVA=
+github.com/Xustyx/goxymemory v0.0.0-20160511203545-5a186ebcf160/go.mod h1:Isf0jtKQzJV5EwBe9sDy8vso/5K+Rh4wmqUr/J+ilnY=
+github.com/Xustyx/w32 v0.0.0-20160511232645-7f628311f4e8 h1:BygsECN5sbNhkUdQkWPLtpwpRjDIEl14vBxc73BSaTo=
+github.com/Xustyx/w32 v0.0.0-20160511232645-7f628311f4e8/go.mod h1:+7E94MV3Uy+A41SLtlKYxudwdTFBUGuXqhLbe0/iuHQ=
 github.com/atomicgo/cursor v0.0.1 h1:xdogsqa6YYlLfM+GyClC/Lchf7aiMerFiZQn7soTOoU=
 github.com/atomicgo/cursor v0.0.1/go.mod h1:cBON2QmmrysudxNBFthvMtN32r3jxVRIvzkUiF/RuIk=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

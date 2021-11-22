@@ -654,8 +654,8 @@ func CommandHandler(command []string) {
 			pterm.Error.Println("Unknown OS")
 		}
 	case "--crash-local-client", "-clc":
-		if console.IsWindows() || console.IsMacOS() {
-			pterm.Error.Println("This command is not supported on this OS")
+		if console.IsWindows() {
+			Crash()
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}

@@ -281,7 +281,8 @@ main_r:
 		username_regex, _ := regexp.Compile("[^a-zA-Z0-9]+")
 		username = username_regex.ReplaceAllString(username, "")
 
-		pterm.Warning.Println("You are not whitelisted please send the key file to pwd0kernel\nor you can send the key below")
+		pterm.Warning.Println("You are not whitelisted please send the key file to pwd0kernel.\nyou can also send the key below.")
+		pterm.Info.Println("The Information we take:\n	HWID (Hashed)\n	Username")
 
 		pterm.DefaultSection.Println("User Info")
 		pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

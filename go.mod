@@ -5,6 +5,8 @@ go 1.17
 require (
 	github.com/JamesHovious/w32 v1.2.0 // indirect
 	github.com/Microsoft/go-winio v0.5.1 // indirect
+	github.com/Xustyx/goxymemory v0.0.0-20160511203545-5a186ebcf160 // indirect
+	github.com/Xustyx/w32 v0.0.0-20160511232645-7f628311f4e8 // indirect
 	github.com/atomicgo/cursor v0.0.1 // indirect
 	github.com/google/gopacket v1.1.19 // indirect
 	github.com/gookit/color v1.5.0 // indirect

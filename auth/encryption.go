@@ -49,6 +49,7 @@ var letter_table = [][]string{
 	{"-", "#^^^x^^#^^^?^^#"}, {"+", "#^^*?^^x#^^^^^#"},
 	{"/", "#^^x*^^#^^*^^#?"}, {"\\", "#*^*^#^x^?*^^#"},
 	{"*", "#*^?**#^^*x^^##"}, {"@", "#*^*?*#^x^#^^^#"},
+	{"|", "#*^*?*#^x^#^^^^"}, {":", "**^*?*#^x^#^^^#"},
 }
 
 // hash a string with key, custom hash function
@@ -56,6 +57,11 @@ func Hash(key, value string) string {
 	hash := sha256.New()
 	hash.Write([]byte(key + value))
 	return hex.EncodeToString(hash.Sum(nil))
+}
+
+// base64 encode a string
+func Base64Encode(text string) string {
+	return base64.StdEncoding.EncodeToString([]byte(text))
 }
 
 // base64 decode a string
@@ -84,7 +90,7 @@ func PwdEncoder(text string) string {
 		min := rand.Intn(99 - 0)
 		// convert min to string
 		minStr := strconv.Itoa(min)
-		result += minStr + "a(zv" + minStr + "a)z{a" + minStr + string(letter) + minStr + "zv}a*" + minStr
+		result += minStr + "...a(...zv..." + minStr + "a...)z...{a" + minStr + string(letter) + minStr + "zv}a..." + minStr
 	}
 
 	result = "[" + result + "]"
@@ -93,7 +99,7 @@ func PwdEncoder(text string) string {
 
 func PwdDecoder(text string) string {
 	var data = []string{
-		"[", "]", "(", ")", "{", "}", "*", "1", "2", "z",
+		"[", "]", "(", ")", "{", "}", "...", "1", "2", "z",
 		"3", "4", "5", "6", "7", "8", "9", "0", "a", "v",
 	}
 

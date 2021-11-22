@@ -863,14 +863,14 @@ func CommandHandler(command []string) {
 					{"--is-connection-lost", "-icl", "Checks if connection is lost on roblox"},
 					{"--raknet-socket", "-rs", "Gets the raknet socket"},
 					{"--directory", "-dr", "Opens the Roblox directory"},
-					{"--botting", "-b", "Starts a botting script"},
-					{"--cookie-checker", "-cc", "Checks if cookies are valid"},
-					{"--account-checker", "-ac", "Checks if account is valid"},
-					{"--pin-bruteforce", "-pb", "Bruteforces the pin"},
-					{"--ban-account", "-ba", "Bans the account"},
-					{"--crash-local-client", "-clc", "Crashes the local client"},
-					{"--lag-switch", "-ls", "Lags client"},
-					{"--script-hub", "-sh", "Opens the script hub"},
+					{"--botting", "-b", "Starts a botting script"},               // working on it
+					{"--cookie-checker", "-cc", "Checks if cookies are valid"},   // working on it
+					{"--account-checker", "-ac", "Checks if account is valid"},   // working on it
+					{"--pin-bruteforce", "-pb", "Bruteforces the pin"},           // working on it
+					{"--ban-account", "-ba", "Bans the account"},                 // working on it
+					{"--crash-local-client", "-clc", "Crashes the local client"}, // working on it
+					{"--lag-switch", "-ls", "Lags client"},                       // working on it
+					{"--script-hub", "-sh", "Opens the script hub"},              // working on it
 					{"--global-basic-settings", "-gbs", "Show GlobalBasicSettings"},
 					{"--assets-bruteforce", "-ab", "Bruteforces the assets"},
 					{"--asset-downloader", "-ad", "Download a asset"},

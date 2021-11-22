@@ -20,8 +20,8 @@ import (
 )
 
 var (
-	Version         = "1.0.5"
-	is_auth_enabled = true
+	Version         = "1.0.6"
+	is_auth_enabled = false
 	is_admin        = false
 	hashKey         = "046634"
 )

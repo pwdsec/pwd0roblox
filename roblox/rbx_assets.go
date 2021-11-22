@@ -10,8 +10,6 @@ import (
 	"github.com/pterm/pterm"
 )
 
-// http://assetdelivery.roblox.com/v1/asset?id=1018966
-
 // random number generator function
 func RandomNumber(min, max int) int {
 	return min + rand.Intn(max-min)

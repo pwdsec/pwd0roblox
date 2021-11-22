@@ -1,6 +1,6 @@
 ![cli44444](https://user-images.githubusercontent.com/79817991/140674262-9b012a58-1407-4dbe-8f9a-19e5f17a7c63.png)
 
-Download The Binary Here: [Click Here](github.com/pwdsec/pwd0roblox/releases/latest)
+Download The Binary Here: [Click Here](https://github.com/pwdsec/pwd0roblox/releases/latest)
 
 ### Commands With Internet Windows
 * roblox, rbx ~ run roblox commands, --help (-h)

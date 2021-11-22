@@ -48,6 +48,19 @@ main_r:
 	}
 
 	if is_auth || !is_auth_enabled {
+
+		if roblox.NeedUpdate() {
+			console.ConsoleClear()
+			pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println("\nRoblox Update Available")
+
+			ver, _ := roblox.GetRobloxWindowsVersion()
+			roblox.InstallRoblox(ver, true)
+			console.ConsoleClear()
+
+			pterm.DefaultHeader.WithBackgroundStyle(pterm.NewStyle(pterm.Color(0))).Println(
+				"pwd0roblox\nVersion: " + Version + "\nWelcome: " + user)
+		}
+
 		for {
 			reader := bufio.NewReader(os.Stdin)
 			color.Print("> ")

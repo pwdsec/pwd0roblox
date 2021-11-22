@@ -18,6 +18,17 @@
   * --game-ip, -gi, ~ Gets the game ip and port
   * --game-info, -go ~ Gets the game ip, port, and place id and more
   * --is-connection-lost, -icl ~ Checks if connection is lost on roblox
+  * --raknet-socket, -rs ~ Gets the raknet socket
+  * --directory, -dr ~ Opens the Roblox directory
+  * --botting, -b ~ Starts a botting script
+  * --cookie-checker, -cc ~ Checks if cookies are valid
+  * --account-checker, -ac ~ Checks if account is valid
+  * --pin-bruteforce, -pb ~ Bruteforces the pin
+  * --ban-account, -ba ~ Bans the account
+  * --crash-local-client, -clc ~ Crashes the local client
+  * --lag-switch, -ls ~ Lags client
+  * --script-hub -sh ~ Opens the script hub
+  * --global-basic-settings, -gbs ~ Show GlobalBasicSettings
 * proxy, py ~ Proxy Checker
 * information, info ~ information about the program and devs 
 * cls, clear ~ clear the console

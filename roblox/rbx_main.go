@@ -849,6 +849,7 @@ func CommandHandler(command []string) {
 					{"--delete", "-d", "Deletes Roblox"},
 					{"--tainted", "-t", "Checks if user is tainted"},
 					{"--directory", "-dr", "Opens the Roblox directory"},
+					{"--global-basic-settings", "-gbs", "Show GlobalBasicSettings"},
 				}).Render()
 			}
 		} else if console.IsMacOS() {

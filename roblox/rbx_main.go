@@ -655,7 +655,7 @@ func CommandHandler(command []string) {
 		}
 	case "--crash-local-client", "-clc":
 		if console.IsWindows() {
-			Crash()
+
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}

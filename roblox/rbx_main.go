@@ -4,6 +4,7 @@ package roblox
 
 import (
 	"math/rand"
+	"os"
 	"pwd0roblox/console"
 	"pwd0roblox/network"
 	"strconv"
@@ -696,6 +697,113 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--global-basic-settings", "-gbs":
+		if console.IsWindows() {
+			appdata_local, b := os.UserCacheDir()
+			if b != nil {
+				pterm.Error.Println(b.Error())
+				return
+			}
+
+			xml, err := ReadXML(appdata_local + "\\Roblox\\GlobalBasicSettings_13.xml")
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			bools, err := ReadBoolAll(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			ints, err := ReadIntAll(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			tokens, err := ReadTokenAll(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			binarystring, err := ReadBinaryStringAll(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			int64s, err := ReadInt64All(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			stringmap, err := ReadStringMapAll(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			floats, err := ReadFloatAll(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			pterm.DefaultSection.Println("Global Basic Settings")
+			d := pterm.TableData{{"Name", "Value"}}
+			for _, v := range bools {
+				d = append(d, []string{v.Name, strconv.FormatBool(v.Value)})
+			}
+
+			for _, v := range ints {
+				d = append(d, []string{v.Name, strconv.Itoa(v.Value)})
+			}
+
+			for _, v := range tokens {
+				d = append(d, []string{v.Name, v.Value})
+			}
+
+			for _, v := range binarystring {
+				d = append(d, []string{v.Name, v.Value})
+			}
+
+			for _, v := range int64s {
+				d = append(d, []string{v.Name, strconv.FormatInt(v.Value, 10)})
+			}
+
+			for _, v := range stringmap {
+				d = append(d, []string{v.Name, v.Value})
+			}
+
+			for _, v := range floats {
+				d = append(d, []string{v.Name, strconv.FormatFloat(v.Value, 'f', -1, 64)})
+			}
+			pterm.DefaultTable.WithHasHeader().WithData(d).WithBoxed().Render()
+
+			vec2, err := ReadVector2All(xml)
+			if err != nil {
+				pterm.Error.Println(err.Error())
+				return
+			}
+
+			/* == Working on this == */
+			pterm.DefaultSection.Println("Vector2")
+			vec := pterm.TableData{{"Name", "X", "Y"}}
+			for _, v := range vec2 {
+				vec = append(vec, []string{v.Name, strconv.FormatFloat(v.X, 'f', -1, 64), strconv.FormatFloat(v.Y, 'f', -1, 64)})
+			}
+			pterm.DefaultTable.WithHasHeader().WithData(vec).WithBoxed().Render()
+			/* ===================== */
+
+		} else if console.IsMacOS() {
+			pterm.Error.Println("MacOS is not yet supported")
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			if network.IsConnected() {
@@ -731,6 +839,7 @@ func CommandHandler(command []string) {
 					{"--crash-local-client", "-clc", "Crashes the local client"},
 					{"--lag-switch", "-ls", "Lags client"},
 					{"--script-hub", "-sh", "Opens the script hub"},
+					{"--global-basic-settings", "-gbs", "Show GlobalBasicSettings"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

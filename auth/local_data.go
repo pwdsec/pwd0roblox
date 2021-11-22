@@ -2,7 +2,7 @@ package auth
 
 import "net"
 
-var hwids = [][]string{{"98a59fce662c7a694bb591ed0c619f9fc269daebadc37e509805317dd7bdf36b", "pwd0kernel"}}
+var hwids = [][]string{{"011bbfcaec0e2fe11f935af43a634d75f2e81300d53e9fe81d6715373e146edb", "pwd0kernel"}}
 
 func GetHWID() string {
 	hwid := ""

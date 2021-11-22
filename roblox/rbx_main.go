@@ -806,12 +806,16 @@ func CommandHandler(command []string) {
 		}
 	case "--assets-bruteforce", "-ab":
 		if console.IsWindows() || console.IsMacOS() {
-			if network.IsConnected() {
-				for {
-					AssetBruteforce()
+			if len(ROBLOSECURITY) > 0 {
+				if network.IsConnected() {
+					for {
+						AssetBruteforce()
+					}
+				} else {
+					pterm.Error.Println("You are not connected to the internet")
 				}
 			} else {
-				pterm.Error.Println("You are not connected to the internet")
+				pterm.Error.Println("ROBLOSECURITY is not set")
 			}
 		} else {
 			pterm.Error.Println("Unknown OS")

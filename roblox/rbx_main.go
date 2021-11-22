@@ -804,6 +804,38 @@ func CommandHandler(command []string) {
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
+	case "--assets-bruteforce", "-ab":
+		if console.IsWindows() || console.IsMacOS() {
+			if network.IsConnected() {
+				for {
+					AssetBruteforce()
+				}
+			} else {
+				pterm.Error.Println("You are not connected to the internet")
+			}
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
+	case "--asset-downloader", "-ad":
+		if console.IsWindows() || console.IsMacOS() {
+			if network.IsConnected() {
+				if len(ROBLOSECURITY) == 0 {
+					pterm.Error.Println("ROBLOSECURITY is not set")
+					return
+				}
+				if len(command) == 1 {
+					pterm.Error.Println("Please specify an id")
+				} else if len(command) == 2 {
+					AssetDownload(command[1])
+				} else {
+					pterm.Error.Println("Too many arguments")
+				}
+			} else {
+				pterm.Error.Println("You are not connected to the internet")
+			}
+		} else {
+			pterm.Error.Println("Unknown OS")
+		}
 	case "--help", "-h", "?":
 		if console.IsWindows() {
 			if network.IsConnected() {
@@ -840,6 +872,8 @@ func CommandHandler(command []string) {
 					{"--lag-switch", "-ls", "Lags client"},
 					{"--script-hub", "-sh", "Opens the script hub"},
 					{"--global-basic-settings", "-gbs", "Show GlobalBasicSettings"},
+					{"--assets-bruteforce", "-ab", "Bruteforces the assets"},
+					{"--asset-downloader", "-ad", "Download a asset"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
@@ -865,6 +899,8 @@ func CommandHandler(command []string) {
 					{"--api", "-a", "Gets information about the user and more"},
 					{"--check", "-C", "Checks/Generate if a username is valid"},
 					{"--set-token", "-t", "Sets the Roblox Security Token"},
+					{"--assets-bruteforce", "-ab", "Bruteforces the assets"},
+					{"--asset-downloader", "-ad", "Download a asset"},
 					{"--help", "-h", "Shows this help"},
 				}).Render()
 			} else {

@@ -1,6 +1,6 @@
 ![cli44444](https://user-images.githubusercontent.com/79817991/140674262-9b012a58-1407-4dbe-8f9a-19e5f17a7c63.png)
 
-### Commands Windows
+### Commands With Internet Windows
 * roblox, rbx ~ run roblox commands, --help (-h)
   * --fix, -f ~ Fixes bugs that happens to Roblox
   * --cursor, -c ~ Installs a custom cursor
@@ -29,7 +29,23 @@
   * --lag-switch, -ls ~ Lags client
   * --script-hub -sh ~ Opens the script hub
   * --global-basic-settings, -gbs ~ Show GlobalBasicSettings
+  * --assets-bruteforce, -ab ~ Bruteforces the assets
+  * --asset-downloader, ad ~ Download a asset
 * proxy, py ~ Proxy Checker
+* information, info ~ information about the program and devs 
+* cls, clear ~ clear the console
+* exit, quit ~ exit the program
+* help, ? ~ show this help
+
+### Commands Without Internet Windows
+* roblox, rbx ~ run roblox commands, --help (-h)
+  * --fix, -f ~ Fixes bugs that happens to Roblox
+  * --delete, -d ~ Deletes Roblox
+  * --tainted, -t ~ Checks if user is tainted
+  * --directory, -dr ~ Opens the Roblox directory
+  * --global-basic-settings, -gbs ~ Show GlobalBasicSettings
+  * --assets-bruteforce, -ab ~ Bruteforces the assets
+  * --asset-downloader, ad ~ Download a asset
 * information, info ~ information about the program and devs 
 * cls, clear ~ clear the console
 * exit, quit ~ exit the program

@@ -9,23 +9,6 @@ import (
 	"github.com/pterm/pterm"
 )
 
-func Fix_Command_Windows(command []string) {
-	if len(command) == 2 {
-		if command[1] == "UBK" {
-			Fix_Unexpected_Behavior_Kick_method_1()
-		} else {
-			pterm.Error.Println("Unknown fix: " + command[1])
-		}
-	} else {
-		pterm.Info.Println("Usage: --fix (-f) [option]")
-		pterm.Info.Println("Options:")
-		pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-			{"Command", "Description", "Reliability"},
-			{"UBK", "Fixes Unexpected Behavior Kick", "50%"},
-		}).Render()
-	}
-}
-
 func Cursor_Command_Windows_Mac(command []string) {
 	if network.IsConnected() {
 		if len(command) == 2 {
@@ -69,80 +52,6 @@ func Version_Command_Windows_Mac() {
 		}).Render()
 	} else {
 		pterm.Error.Println("Not connected to internet")
-	}
-}
-
-func Install_Command_Windows(command []string) {
-	if network.IsConnected() {
-		if len(command) == 3 {
-			if command[1] == "--content" || command[1] == "-c" {
-				ContentInstaller_Ziped(command[2])
-			}
-		} else if len(command) == 2 {
-			if command[1] == "--help" || command[1] == "-h" {
-				pterm.Info.Println("Usage: --install (-i) [option] ")
-				pterm.Info.Println("Options:")
-				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-					{"Command", "Single", "Description"},
-					{"--content", "-c", "Install the content"},
-					{"--help", "-h", "This help message"},
-				}).Render()
-			} else if command[1] == "--content" || command[1] == "-c" {
-				ver, _ := GetRobloxWindowsVersion()
-				ContentInstaller_Ziped(ver)
-				DeleteEmptyFiles(ver)
-			} else if command[1] == "--versions" || command[1] == "-v" {
-				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-					{"Date", "Version"},
-					{"06-16-2021", "version-c864da271a4c44ea"},
-					{"06-11-2021", "version-7d96d7dad25d49f1"},
-					{"04-29-2021", "version-0658018801724832"},
-					{"04-08-2021", "version-278f0258a7224831"},
-					{"01-13-2021", "version-d5212926da8e4716"},
-					{"11-13-2020", "version-aa7766fcc7cb4906"},
-					{"04-10-2019", "version-9f8314ad67c64c0d"},
-					{"10-29-2018", "version-e9d1a6c5df10490c"},
-					{"12-12-2017", "version-45cc144b134647ea"},
-					{"02-25-2016", "version-a1b8c1edf45b4959"},
-				}).Render()
-			} else {
-				var start bool = false
-				for _, v := range command {
-					if v == "-s" {
-						start = true
-					}
-				}
-				InstallRoblox(command[1], start)
-			}
-		} else {
-			ver, _ := GetRobloxWindowsVersion()
-			InstallRoblox(ver, true)
-		}
-	} else {
-		pterm.Error.Println("No internet connection")
-	}
-}
-
-func Install_Command_Mac(command []string) {
-	if network.IsConnected() {
-		if len(command) == 2 {
-			if command[1] == "-h" {
-				pterm.Info.Println("Usage: --install (-i) [version] (-s)[start] ")
-			} else {
-				var start bool = false
-				for _, v := range command {
-					if v == "-s" {
-						start = true
-					}
-				}
-				InstallRoblox(command[1], start)
-			}
-		} else {
-			ver, _ := GetRobloxMacVersion()
-			InstallRoblox(ver, true)
-		}
-	} else {
-		pterm.Error.Println("No internet connection")
 	}
 }
 
@@ -218,30 +127,6 @@ func Check_Command_Windows_Mac(command []string) {
 		}
 	} else {
 		pterm.Error.Println("Not connected to internet")
-	}
-}
-
-func Tainted_Command_Windows(command []string) {
-	if len(command) == 2 {
-		if command[1] == "-h" {
-			pterm.Info.Println("Usage: --tainted (-t) [version]")
-		}
-	} else {
-		var is_tainted bool = false
-		ini_files := GetINIFiles()
-		for _, v := range ini_files {
-			mapped := ReadINIFile(v)
-			if IsTainted(mapped) {
-				is_tainted = true
-			} else {
-				is_tainted = false
-			}
-		}
-		if is_tainted {
-			pterm.Warning.Println("User Tainted")
-		} else {
-			pterm.Success.Println("User Not Tainted")
-		}
 	}
 }
 
@@ -402,12 +287,62 @@ func Version_Bruteforce_Command_Windows_Mac(command []string) {
 	}
 }
 
-func Game_IP_Command_Windows() {
+func Script_Hub_Command_Windows_Mac(command []string) {
 	if network.IsConnected() {
-		if IsProcessRunning("RobloxPlayerBeta.exe") {
-			pterm.Success.Println(Get_IP_Address(Get_Log()))
+		if len(command) == 2 {
+			if command[1] == "--list" || command[1] == "-l" {
+				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+					{"Script ID", "Script Name"},
+				}).Render()
+			} else if command[1] == "--help" || command[1] == "-h" {
+				pterm.Info.Println("Script Hub Help")
+				pterm.Info.Println("--list -l - Lists all scripts")
+				pterm.Info.Println("--help -h - Displays this help")
+				pterm.Info.Println("--download -d - Download the script")
+			}
+		} else if len(command) == 3 {
+			if command[1] == "--download" || command[1] == "-d" {
+				println("Downloading script")
+			} else if command[1] == "--search" || command[1] == "-s" {
+				GetScripts(command[2])
+			}
 		} else {
-			pterm.Warning.Println("Roblox is not running")
+			pterm.Info.Println("Script Hub Help")
+			pterm.Info.Println("--list -l - Lists all scripts")
+			pterm.Info.Println("--help -h - Displays this help")
+			pterm.Info.Println("--download -d - Download the script")
+		}
+	} else {
+		pterm.Error.Println("You are not connected to the internet")
+	}
+}
+
+func Asset_Bruteforce_Command_Windows_Mac() {
+	if len(ROBLOSECURITY) > 0 {
+		if network.IsConnected() {
+			for {
+				AssetBruteforce()
+			}
+		} else {
+			pterm.Error.Println("You are not connected to the internet")
+		}
+	} else {
+		pterm.Error.Println("ROBLOSECURITY is not set")
+	}
+}
+
+func Asset_Downloader_Command_Windows_Mac(command []string) {
+	if network.IsConnected() {
+		if len(ROBLOSECURITY) == 0 {
+			pterm.Error.Println("ROBLOSECURITY is not set")
+			return
+		}
+		if len(command) == 1 {
+			pterm.Error.Println("Please specify an id")
+		} else if len(command) == 2 {
+			AssetDownload(command[1])
+		} else {
+			pterm.Error.Println("Too many arguments")
 		}
 	} else {
 		pterm.Error.Println("You are not connected to the internet")

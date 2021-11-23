@@ -3,10 +3,8 @@
 package roblox
 
 import (
-	"os"
 	"pwd0roblox/console"
 	"pwd0roblox/network"
-	"strconv"
 
 	"github.com/pterm/pterm"
 )
@@ -108,34 +106,7 @@ func CommandHandler(command []string) {
 		}
 	case "--game-info", "-go":
 		if console.IsWindows() {
-			if network.IsConnected() {
-				if IsProcessRunning("RobloxPlayerBeta.exe") {
-					pterm.DefaultSection.Println("Game Information")
-					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"IP Address", "Place ID", "Place Name", "Session ID"},
-						{Get_IP_Address(Get_Log()), Get_Place_ID(Get_Log()), Get_Pace_Name(Get_Place_ID(Get_Log())), Get_Session_ID(Get_Log())},
-					}).Render()
-
-					username, err := getUserIDInfo(Get_User_ID(Get_Log()))
-					if err != nil {
-						pterm.Error.Println(err.Error())
-						return
-					}
-					pterm.DefaultSection.Println("Player Information")
-					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"User ID", "Username"},
-						{Get_User_ID(Get_Log()), username},
-					}).Render()
-
-					pterm.DefaultSection.Println("More Information")
-					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"Replicator", "RakNet Socket", "Universe ID"},
-						{Get_Replicator_ID(Get_Log()), Get_RakNet_IP_Address(Get_Log()), Get_Universe_ID(Get_Log())},
-					}).Render()
-				}
-			} else {
-				pterm.Error.Println("You are not connected to the internet")
-			}
+			Game_Info_Command_windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {
@@ -143,19 +114,7 @@ func CommandHandler(command []string) {
 		}
 	case "--is-connection-lost", "-icl":
 		if console.IsWindows() {
-			if network.IsConnected() {
-				if IsProcessRunning("RobloxPlayerBeta.exe") {
-					if IsConnectionLost(Get_Log()) {
-						pterm.Warning.Println("Connection Lost")
-					} else {
-						pterm.Success.Println("Connection is not lost")
-					}
-				} else {
-					pterm.Warning.Println("Roblox is not running")
-				}
-			} else {
-				pterm.Warning.Println("You are not connected to the internet")
-			}
+			Is_Connection_lost_Command_Windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {
@@ -171,18 +130,7 @@ func CommandHandler(command []string) {
 		}
 	case "--raknet-socket", "-rs":
 		if console.IsWindows() {
-			if network.IsConnected() {
-				if IsProcessRunning("RobloxPlayerBeta.exe") {
-					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"RakNet Socket"},
-						{Get_RakNet_IP_Address(Get_Log())},
-					}).Render()
-				} else {
-					pterm.Warning.Println("Roblox is not running")
-				}
-			} else {
-				pterm.Error.Println("You are not connected to the internet")
-			}
+			RakNet_Socket_Command_Windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {
@@ -190,18 +138,7 @@ func CommandHandler(command []string) {
 		}
 	case "--game-replicator", "-gr":
 		if console.IsWindows() {
-			if network.IsConnected() {
-				if IsProcessRunning("RobloxPlayerBeta.exe") {
-					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"Replicator"},
-						{Get_Replicator_ID(Get_Log())},
-					}).Render()
-				} else {
-					pterm.Warning.Println("Roblox is not running")
-				}
-			} else {
-				pterm.Error.Println("You are not connected to the internet")
-			}
+			Game_Replicator_Command_Windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {
@@ -209,18 +146,7 @@ func CommandHandler(command []string) {
 		}
 	case "--game-map", "-gm":
 		if console.IsWindows() {
-			if network.IsConnected() {
-				if IsProcessRunning("RobloxPlayerBeta.exe") {
-					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"Place ID", "Place Name"},
-						{Get_Place_ID(Get_Log()), Get_Pace_Name(Get_Place_ID(Get_Log()))},
-					}).Render()
-				} else {
-					pterm.Warning.Println("Roblox is not running")
-				}
-			} else {
-				pterm.Warning.Println("Not connected to internet")
-			}
+			Game_Map_Command_Windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {
@@ -228,23 +154,7 @@ func CommandHandler(command []string) {
 		}
 	case "--game-localplayer", "-gl":
 		if console.IsWindows() {
-			if network.IsConnected() {
-				if IsProcessRunning("RobloxPlayerBeta.exe") {
-					username, err := getUserIDInfo(Get_User_ID(Get_Log()))
-					if err != nil {
-						pterm.Error.Println(err.Error())
-						return
-					}
-					pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-						{"User ID", "Username"},
-						{Get_User_ID(Get_Log()), username},
-					}).Render()
-				} else {
-					pterm.Warning.Println("Roblox is not running")
-				}
-			} else {
-				pterm.Error.Println("You are not connected to the internet")
-			}
+			Game_LocalPlayer_Command_Windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {
@@ -308,138 +218,13 @@ func CommandHandler(command []string) {
 		}
 	case "--script-hub", "-sh":
 		if console.IsWindows() || console.IsMacOS() {
-			if network.IsConnected() {
-				if len(command) == 2 {
-					if command[1] == "--list" || command[1] == "-l" {
-						pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
-							{"Script ID", "Script Name"},
-						}).Render()
-					} else if command[1] == "--help" || command[1] == "-h" {
-						pterm.Info.Println("Script Hub Help")
-						pterm.Info.Println("--list -l - Lists all scripts")
-						pterm.Info.Println("--help -h - Displays this help")
-						pterm.Info.Println("--download -d - Download the script")
-					}
-				} else if len(command) == 3 {
-					if command[1] == "--download" || command[1] == "-d" {
-						println("Downloading script")
-					} else if command[1] == "--search" || command[1] == "-s" {
-						GetScripts(command[2])
-					}
-				} else {
-					pterm.Info.Println("Script Hub Help")
-					pterm.Info.Println("--list -l - Lists all scripts")
-					pterm.Info.Println("--help -h - Displays this help")
-					pterm.Info.Println("--download -d - Download the script")
-				}
-			} else {
-				pterm.Error.Println("You are not connected to the internet")
-			}
+			Script_Hub_Command_Windows_Mac(command)
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
 	case "--global-basic-settings", "-gbs":
 		if console.IsWindows() {
-			appdata_local, b := os.UserCacheDir()
-			if b != nil {
-				pterm.Error.Println(b.Error())
-				return
-			}
-
-			xml, err := ReadXML(appdata_local + "\\Roblox\\GlobalBasicSettings_13.xml")
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			bools, err := ReadBoolAll(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			ints, err := ReadIntAll(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			tokens, err := ReadTokenAll(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			binarystring, err := ReadBinaryStringAll(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			int64s, err := ReadInt64All(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			stringmap, err := ReadStringMapAll(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			floats, err := ReadFloatAll(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			pterm.DefaultSection.Println("Global Basic Settings")
-			d := pterm.TableData{{"Name", "Value"}}
-			for _, v := range bools {
-				d = append(d, []string{v.Name, strconv.FormatBool(v.Value)})
-			}
-
-			for _, v := range ints {
-				d = append(d, []string{v.Name, strconv.Itoa(v.Value)})
-			}
-
-			for _, v := range tokens {
-				d = append(d, []string{v.Name, v.Value})
-			}
-
-			for _, v := range binarystring {
-				d = append(d, []string{v.Name, v.Value})
-			}
-
-			for _, v := range int64s {
-				d = append(d, []string{v.Name, strconv.FormatInt(v.Value, 10)})
-			}
-
-			for _, v := range stringmap {
-				d = append(d, []string{v.Name, v.Value})
-			}
-
-			for _, v := range floats {
-				d = append(d, []string{v.Name, strconv.FormatFloat(v.Value, 'f', -1, 64)})
-			}
-			pterm.DefaultTable.WithHasHeader().WithData(d).WithBoxed().Render()
-
-			vec2, err := ReadVector2All(xml)
-			if err != nil {
-				pterm.Error.Println(err.Error())
-				return
-			}
-
-			/* == Working on this == */
-			pterm.DefaultSection.Println("Vector2")
-			vec := pterm.TableData{{"Name", "X", "Y"}}
-			for _, v := range vec2 {
-				vec = append(vec, []string{v.Name, strconv.FormatFloat(v.X, 'f', -1, 64), strconv.FormatFloat(v.Y, 'f', -1, 64)})
-			}
-			pterm.DefaultTable.WithHasHeader().WithData(vec).WithBoxed().Render()
-			/* ===================== */
-
+			GlobalBasicSettings_Command_Windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {
@@ -447,37 +232,13 @@ func CommandHandler(command []string) {
 		}
 	case "--assets-bruteforce", "-ab":
 		if console.IsWindows() || console.IsMacOS() {
-			if len(ROBLOSECURITY) > 0 {
-				if network.IsConnected() {
-					for {
-						AssetBruteforce()
-					}
-				} else {
-					pterm.Error.Println("You are not connected to the internet")
-				}
-			} else {
-				pterm.Error.Println("ROBLOSECURITY is not set")
-			}
+			Asset_Bruteforce_Command_Windows_Mac()
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
 	case "--asset-downloader", "-ad":
 		if console.IsWindows() || console.IsMacOS() {
-			if network.IsConnected() {
-				if len(ROBLOSECURITY) == 0 {
-					pterm.Error.Println("ROBLOSECURITY is not set")
-					return
-				}
-				if len(command) == 1 {
-					pterm.Error.Println("Please specify an id")
-				} else if len(command) == 2 {
-					AssetDownload(command[1])
-				} else {
-					pterm.Error.Println("Too many arguments")
-				}
-			} else {
-				pterm.Error.Println("You are not connected to the internet")
-			}
+			Asset_Downloader_Command_Windows_Mac(command)
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}

@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gookit/color"
+	gc "github.com/gookit/color"
 	"github.com/pterm/pterm"
 )
 
@@ -37,7 +37,7 @@ main_r:
 
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		color.Print("> ")
+		gc.Print("> ")
 		text, _ := reader.ReadString('\n')
 		text = strings.Replace(text, "\n", "", -1)
 

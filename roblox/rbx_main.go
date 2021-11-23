@@ -7,7 +7,6 @@ import (
 	"pwd0roblox/console"
 	"pwd0roblox/network"
 	"strconv"
-	"sync"
 
 	"github.com/pterm/pterm"
 )
@@ -95,52 +94,13 @@ func CommandHandler(command []string) {
 		}
 	case "--version-bruteforce", "-vb":
 		if console.IsWindows() || console.IsMacOS() {
-			if network.IsConnected() {
-				if len(command) == 2 {
-					if command[1] == "-h" {
-						pterm.Info.Println("Usage: --version-bruteforce (-vb) [how many]")
-					} else {
-						// multi threading
-						howMany, err := strconv.Atoi(command[1])
-
-						var wg sync.Pool
-						wg.New = func() interface{} {
-							return new(sync.WaitGroup)
-						}
-
-						for i := 0; i < howMany; i++ {
-							wg.Get().(*sync.WaitGroup).Add(1)
-							go func(i int) {
-								defer wg.Get().(*sync.WaitGroup).Done()
-								if err != nil {
-									pterm.Error.Println("Failed to convert to int")
-									return
-								}
-								VersionBruteForce(howMany)
-							}(i)
-						}
-						wg.Get().(*sync.WaitGroup).Wait()
-					}
-				} else {
-					pterm.Info.Println("Usage: --version-bruteforce (-vb) [how many]")
-				}
-			} else {
-				pterm.Error.Println("Not connected to internet")
-			}
+			Version_Bruteforce_Command_Windows_Mac(command)
 		} else {
 			pterm.Error.Println("Unknown OS")
 		}
 	case "--game-ip", "-gi":
 		if console.IsWindows() {
-			if network.IsConnected() {
-				if IsProcessRunning("RobloxPlayerBeta.exe") {
-					pterm.Success.Println(Get_IP_Address(Get_Log()))
-				} else {
-					pterm.Warning.Println("Roblox is not running")
-				}
-			} else {
-				pterm.Error.Println("You are not connected to the internet")
-			}
+			Game_IP_Command_Windows()
 		} else if console.IsMacOS() {
 			pterm.Error.Println("MacOS is not yet supported")
 		} else {

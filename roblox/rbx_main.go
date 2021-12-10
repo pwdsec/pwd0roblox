@@ -4,6 +4,7 @@ package roblox
 
 import (
 	"pwd0roblox/console"
+	"pwd0roblox/exploits"
 	"pwd0roblox/network"
 
 	"github.com/pterm/pterm"
@@ -16,6 +17,22 @@ func CommandHandler(command []string) {
 		return
 	}
 	switch command[0] {
+	case "--exploits", "-ex":
+		if len(command) == 1 {
+			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+				{"Exploit"},
+				{"--synapse"},
+			}).Render()
+		}
+		if len(command) == 2 {
+			if command[1] == "--synapse" {
+				if exploits.IsSynapseUpdated() {
+					pterm.Success.Println("Synapse is up to date.")
+				} else {
+					pterm.Error.Println("Synapse exploit is not updated.")
+				}
+			}
+		}
 	case "--fix", "-f":
 		if console.IsWindows() {
 			Fix_Command_Windows(command)

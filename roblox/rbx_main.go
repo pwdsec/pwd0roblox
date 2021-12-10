@@ -297,6 +297,7 @@ func CommandHandler(command []string) {
 					{"--global-basic-settings", "-gbs", "Show GlobalBasicSettings"},
 					{"--assets-bruteforce", "-ab", "Bruteforces the assets"},
 					{"--asset-downloader", "-ad", "Download a asset"},
+					{"--exploits", "-e", "Exploits update checker"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
@@ -325,6 +326,7 @@ func CommandHandler(command []string) {
 					{"--assets-bruteforce", "-ab", "Bruteforces the assets"},
 					{"--asset-downloader", "-ad", "Download a asset"},
 					{"--help", "-h", "Shows this help"},
+					{"--exploits", "-e", "Exploits update checker"},
 				}).Render()
 			} else {
 				pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{

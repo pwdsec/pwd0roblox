@@ -89,3 +89,8 @@ func ReadINIFile(file string) map[string]string {
 func IsTainted(ini_map map[string]string) bool {
 	return ini_map["IsTainted"] == "true"
 }
+
+// get TaintingModule
+func GetTaintingModule(ini_map map[string]string) string {
+	return ini_map["TaintingModule"]
+}

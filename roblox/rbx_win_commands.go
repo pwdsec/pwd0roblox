@@ -83,17 +83,19 @@ func Tainted_Command_Windows(command []string) {
 		}
 	} else {
 		var is_tainted bool = false
+		var TaintingModule string = ""
 		ini_files := GetINIFiles()
 		for _, v := range ini_files {
 			mapped := ReadINIFile(v)
 			if IsTainted(mapped) {
 				is_tainted = true
+				TaintingModule = GetTaintingModule(mapped)
 			} else {
 				is_tainted = false
 			}
 		}
 		if is_tainted {
-			pterm.Warning.Println("User Tainted")
+			pterm.Warning.Println("User Tainted, Tainting Module: " + TaintingModule)
 		} else {
 			pterm.Success.Println("User Not Tainted")
 		}

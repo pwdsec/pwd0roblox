@@ -79,7 +79,15 @@ func Install_Command_Windows(command []string) {
 func Tainted_Command_Windows(command []string) {
 	if len(command) == 2 {
 		if command[1] == "-h" {
-			pterm.Info.Println("Usage: --tainted (-t) [version]")
+			pterm.Info.Println("Usage: --tainted (-t) [option/optional]")
+			pterm.Info.Println("Options:")
+			pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(pterm.TableData{
+				{"Command", "Description"},
+				{"-h", "This help message"},
+				{"--clear", "Clear the taint list"},
+			}).Render()
+		} else if command[1] == "--clear" || command[1] == "-c" {
+			ClearLogs()
 		}
 	} else {
 		var is_tainted bool = false
@@ -87,15 +95,24 @@ func Tainted_Command_Windows(command []string) {
 		ini_files := GetINIFiles()
 		for _, v := range ini_files {
 			mapped := ReadINIFile(v)
+			// if mapped has "TaintingModule"
+			if _, ok := mapped["TaintingModule"]; ok {
+				if mapped["TaintingModule"] != "" {
+					is_tainted = true
+					TaintingModule = mapped["TaintingModule"]
+				}
+			}
+
 			if IsTainted(mapped) {
 				is_tainted = true
-				TaintingModule = GetTaintingModule(mapped)
-			} else {
-				is_tainted = false
 			}
 		}
 		if is_tainted {
-			pterm.Warning.Println("User Tainted, Tainting Module: " + TaintingModule)
+			if TaintingModule != "" {
+				pterm.Warning.Println("User Tainted, Tainting Module: " + TaintingModule)
+			} else {
+				pterm.Warning.Println("User Tainted")
+			}
 		} else {
 			pterm.Success.Println("User Not Tainted")
 		}

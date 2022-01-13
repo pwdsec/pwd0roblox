@@ -29,6 +29,24 @@ func GetINIFiles() []string {
 	return ini_files
 }
 
+// clear all logs from Roblox\logs\archive\ folder
+func ClearLogs() {
+	appdata_local, b := os.UserCacheDir()
+	if b != nil {
+		pterm.Error.Println("Failed to get user cache directory")
+	}
+	files, err := ioutil.ReadDir(appdata_local + "\\Roblox\\logs\\archive")
+	if err != nil {
+		println(err.Error())
+	}
+
+	for _, file := range files {
+		if file.Name()[len(file.Name())-4:] == ".ini" {
+			os.Remove(appdata_local + "\\Roblox\\logs\\archive\\" + file.Name())
+		}
+	}
+}
+
 // MacOS
 // get logs files
 func GetLOGFiles() []string {

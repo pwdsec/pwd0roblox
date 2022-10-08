@@ -9,7 +9,7 @@ if [ "$(uname)" == "Darwin" ]; then
         echo "Deleting old build..."
         rm -rf bin/macos
     fi
-    echo "Building for MacOS"
+    echo "Building for  macOS..."
     go build -o bin/macos/
     echo "Done"
 fi

@@ -1,4 +1,3 @@
-# check if golang is installed else ask to install
 if ! [ -x "$(command -v go)" ]; then
   echo 'Error: golang is not installed.' >&2
   echo 'Please install golang and try again.' >&2

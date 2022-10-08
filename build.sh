@@ -4,6 +4,12 @@ if ! [ -x "$(command -v go)" ]; then
   exit 1
 fi
 
+if [ "$(go version | awk '{print $3}' | cut -d. -f2)" -lt 11 ]; then
+  echo 'Error: golang version is less than 1.11.' >&2
+  echo 'Please upgrade golang and try again.' >&2
+  exit 1
+fi
+
 if [ "$(uname)" == "Darwin" ]; then
     if [ -d "bin/macos" ]; then
         echo "Deleting old build..."
